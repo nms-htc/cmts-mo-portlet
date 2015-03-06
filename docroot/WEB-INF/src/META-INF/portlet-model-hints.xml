@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.cmcti.cmts.domain.model.CableModem">
+		<field name="macAddress" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="fecUncorrectable" type="double" />
+		<field name="fecCorrected" type="double" />
+		<field name="microRef" type="long" />
+		<field name="rxPower" type="int" />
+		<field name="txPower" type="int" />
+		<field name="usPower" type="int" />
+		<field name="dsPower" type="int" />
+		<field name="uncorrectables" type="long" />
+		<field name="correcteds" type="long" />
+		<field name="unerroreds" type="long" />
+		<field name="dsSNR" type="int" />
+		<field name="usSNR" type="int" />
+		<field name="ucIfIndex" type="int" />
+		<field name="dcIfIndex" type="int" />
+		<field name="cmSubIndex" type="String" />
+		<field name="cmtsId" type="long" />
+		<field name="cmIndex" type="int" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.CableModemHistory">
+		<field name="macAddress" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="fecUncorrectable" type="double" />
+		<field name="fecCorrected" type="double" />
+		<field name="microRef" type="long" />
+		<field name="rxPower" type="int" />
+		<field name="txPower" type="int" />
+		<field name="usPower" type="int" />
+		<field name="dsPower" type="int" />
+		<field name="uncorrectables" type="long" />
+		<field name="correcteds" type="long" />
+		<field name="unerroreds" type="long" />
+		<field name="dsSNR" type="int" />
+		<field name="usSNR" type="int" />
+		<field name="ucIfIndex" type="int" />
+		<field name="dcIfIndex" type="int" />
+		<field name="cmSubIndex" type="String" />
+		<field name="cmtsId" type="long" />
+		<field name="cmIndex" type="int" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.Cmts">
+		<field name="cmtsId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="enable" type="boolean" />
+		<field name="title" type="String" />
+		<field name="host" type="String" />
+		<field name="community" type="String" />
+		<field name="description" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.CustomerMacMapping">
+		<field name="customerMacId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="title" type="String" />
+		<field name="macAddress" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.UpstreamChannel">
+		<field name="ifIndex" type="int" />
+		<field name="cmtsId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="qam" type="String" />
+		<field name="avgOnlineCmMicRef" type="double" />
+		<field name="avgOnlineCmTxPower" type="double" />
+		<field name="avgOnlineCmRxPower" type="double" />
+		<field name="fecUncorrectable" type="double" />
+		<field name="fecCorrected" type="double" />
+		<field name="upChannelCmTotal" type="int" />
+		<field name="upChannelCmRegistered" type="int" />
+		<field name="upChannelCmActive" type="int" />
+		<field name="upChannelModProfile" type="int" />
+		<field name="upChannelWidth" type="long" />
+		<field name="upChannelFrequency" type="long" />
+		<field name="ifSigQUncorrectables" type="long" />
+		<field name="ifSigQCorrecteds" type="long" />
+		<field name="ifSigQUnerroreds" type="long" />
+		<field name="ifSigQSNR" type="double" />
+		<field name="ifAlias" type="String" />
+		<field name="ifDesc" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.UpstreamChannelHistory">
+		<field name="cmtsId" type="long" />
+		<field name="ifIndex" type="int" />
+		<field name="createDate" type="Date" />
+		<field name="qam" type="String" />
+		<field name="avgOnlineCmMicRef" type="double" />
+		<field name="avgOnlineCmTxPower" type="double" />
+		<field name="avgOnlineCmRxPower" type="double" />
+		<field name="fecUncorrectable" type="double" />
+		<field name="fecCorrected" type="double" />
+		<field name="upChannelCmTotal" type="int" />
+		<field name="upChannelCmRegistered" type="int" />
+		<field name="upChannelCmActive" type="int" />
+		<field name="upChannelModProfile" type="int" />
+		<field name="upChannelWidth" type="long" />
+		<field name="upChannelFrequency" type="long" />
+		<field name="ifSigQUncorrectables" type="long" />
+		<field name="ifSigQCorrecteds" type="long" />
+		<field name="ifSigQUnerroreds" type="long" />
+		<field name="ifSigQSNR" type="double" />
+		<field name="ifAlias" type="String" />
+		<field name="ifDesc" type="String" />
+	</model>
+</model-hints>

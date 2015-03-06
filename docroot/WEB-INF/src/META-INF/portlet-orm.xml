@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.CableModemModelImpl">
+		<attributes>
+			<id name="macAddress" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="fecUncorrectable" />
+			<basic name="fecCorrected" />
+			<basic name="microRef" />
+			<basic name="rxPower" />
+			<basic name="txPower" />
+			<basic name="usPower" />
+			<basic name="dsPower" />
+			<basic name="uncorrectables" />
+			<basic name="correcteds" />
+			<basic name="unerroreds" />
+			<basic name="dsSNR" />
+			<basic name="usSNR" />
+			<basic name="ucIfIndex" />
+			<basic name="dcIfIndex" />
+			<basic name="cmSubIndex" />
+			<basic name="cmtsId" />
+			<basic name="cmIndex" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl">
+		<id-class class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK" />
+		<attributes>
+			<id name="macAddress" />
+			<id name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</id>
+			<basic name="fecUncorrectable" />
+			<basic name="fecCorrected" />
+			<basic name="microRef" />
+			<basic name="rxPower" />
+			<basic name="txPower" />
+			<basic name="usPower" />
+			<basic name="dsPower" />
+			<basic name="uncorrectables" />
+			<basic name="correcteds" />
+			<basic name="unerroreds" />
+			<basic name="dsSNR" />
+			<basic name="usSNR" />
+			<basic name="ucIfIndex" />
+			<basic name="dcIfIndex" />
+			<basic name="cmSubIndex" />
+			<basic name="cmtsId" />
+			<basic name="cmIndex" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.CmtsModelImpl">
+		<attributes>
+			<id name="cmtsId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="enable" />
+			<basic name="title" />
+			<basic name="host" />
+			<basic name="community" />
+			<basic name="description" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.CustomerMacMappingModelImpl">
+		<attributes>
+			<id name="customerMacId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="title" />
+			<basic name="macAddress" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.UpstreamChannelModelImpl">
+		<id-class class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK" />
+		<attributes>
+			<id name="ifIndex" />
+			<id name="cmtsId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="qam" />
+			<basic name="avgOnlineCmMicRef" />
+			<basic name="avgOnlineCmTxPower" />
+			<basic name="avgOnlineCmRxPower" />
+			<basic name="fecUncorrectable" />
+			<basic name="fecCorrected" />
+			<basic name="upChannelCmTotal" />
+			<basic name="upChannelCmRegistered" />
+			<basic name="upChannelCmActive" />
+			<basic name="upChannelModProfile" />
+			<basic name="upChannelWidth" />
+			<basic name="upChannelFrequency" />
+			<basic name="ifSigQUncorrectables" />
+			<basic name="ifSigQCorrecteds" />
+			<basic name="ifSigQUnerroreds" />
+			<basic name="ifSigQSNR" />
+			<basic name="ifAlias" />
+			<basic name="ifDesc" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryModelImpl">
+		<id-class class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK" />
+		<attributes>
+			<id name="cmtsId" />
+			<id name="ifIndex" />
+			<id name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</id>
+			<basic name="qam" />
+			<basic name="avgOnlineCmMicRef" />
+			<basic name="avgOnlineCmTxPower" />
+			<basic name="avgOnlineCmRxPower" />
+			<basic name="fecUncorrectable" />
+			<basic name="fecCorrected" />
+			<basic name="upChannelCmTotal" />
+			<basic name="upChannelCmRegistered" />
+			<basic name="upChannelCmActive" />
+			<basic name="upChannelModProfile" />
+			<basic name="upChannelWidth" />
+			<basic name="upChannelFrequency" />
+			<basic name="ifSigQUncorrectables" />
+			<basic name="ifSigQCorrecteds" />
+			<basic name="ifSigQUnerroreds" />
+			<basic name="ifSigQSNR" />
+			<basic name="ifAlias" />
+			<basic name="ifDesc" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.cmcti.cmts.domain.model.impl.CableModemImpl" name="CableModem">
+		<table name="CMTS_MONITOR_CableModem" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" name="CableModemHistory">
+		<table name="CMTS_MONITOR_CableModemHistory" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.CmtsImpl" name="Cmts">
+		<table name="CMTS_MONITOR_Cmts" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" name="CustomerMacMapping">
+		<table name="CMTS_MONITOR_CustomerMacMapping" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">
+		<table name="CMTS_MONITOR_UpstreamChannel" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" name="UpstreamChannelHistory">
+		<table name="CMTS_MONITOR_UpstreamChannelHistory" />
+		<attributes />
+	</entity>
+</entity-mappings>

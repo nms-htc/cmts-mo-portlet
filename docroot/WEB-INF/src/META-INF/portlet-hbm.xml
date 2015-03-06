@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.cmcti.cmts.domain.model.CableModem" />
+	<import class="com.cmcti.cmts.domain.model.CableModemHistory" />
+	<import class="com.cmcti.cmts.domain.model.Cmts" />
+	<import class="com.cmcti.cmts.domain.model.CustomerMacMapping" />
+	<import class="com.cmcti.cmts.domain.model.UpstreamChannel" />
+	<import class="com.cmcti.cmts.domain.model.UpstreamChannelHistory" />
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CMTS_MONITOR_CableModem">
+		<cache usage="read-write" />
+		<id name="macAddress" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecCorrected" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="microRef" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="rxPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="txPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="usPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dsPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="uncorrectables" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="correcteds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="unerroreds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="dsSNR" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="usSNR" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="ucIfIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dcIfIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="cmSubIndex" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CMTS_MONITOR_CableModemHistory">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK">
+			<key-property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+			<key-property name="createDate" type="org.hibernate.type.TimestampType" />
+		</composite-id>
+		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecCorrected" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="microRef" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="rxPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="txPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="usPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dsPower" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="uncorrectables" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="correcteds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="unerroreds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="dsSNR" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="usSNR" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="ucIfIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dcIfIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="cmSubIndex" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="CMTS_MONITOR_Cmts">
+		<cache usage="read-write" />
+		<id name="cmtsId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="enable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="host" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="community" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CMTS_MONITOR_CustomerMacMapping">
+		<cache usage="read-write" />
+		<id name="customerMacId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="CMTS_MONITOR_UpstreamChannel">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK">
+			<key-property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+			<key-property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		</composite-id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="qam" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecCorrected" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="upChannelCmTotal" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelCmRegistered" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelCmActive" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelModProfile" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelWidth" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="upChannelFrequency" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQUncorrectables" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQCorrecteds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQUnerroreds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQSNR" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="ifAlias" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ifDesc" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="CMTS_MONITOR_UpstreamChannelHistory">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK">
+			<key-property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+			<key-property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+			<key-property name="createDate" type="org.hibernate.type.TimestampType" />
+		</composite-id>
+		<property name="qam" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="fecCorrected" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="upChannelCmTotal" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelCmRegistered" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelCmActive" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelModProfile" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="upChannelWidth" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="upChannelFrequency" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQUncorrectables" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQCorrecteds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQUnerroreds" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifSigQSNR" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="ifAlias" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ifDesc" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

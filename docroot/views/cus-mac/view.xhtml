@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:portlet="http://java.sun.com/portlet_2_0"
+	template="/views/inc/common_temp.xhtml">
+	
+	<ui:define name="main">
+		<h:form id="listForm">
+			<p:messages globalOnly="true" closable="true"/>
+			<portlet:namespace var="namespace"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Add Customer" update="@form" actionListener="#{customerMacBean.setCurrent(null)}" oncomplete="${namespace}addDl.show()" icon="ui-icon-plus"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:spacer />
+			<p:dataTable
+				id="listTable"
+				widgetVar="${namespace}listTable" 
+				value="#{customerMacBean.lazyDataModel}" 
+				var="customerMac"
+				rowIndexVar="index"
+				rows="10"
+				paginator="true"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+				rowsPerPageTemplate="10,15,20"
+				paginatorPosition="bottom"
+				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
+				lazy="true"
+			>
+				<p:column headerText="#" style="width: 30px;">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				
+				<p:column headerText="Title" filterBy="#{customerMac.title}" sortBy="#{customerMac.title}" filterStyle="width: 90%">
+					<h:outputText value="#{customerMac.title}" />
+				</p:column>
+				
+				<p:column headerText="Mac address" filterBy="#{customerMac.macAddress}" sortBy="#{customerMac.macAddress}" filterStyle="width: 90%">
+					<h:outputText value="#{customerMac.macAddress}" />
+				</p:column>
+
+				<p:column style="width: 90px" toggleable="false">
+					<p:commandButton icon="ui-icon-pencil" update=":editDl" immediate="true" actionListener="#{customerMacBean.setCurrent(customerMac)}"
+						oncomplete="${namespace}editDl.show();" />
+					<p:spacer width="10"/>
+					<p:commandButton icon="ui-icon-trash" actionListener="#{customerMacBean.remove(customerMac)}" immediate="true" update="@form">
+						<p:confirm header="Confirmation" message="Do you want delete this Customer Mapping?" icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+	
+	<ui:define name="popups">
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="add"/></ui:include>
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="edit"/></ui:include>
+	</ui:define>
+</ui:composition>

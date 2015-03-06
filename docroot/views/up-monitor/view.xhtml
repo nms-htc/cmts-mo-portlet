@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/views/inc/common_temp.xhtml">
+	
+	<ui:define name="main">
+		
+		<h:form id="listForm">
+			<p:messages globalOnly="true" closable="true"/>
+			
+			<p:dataTable
+				id="listTable"
+				widgetVar="listTable" 
+				value="#{upstreamChannelBean.lazyDataModel}" 
+				var="upstreamChannel"
+				rowIndexVar="index"
+				rows="10"
+				paginator="true"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+				rowsPerPageTemplate="10,15,20"
+				paginatorPosition="bottom"
+				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
+				lazy="true"
+			>
+				<p:column headerText="Title" filterBy="#{upstreamChannel.title}" sortBy="#{upstreamChannel.title}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.title}" />
+				</p:column>
+				
+				<p:column headerText="Host" filterBy="#{upstreamChannel.host}" sortBy="#{upstreamChannel.host}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.host}" />
+				</p:column>
+				
+				<p:column headerText="Community" filterBy="#{upstreamChannel.community}" sortBy="#{upstreamChannel.community}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.community}" />
+				</p:column>
+				
+				<p:column headerText="Description" filterBy="#{upstreamChannel.description}" sortBy="#{upstreamChannel.description}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.description}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

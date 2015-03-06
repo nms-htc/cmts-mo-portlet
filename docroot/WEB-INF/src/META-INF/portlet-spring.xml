@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.cmcti.cmts.domain.service.CableModemLocalService" class="com.cmcti.cmts.domain.service.impl.CableModemLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.CableModemService" class="com.cmcti.cmts.domain.service.impl.CableModemServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.CableModemPersistence" class="com.cmcti.cmts.domain.service.persistence.CableModemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.CableModemHistoryLocalService" class="com.cmcti.cmts.domain.service.impl.CableModemHistoryLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.CableModemHistoryService" class="com.cmcti.cmts.domain.service.impl.CableModemHistoryServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPersistence" class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.CmtsLocalService" class="com.cmcti.cmts.domain.service.impl.CmtsLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.CmtsService" class="com.cmcti.cmts.domain.service.impl.CmtsServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.CmtsPersistence" class="com.cmcti.cmts.domain.service.persistence.CmtsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.CustomerMacMappingLocalService" class="com.cmcti.cmts.domain.service.impl.CustomerMacMappingLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.CustomerMacMappingService" class="com.cmcti.cmts.domain.service.impl.CustomerMacMappingServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistence" class="com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelLocalService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelHistoryLocalService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelHistoryLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelHistoryService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelHistoryServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPersistence" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPersistenceImpl" parent="basePersistence" />
+</beans>
