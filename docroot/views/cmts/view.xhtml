@@ -45,6 +45,10 @@
 				<p:column headerText="Description" filterBy="#{cmts.description}" sortBy="#{cmts.description}" filterStyle="width: 90%">
 					<h:outputText value="#{cmts.description}" />
 				</p:column>
+				
+				<p:column headerText="Enabled">
+					<h:outputText value="#{cmts.enable}"/>
+				</p:column>
 
 				<p:column style="width: 90px" toggleable="false">
 					<p:commandButton icon="ui-icon-pencil" update=":editDl" immediate="true" actionListener="#{cmtsBean.setCurrent(cmts)}"

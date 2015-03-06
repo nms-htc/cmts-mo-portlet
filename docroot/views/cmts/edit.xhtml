@@ -26,6 +26,10 @@
 				<p:inputText id="community" value="#{cmtsBean.current.community}" required="true" requiredMessage="Community is required" size="80"/>
 				<p:message for="community"/>
 				
+				<p:outputLabel for="enable" value="Enable:"/>
+				<p:selectBooleanCheckbox id="enable" value="#{cmtsBean.current.enable}"/>
+				<p:message for="enable"/>
+				
 				<p:outputLabel value="Description" for="description"/>
 				<p:inputText id="description" value="#{cmtsBean.current.description}" size="80"/>
 				<p:message for="description"/>
