@@ -38,7 +38,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(47);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("{cmtsId=");
 		sb.append(cmtsId);
@@ -54,6 +54,8 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		sb.append(avgOnlineCmUsPower);
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(avgOnlineCmMicRef);
+		sb.append(", avgOnlineCmDsSNR=");
+		sb.append(avgOnlineCmDsSNR);
 		sb.append(", avgOnlineCmTxPower=");
 		sb.append(avgOnlineCmTxPower);
 		sb.append(", avgOnlineCmRxPower=");
@@ -115,6 +117,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		upstreamChannelHistoryImpl.setAvgOnlineCmDsPower(avgOnlineCmDsPower);
 		upstreamChannelHistoryImpl.setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		upstreamChannelHistoryImpl.setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+		upstreamChannelHistoryImpl.setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 		upstreamChannelHistoryImpl.setAvgOnlineCmTxPower(avgOnlineCmTxPower);
 		upstreamChannelHistoryImpl.setAvgOnlineCmRxPower(avgOnlineCmRxPower);
 		upstreamChannelHistoryImpl.setFecUncorrectable(fecUncorrectable);
@@ -158,6 +161,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		avgOnlineCmDsPower = objectInput.readDouble();
 		avgOnlineCmUsPower = objectInput.readDouble();
 		avgOnlineCmMicRef = objectInput.readDouble();
+		avgOnlineCmDsSNR = objectInput.readDouble();
 		avgOnlineCmTxPower = objectInput.readDouble();
 		avgOnlineCmRxPower = objectInput.readDouble();
 		fecUncorrectable = objectInput.readDouble();
@@ -193,6 +197,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		objectOutput.writeDouble(avgOnlineCmDsPower);
 		objectOutput.writeDouble(avgOnlineCmUsPower);
 		objectOutput.writeDouble(avgOnlineCmMicRef);
+		objectOutput.writeDouble(avgOnlineCmDsSNR);
 		objectOutput.writeDouble(avgOnlineCmTxPower);
 		objectOutput.writeDouble(avgOnlineCmRxPower);
 		objectOutput.writeDouble(fecUncorrectable);
@@ -230,6 +235,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	public double avgOnlineCmDsPower;
 	public double avgOnlineCmUsPower;
 	public double avgOnlineCmMicRef;
+	public double avgOnlineCmDsSNR;
 	public double avgOnlineCmTxPower;
 	public double avgOnlineCmRxPower;
 	public double fecUncorrectable;

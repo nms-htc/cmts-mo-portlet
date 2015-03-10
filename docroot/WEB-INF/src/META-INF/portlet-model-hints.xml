@@ -79,6 +79,7 @@
 		<field name="avgOnlineCmDsPower" type="double" />
 		<field name="avgOnlineCmUsPower" type="double" />
 		<field name="avgOnlineCmMicRef" type="double" />
+		<field name="avgOnlineCmDsSNR" type="double" />
 		<field name="avgOnlineCmTxPower" type="double" />
 		<field name="avgOnlineCmRxPower" type="double" />
 		<field name="fecUncorrectable" type="double" />
@@ -104,6 +105,7 @@
 		<field name="avgOnlineCmDsPower" type="double" />
 		<field name="avgOnlineCmUsPower" type="double" />
 		<field name="avgOnlineCmMicRef" type="double" />
+		<field name="avgOnlineCmDsSNR" type="double" />
 		<field name="avgOnlineCmTxPower" type="double" />
 		<field name="avgOnlineCmRxPower" type="double" />
 		<field name="fecUncorrectable" type="double" />

@@ -58,6 +58,7 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
 		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
+		attributes.put("avgOnlineCmDsSNR", getAvgOnlineCmDsSNR());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -126,6 +127,12 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 
 		if (avgOnlineCmMicRef != null) {
 			setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+		}
+
+		Double avgOnlineCmDsSNR = (Double)attributes.get("avgOnlineCmDsSNR");
+
+		if (avgOnlineCmDsSNR != null) {
+			setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 		}
 
 		Double avgOnlineCmTxPower = (Double)attributes.get("avgOnlineCmTxPower");
@@ -406,6 +413,26 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 	@Override
 	public void setAvgOnlineCmMicRef(double avgOnlineCmMicRef) {
 		_upstreamChannel.setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+	}
+
+	/**
+	* Returns the avg online cm ds s n r of this upstream channel.
+	*
+	* @return the avg online cm ds s n r of this upstream channel
+	*/
+	@Override
+	public double getAvgOnlineCmDsSNR() {
+		return _upstreamChannel.getAvgOnlineCmDsSNR();
+	}
+
+	/**
+	* Sets the avg online cm ds s n r of this upstream channel.
+	*
+	* @param avgOnlineCmDsSNR the avg online cm ds s n r of this upstream channel
+	*/
+	@Override
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_upstreamChannel.setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 	}
 
 	/**

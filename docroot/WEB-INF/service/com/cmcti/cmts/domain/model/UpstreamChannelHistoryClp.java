@@ -84,6 +84,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
 		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
+		attributes.put("avgOnlineCmDsSNR", getAvgOnlineCmDsSNR());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -146,6 +147,12 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 		if (avgOnlineCmMicRef != null) {
 			setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+		}
+
+		Double avgOnlineCmDsSNR = (Double)attributes.get("avgOnlineCmDsSNR");
+
+		if (avgOnlineCmDsSNR != null) {
+			setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 		}
 
 		Double avgOnlineCmTxPower = (Double)attributes.get("avgOnlineCmTxPower");
@@ -407,6 +414,31 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 				method.invoke(_upstreamChannelHistoryRemoteModel,
 					avgOnlineCmMicRef);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public double getAvgOnlineCmDsSNR() {
+		return _avgOnlineCmDsSNR;
+	}
+
+	@Override
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_avgOnlineCmDsSNR = avgOnlineCmDsSNR;
+
+		if (_upstreamChannelHistoryRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelHistoryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAvgOnlineCmDsSNR",
+						double.class);
+
+				method.invoke(_upstreamChannelHistoryRemoteModel,
+					avgOnlineCmDsSNR);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -881,6 +913,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		clone.setAvgOnlineCmDsPower(getAvgOnlineCmDsPower());
 		clone.setAvgOnlineCmUsPower(getAvgOnlineCmUsPower());
 		clone.setAvgOnlineCmMicRef(getAvgOnlineCmMicRef());
+		clone.setAvgOnlineCmDsSNR(getAvgOnlineCmDsSNR());
 		clone.setAvgOnlineCmTxPower(getAvgOnlineCmTxPower());
 		clone.setAvgOnlineCmRxPower(getAvgOnlineCmRxPower());
 		clone.setFecUncorrectable(getFecUncorrectable());
@@ -941,7 +974,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(47);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("{cmtsId=");
 		sb.append(getCmtsId());
@@ -957,6 +990,8 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		sb.append(getAvgOnlineCmUsPower());
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(getAvgOnlineCmMicRef());
+		sb.append(", avgOnlineCmDsSNR=");
+		sb.append(getAvgOnlineCmDsSNR());
 		sb.append(", avgOnlineCmTxPower=");
 		sb.append(getAvgOnlineCmTxPower());
 		sb.append(", avgOnlineCmRxPower=");
@@ -996,7 +1031,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(73);
+		StringBundler sb = new StringBundler(76);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannelHistory");
@@ -1029,6 +1064,10 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		sb.append(
 			"<column><column-name>avgOnlineCmMicRef</column-name><column-value><![CDATA[");
 		sb.append(getAvgOnlineCmMicRef());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmDsSNR</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmDsSNR());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>avgOnlineCmTxPower</column-name><column-value><![CDATA[");
@@ -1107,6 +1146,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 	private double _avgOnlineCmDsPower;
 	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
+	private double _avgOnlineCmDsSNR;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;
 	private double _fecUncorrectable;

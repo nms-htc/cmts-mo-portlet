@@ -128,6 +128,7 @@
 			<basic name="avgOnlineCmDsPower" />
 			<basic name="avgOnlineCmUsPower" />
 			<basic name="avgOnlineCmMicRef" />
+			<basic name="avgOnlineCmDsSNR" />
 			<basic name="avgOnlineCmTxPower" />
 			<basic name="avgOnlineCmRxPower" />
 			<basic name="fecUncorrectable" />
@@ -161,6 +162,7 @@
 			<basic name="avgOnlineCmDsPower" />
 			<basic name="avgOnlineCmUsPower" />
 			<basic name="avgOnlineCmMicRef" />
+			<basic name="avgOnlineCmDsSNR" />
 			<basic name="avgOnlineCmTxPower" />
 			<basic name="avgOnlineCmRxPower" />
 			<basic name="fecUncorrectable" />

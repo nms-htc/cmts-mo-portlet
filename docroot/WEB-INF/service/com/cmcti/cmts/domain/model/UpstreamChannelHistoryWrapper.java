@@ -58,6 +58,7 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
 		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
+		attributes.put("avgOnlineCmDsSNR", getAvgOnlineCmDsSNR());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -120,6 +121,12 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 
 		if (avgOnlineCmMicRef != null) {
 			setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+		}
+
+		Double avgOnlineCmDsSNR = (Double)attributes.get("avgOnlineCmDsSNR");
+
+		if (avgOnlineCmDsSNR != null) {
+			setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 		}
 
 		Double avgOnlineCmTxPower = (Double)attributes.get("avgOnlineCmTxPower");
@@ -380,6 +387,26 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 	@Override
 	public void setAvgOnlineCmMicRef(double avgOnlineCmMicRef) {
 		_upstreamChannelHistory.setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+	}
+
+	/**
+	* Returns the avg online cm ds s n r of this upstream channel history.
+	*
+	* @return the avg online cm ds s n r of this upstream channel history
+	*/
+	@Override
+	public double getAvgOnlineCmDsSNR() {
+		return _upstreamChannelHistory.getAvgOnlineCmDsSNR();
+	}
+
+	/**
+	* Sets the avg online cm ds s n r of this upstream channel history.
+	*
+	* @param avgOnlineCmDsSNR the avg online cm ds s n r of this upstream channel history
+	*/
+	@Override
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_upstreamChannelHistory.setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 	}
 
 	/**

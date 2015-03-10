@@ -101,6 +101,7 @@
 		<property name="avgOnlineCmDsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmUsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmDsSNR" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
@@ -129,6 +130,7 @@
 		<property name="avgOnlineCmDsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmUsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmDsSNR" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />

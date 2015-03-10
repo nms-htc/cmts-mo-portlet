@@ -68,6 +68,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 			{ "avgOnlineCmDsPower", Types.DOUBLE },
 			{ "avgOnlineCmUsPower", Types.DOUBLE },
 			{ "avgOnlineCmMicRef", Types.DOUBLE },
+			{ "avgOnlineCmDsSNR", Types.DOUBLE },
 			{ "avgOnlineCmTxPower", Types.DOUBLE },
 			{ "avgOnlineCmRxPower", Types.DOUBLE },
 			{ "fecUncorrectable", Types.DOUBLE },
@@ -85,7 +86,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 			{ "ifAlias", Types.VARCHAR },
 			{ "ifDesc", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table CMTS_MONITOR_UpstreamChannelHistory (cmtsId LONG not null,ifIndex INTEGER not null,createDate DATE not null,qam VARCHAR(75) null,avgOnlineCmDsPower DOUBLE,avgOnlineCmUsPower DOUBLE,avgOnlineCmMicRef DOUBLE,avgOnlineCmTxPower DOUBLE,avgOnlineCmRxPower DOUBLE,fecUncorrectable DOUBLE,fecCorrected DOUBLE,upChannelCmTotal INTEGER,upChannelCmRegistered INTEGER,upChannelCmActive INTEGER,upChannelModProfile INTEGER,upChannelWidth LONG,upChannelFrequency LONG,ifSigQUncorrectables LONG,ifSigQCorrecteds LONG,ifSigQUnerroreds LONG,ifSigQSNR DOUBLE,ifAlias VARCHAR(75) null,ifDesc VARCHAR(75) null,primary key (cmtsId, ifIndex, createDate))";
+	public static final String TABLE_SQL_CREATE = "create table CMTS_MONITOR_UpstreamChannelHistory (cmtsId LONG not null,ifIndex INTEGER not null,createDate DATE not null,qam VARCHAR(75) null,avgOnlineCmDsPower DOUBLE,avgOnlineCmUsPower DOUBLE,avgOnlineCmMicRef DOUBLE,avgOnlineCmDsSNR DOUBLE,avgOnlineCmTxPower DOUBLE,avgOnlineCmRxPower DOUBLE,fecUncorrectable DOUBLE,fecCorrected DOUBLE,upChannelCmTotal INTEGER,upChannelCmRegistered INTEGER,upChannelCmActive INTEGER,upChannelModProfile INTEGER,upChannelWidth LONG,upChannelFrequency LONG,ifSigQUncorrectables LONG,ifSigQCorrecteds LONG,ifSigQUnerroreds LONG,ifSigQSNR DOUBLE,ifAlias VARCHAR(75) null,ifDesc VARCHAR(75) null,primary key (cmtsId, ifIndex, createDate))";
 	public static final String TABLE_SQL_DROP = "drop table CMTS_MONITOR_UpstreamChannelHistory";
 	public static final String ORDER_BY_JPQL = " ORDER BY upstreamChannelHistory.id.cmtsId ASC, upstreamChannelHistory.id.ifIndex ASC, upstreamChannelHistory.id.createDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CMTS_MONITOR_UpstreamChannelHistory.cmtsId ASC, CMTS_MONITOR_UpstreamChannelHistory.ifIndex ASC, CMTS_MONITOR_UpstreamChannelHistory.createDate ASC";
@@ -121,6 +122,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 		model.setAvgOnlineCmDsPower(soapModel.getAvgOnlineCmDsPower());
 		model.setAvgOnlineCmUsPower(soapModel.getAvgOnlineCmUsPower());
 		model.setAvgOnlineCmMicRef(soapModel.getAvgOnlineCmMicRef());
+		model.setAvgOnlineCmDsSNR(soapModel.getAvgOnlineCmDsSNR());
 		model.setAvgOnlineCmTxPower(soapModel.getAvgOnlineCmTxPower());
 		model.setAvgOnlineCmRxPower(soapModel.getAvgOnlineCmRxPower());
 		model.setFecUncorrectable(soapModel.getFecUncorrectable());
@@ -211,6 +213,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
 		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
+		attributes.put("avgOnlineCmDsSNR", getAvgOnlineCmDsSNR());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -273,6 +276,12 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 
 		if (avgOnlineCmMicRef != null) {
 			setAvgOnlineCmMicRef(avgOnlineCmMicRef);
+		}
+
+		Double avgOnlineCmDsSNR = (Double)attributes.get("avgOnlineCmDsSNR");
+
+		if (avgOnlineCmDsSNR != null) {
+			setAvgOnlineCmDsSNR(avgOnlineCmDsSNR);
 		}
 
 		Double avgOnlineCmTxPower = (Double)attributes.get("avgOnlineCmTxPower");
@@ -454,6 +463,17 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 	@Override
 	public void setAvgOnlineCmMicRef(double avgOnlineCmMicRef) {
 		_avgOnlineCmMicRef = avgOnlineCmMicRef;
+	}
+
+	@JSON
+	@Override
+	public double getAvgOnlineCmDsSNR() {
+		return _avgOnlineCmDsSNR;
+	}
+
+	@Override
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_avgOnlineCmDsSNR = avgOnlineCmDsSNR;
 	}
 
 	@JSON
@@ -663,6 +683,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 		upstreamChannelHistoryImpl.setAvgOnlineCmDsPower(getAvgOnlineCmDsPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmUsPower(getAvgOnlineCmUsPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmMicRef(getAvgOnlineCmMicRef());
+		upstreamChannelHistoryImpl.setAvgOnlineCmDsSNR(getAvgOnlineCmDsSNR());
 		upstreamChannelHistoryImpl.setAvgOnlineCmTxPower(getAvgOnlineCmTxPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmRxPower(getAvgOnlineCmRxPower());
 		upstreamChannelHistoryImpl.setFecUncorrectable(getFecUncorrectable());
@@ -754,6 +775,8 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 
 		upstreamChannelHistoryCacheModel.avgOnlineCmMicRef = getAvgOnlineCmMicRef();
 
+		upstreamChannelHistoryCacheModel.avgOnlineCmDsSNR = getAvgOnlineCmDsSNR();
+
 		upstreamChannelHistoryCacheModel.avgOnlineCmTxPower = getAvgOnlineCmTxPower();
 
 		upstreamChannelHistoryCacheModel.avgOnlineCmRxPower = getAvgOnlineCmRxPower();
@@ -803,7 +826,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(47);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("{cmtsId=");
 		sb.append(getCmtsId());
@@ -819,6 +842,8 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 		sb.append(getAvgOnlineCmUsPower());
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(getAvgOnlineCmMicRef());
+		sb.append(", avgOnlineCmDsSNR=");
+		sb.append(getAvgOnlineCmDsSNR());
 		sb.append(", avgOnlineCmTxPower=");
 		sb.append(getAvgOnlineCmTxPower());
 		sb.append(", avgOnlineCmRxPower=");
@@ -858,7 +883,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(73);
+		StringBundler sb = new StringBundler(76);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannelHistory");
@@ -891,6 +916,10 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 		sb.append(
 			"<column><column-name>avgOnlineCmMicRef</column-name><column-value><![CDATA[");
 		sb.append(getAvgOnlineCmMicRef());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmDsSNR</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmDsSNR());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>avgOnlineCmTxPower</column-name><column-value><![CDATA[");
@@ -973,6 +1002,7 @@ public class UpstreamChannelHistoryModelImpl extends BaseModelImpl<UpstreamChann
 	private double _avgOnlineCmDsPower;
 	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
+	private double _avgOnlineCmDsSNR;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;
 	private double _fecUncorrectable;

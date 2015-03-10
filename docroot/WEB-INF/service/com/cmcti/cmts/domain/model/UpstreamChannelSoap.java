@@ -41,6 +41,7 @@ public class UpstreamChannelSoap implements Serializable {
 		soapModel.setAvgOnlineCmDsPower(model.getAvgOnlineCmDsPower());
 		soapModel.setAvgOnlineCmUsPower(model.getAvgOnlineCmUsPower());
 		soapModel.setAvgOnlineCmMicRef(model.getAvgOnlineCmMicRef());
+		soapModel.setAvgOnlineCmDsSNR(model.getAvgOnlineCmDsSNR());
 		soapModel.setAvgOnlineCmTxPower(model.getAvgOnlineCmTxPower());
 		soapModel.setAvgOnlineCmRxPower(model.getAvgOnlineCmRxPower());
 		soapModel.setFecUncorrectable(model.getFecUncorrectable());
@@ -174,6 +175,14 @@ public class UpstreamChannelSoap implements Serializable {
 
 	public void setAvgOnlineCmMicRef(double avgOnlineCmMicRef) {
 		_avgOnlineCmMicRef = avgOnlineCmMicRef;
+	}
+
+	public double getAvgOnlineCmDsSNR() {
+		return _avgOnlineCmDsSNR;
+	}
+
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_avgOnlineCmDsSNR = avgOnlineCmDsSNR;
 	}
 
 	public double getAvgOnlineCmTxPower() {
@@ -312,6 +321,7 @@ public class UpstreamChannelSoap implements Serializable {
 	private double _avgOnlineCmDsPower;
 	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
+	private double _avgOnlineCmDsSNR;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;
 	private double _fecUncorrectable;

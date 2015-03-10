@@ -339,6 +339,7 @@ public class UpstreamChannelHistoryPersistenceImpl extends BasePersistenceImpl<U
 		upstreamChannelHistoryImpl.setAvgOnlineCmDsPower(upstreamChannelHistory.getAvgOnlineCmDsPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmUsPower(upstreamChannelHistory.getAvgOnlineCmUsPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmMicRef(upstreamChannelHistory.getAvgOnlineCmMicRef());
+		upstreamChannelHistoryImpl.setAvgOnlineCmDsSNR(upstreamChannelHistory.getAvgOnlineCmDsSNR());
 		upstreamChannelHistoryImpl.setAvgOnlineCmTxPower(upstreamChannelHistory.getAvgOnlineCmTxPower());
 		upstreamChannelHistoryImpl.setAvgOnlineCmRxPower(upstreamChannelHistory.getAvgOnlineCmRxPower());
 		upstreamChannelHistoryImpl.setFecUncorrectable(upstreamChannelHistory.getFecUncorrectable());

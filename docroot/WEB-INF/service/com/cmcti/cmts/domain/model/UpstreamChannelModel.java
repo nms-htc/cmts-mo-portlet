@@ -175,6 +175,20 @@ public interface UpstreamChannelModel extends BaseModel<UpstreamChannel> {
 	public void setAvgOnlineCmMicRef(double avgOnlineCmMicRef);
 
 	/**
+	 * Returns the avg online cm ds s n r of this upstream channel.
+	 *
+	 * @return the avg online cm ds s n r of this upstream channel
+	 */
+	public double getAvgOnlineCmDsSNR();
+
+	/**
+	 * Sets the avg online cm ds s n r of this upstream channel.
+	 *
+	 * @param avgOnlineCmDsSNR the avg online cm ds s n r of this upstream channel
+	 */
+	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR);
+
+	/**
 	 * Returns the avg online cm tx power of this upstream channel.
 	 *
 	 * @return the avg online cm tx power of this upstream channel
