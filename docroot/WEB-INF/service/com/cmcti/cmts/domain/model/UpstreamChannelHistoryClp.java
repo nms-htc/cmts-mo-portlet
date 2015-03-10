@@ -81,6 +81,8 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		attributes.put("ifIndex", getIfIndex());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("qam", getQam());
+		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
+		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
@@ -126,6 +128,18 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 		if (qam != null) {
 			setQam(qam);
+		}
+
+		Double avgOnlineCmDsPower = (Double)attributes.get("avgOnlineCmDsPower");
+
+		if (avgOnlineCmDsPower != null) {
+			setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+		}
+
+		Double avgOnlineCmUsPower = (Double)attributes.get("avgOnlineCmUsPower");
+
+		if (avgOnlineCmUsPower != null) {
+			setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		}
 
 		Double avgOnlineCmMicRef = (Double)attributes.get("avgOnlineCmMicRef");
@@ -318,6 +332,56 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 				Method method = clazz.getMethod("setQam", String.class);
 
 				method.invoke(_upstreamChannelHistoryRemoteModel, qam);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public double getAvgOnlineCmDsPower() {
+		return _avgOnlineCmDsPower;
+	}
+
+	@Override
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower) {
+		_avgOnlineCmDsPower = avgOnlineCmDsPower;
+
+		if (_upstreamChannelHistoryRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelHistoryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAvgOnlineCmDsPower",
+						double.class);
+
+				method.invoke(_upstreamChannelHistoryRemoteModel,
+					avgOnlineCmDsPower);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public double getAvgOnlineCmUsPower() {
+		return _avgOnlineCmUsPower;
+	}
+
+	@Override
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower) {
+		_avgOnlineCmUsPower = avgOnlineCmUsPower;
+
+		if (_upstreamChannelHistoryRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelHistoryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAvgOnlineCmUsPower",
+						double.class);
+
+				method.invoke(_upstreamChannelHistoryRemoteModel,
+					avgOnlineCmUsPower);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -814,6 +878,8 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		clone.setIfIndex(getIfIndex());
 		clone.setCreateDate(getCreateDate());
 		clone.setQam(getQam());
+		clone.setAvgOnlineCmDsPower(getAvgOnlineCmDsPower());
+		clone.setAvgOnlineCmUsPower(getAvgOnlineCmUsPower());
 		clone.setAvgOnlineCmMicRef(getAvgOnlineCmMicRef());
 		clone.setAvgOnlineCmTxPower(getAvgOnlineCmTxPower());
 		clone.setAvgOnlineCmRxPower(getAvgOnlineCmRxPower());
@@ -875,7 +941,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(47);
 
 		sb.append("{cmtsId=");
 		sb.append(getCmtsId());
@@ -885,6 +951,10 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		sb.append(getCreateDate());
 		sb.append(", qam=");
 		sb.append(getQam());
+		sb.append(", avgOnlineCmDsPower=");
+		sb.append(getAvgOnlineCmDsPower());
+		sb.append(", avgOnlineCmUsPower=");
+		sb.append(getAvgOnlineCmUsPower());
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(getAvgOnlineCmMicRef());
 		sb.append(", avgOnlineCmTxPower=");
@@ -926,7 +996,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(73);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannelHistory");
@@ -947,6 +1017,14 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		sb.append(
 			"<column><column-name>qam</column-name><column-value><![CDATA[");
 		sb.append(getQam());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmDsPower</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmDsPower());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmUsPower</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmUsPower());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>avgOnlineCmMicRef</column-name><column-value><![CDATA[");
@@ -1026,6 +1104,8 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 	private int _ifIndex;
 	private Date _createDate;
 	private String _qam;
+	private double _avgOnlineCmDsPower;
+	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;

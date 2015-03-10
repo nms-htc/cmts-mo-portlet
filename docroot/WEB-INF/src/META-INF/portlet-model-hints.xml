@@ -22,6 +22,7 @@
 		<field name="cmSubIndex" type="String" />
 		<field name="cmtsId" type="long" />
 		<field name="cmIndex" type="int" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.CableModemHistory">
 		<field name="macAddress" type="String" />
@@ -43,6 +44,7 @@
 		<field name="cmSubIndex" type="String" />
 		<field name="cmtsId" type="long" />
 		<field name="cmIndex" type="int" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.Cmts">
 		<field name="cmtsId" type="long" />
@@ -74,6 +76,8 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="qam" type="String" />
+		<field name="avgOnlineCmDsPower" type="double" />
+		<field name="avgOnlineCmUsPower" type="double" />
 		<field name="avgOnlineCmMicRef" type="double" />
 		<field name="avgOnlineCmTxPower" type="double" />
 		<field name="avgOnlineCmRxPower" type="double" />
@@ -97,6 +101,8 @@
 		<field name="ifIndex" type="int" />
 		<field name="createDate" type="Date" />
 		<field name="qam" type="String" />
+		<field name="avgOnlineCmDsPower" type="double" />
+		<field name="avgOnlineCmUsPower" type="double" />
 		<field name="avgOnlineCmMicRef" type="double" />
 		<field name="avgOnlineCmTxPower" type="double" />
 		<field name="avgOnlineCmRxPower" type="double" />

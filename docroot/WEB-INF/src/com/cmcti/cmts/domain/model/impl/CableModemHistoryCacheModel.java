@@ -38,7 +38,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{macAddress=");
 		sb.append(macAddress);
@@ -78,6 +78,8 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 		sb.append(cmtsId);
 		sb.append(", cmIndex=");
 		sb.append(cmIndex);
+		sb.append(", status=");
+		sb.append(status);
 		sb.append("}");
 
 		return sb.toString();
@@ -125,6 +127,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 
 		cableModemHistoryImpl.setCmtsId(cmtsId);
 		cableModemHistoryImpl.setCmIndex(cmIndex);
+		cableModemHistoryImpl.setStatus(status);
 
 		cableModemHistoryImpl.resetOriginalValues();
 
@@ -152,6 +155,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 		cmSubIndex = objectInput.readUTF();
 		cmtsId = objectInput.readLong();
 		cmIndex = objectInput.readInt();
+		status = objectInput.readInt();
 	}
 
 	@Override
@@ -189,6 +193,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 
 		objectOutput.writeLong(cmtsId);
 		objectOutput.writeInt(cmIndex);
+		objectOutput.writeInt(status);
 	}
 
 	public String macAddress;
@@ -210,4 +215,5 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 	public String cmSubIndex;
 	public long cmtsId;
 	public int cmIndex;
+	public int status;
 }

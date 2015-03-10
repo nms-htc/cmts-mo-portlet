@@ -81,6 +81,8 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("qam", getQam());
+		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
+		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
@@ -132,6 +134,18 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 		if (qam != null) {
 			setQam(qam);
+		}
+
+		Double avgOnlineCmDsPower = (Double)attributes.get("avgOnlineCmDsPower");
+
+		if (avgOnlineCmDsPower != null) {
+			setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+		}
+
+		Double avgOnlineCmUsPower = (Double)attributes.get("avgOnlineCmUsPower");
+
+		if (avgOnlineCmUsPower != null) {
+			setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		}
 
 		Double avgOnlineCmMicRef = (Double)attributes.get("avgOnlineCmMicRef");
@@ -347,6 +361,54 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 				Method method = clazz.getMethod("setQam", String.class);
 
 				method.invoke(_upstreamChannelRemoteModel, qam);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public double getAvgOnlineCmDsPower() {
+		return _avgOnlineCmDsPower;
+	}
+
+	@Override
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower) {
+		_avgOnlineCmDsPower = avgOnlineCmDsPower;
+
+		if (_upstreamChannelRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAvgOnlineCmDsPower",
+						double.class);
+
+				method.invoke(_upstreamChannelRemoteModel, avgOnlineCmDsPower);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public double getAvgOnlineCmUsPower() {
+		return _avgOnlineCmUsPower;
+	}
+
+	@Override
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower) {
+		_avgOnlineCmUsPower = avgOnlineCmUsPower;
+
+		if (_upstreamChannelRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAvgOnlineCmUsPower",
+						double.class);
+
+				method.invoke(_upstreamChannelRemoteModel, avgOnlineCmUsPower);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -832,6 +894,8 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setQam(getQam());
+		clone.setAvgOnlineCmDsPower(getAvgOnlineCmDsPower());
+		clone.setAvgOnlineCmUsPower(getAvgOnlineCmUsPower());
 		clone.setAvgOnlineCmMicRef(getAvgOnlineCmMicRef());
 		clone.setAvgOnlineCmTxPower(getAvgOnlineCmTxPower());
 		clone.setAvgOnlineCmRxPower(getAvgOnlineCmRxPower());
@@ -893,7 +957,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("{ifIndex=");
 		sb.append(getIfIndex());
@@ -905,6 +969,10 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		sb.append(getModifiedDate());
 		sb.append(", qam=");
 		sb.append(getQam());
+		sb.append(", avgOnlineCmDsPower=");
+		sb.append(getAvgOnlineCmDsPower());
+		sb.append(", avgOnlineCmUsPower=");
+		sb.append(getAvgOnlineCmUsPower());
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(getAvgOnlineCmMicRef());
 		sb.append(", avgOnlineCmTxPower=");
@@ -946,7 +1014,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(70);
+		StringBundler sb = new StringBundler(76);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannel");
@@ -971,6 +1039,14 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		sb.append(
 			"<column><column-name>qam</column-name><column-value><![CDATA[");
 		sb.append(getQam());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmDsPower</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmDsPower());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>avgOnlineCmUsPower</column-name><column-value><![CDATA[");
+		sb.append(getAvgOnlineCmUsPower());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>avgOnlineCmMicRef</column-name><column-value><![CDATA[");
@@ -1051,6 +1127,8 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _qam;
+	private double _avgOnlineCmDsPower;
+	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;

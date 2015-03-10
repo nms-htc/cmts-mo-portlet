@@ -341,6 +341,20 @@ public interface CableModemModel extends BaseModel<CableModem> {
 	 */
 	public void setCmIndex(int cmIndex);
 
+	/**
+	 * Returns the status of this cable modem.
+	 *
+	 * @return the status of this cable modem
+	 */
+	public int getStatus();
+
+	/**
+	 * Sets the status of this cable modem.
+	 *
+	 * @param status the status of this cable modem
+	 */
+	public void setStatus(int status);
+
 	@Override
 	public boolean isNew();
 

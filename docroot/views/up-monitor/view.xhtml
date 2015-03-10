@@ -1,49 +1,93 @@
 <?xml version="1.0"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
 	template="/views/inc/common_temp.xhtml">
-	
+
 	<ui:define name="main">
-		
 		<h:form id="listForm">
-			<p:messages globalOnly="true" closable="true"/>
+			<p:messages globalOnly="false" closable="true" />
 			
-			<p:dataTable
-				id="listTable"
-				widgetVar="listTable" 
-				value="#{upstreamChannelBean.lazyDataModel}" 
-				var="upstreamChannel"
-				rowIndexVar="index"
-				rows="10"
-				paginator="true"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-				rowsPerPageTemplate="10,15,20"
-				paginatorPosition="bottom"
-				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
-				lazy="true"
-			>
-				<p:column headerText="Title" filterBy="#{upstreamChannel.title}" sortBy="#{upstreamChannel.title}" filterStyle="width: 90%">
-					<h:outputText value="#{upstreamChannel.title}" />
+			<ui:include src="search.xhtml"/>
+			
+			<p:spacer />
+
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{upstreamChannelBean.lazyDataModel}" var="upstreamChannel" rowIndexVar="index" rows="10"
+				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="10,15,20" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true">
+				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.ifDesc}" />
 				</p:column>
-				
-				<p:column headerText="Host" filterBy="#{upstreamChannel.host}" sortBy="#{upstreamChannel.host}" filterStyle="width: 90%">
-					<h:outputText value="#{upstreamChannel.host}" />
+
+				<p:column headerText="Alias" width="300" filterBy="#{upstreamChannel.ifAlias}" sortBy="#{upstreamChannel.ifAlias}" filterStyle="width: 90%">
+					<h:outputText value="#{upstreamChannel.ifAlias}" />
 				</p:column>
-				
-				<p:column headerText="Community" filterBy="#{upstreamChannel.community}" sortBy="#{upstreamChannel.community}" filterStyle="width: 90%">
-					<h:outputText value="#{upstreamChannel.community}" />
+
+				<p:column headerText="SNR" sortBy="#{upstreamChannel.ifSigQSNR}">
+					<h:outputText value="#{upstreamChannel.ifSigQSNR / 10}" />
 				</p:column>
-				
-				<p:column headerText="Description" filterBy="#{upstreamChannel.description}" sortBy="#{upstreamChannel.description}" filterStyle="width: 90%">
-					<h:outputText value="#{upstreamChannel.description}" />
+
+				<p:column headerText="FRE" sortBy="#{upstreamChannel.upChannelFrequency}">
+					<h:outputText value="#{upstreamChannel.upChannelFrequency / 1000000}" >
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="WTH" sortBy="#{upstreamChannel.upChannelWidth}">
+					<h:outputText value="#{upstreamChannel.upChannelWidth / 1000000}" >
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fec" sortBy="#{upstreamChannel.fecCorrected}">
+					<h:outputText value="#{upstreamChannel.fecCorrected}">
+						<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="FecUn" sortBy="#{upstreamChannel.fecUncorrectable}">
+					<h:outputText value="#{upstreamChannel.fecUncorrectable}">
+						<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Act" sortBy="#{upstreamChannel.upChannelCmActive}">
+					<h:outputText value="#{upstreamChannel.upChannelCmActive}" />
+				</p:column>
+
+				<p:column headerText="Reg" sortBy="#{upstreamChannel.upChannelCmRegistered}">
+					<h:outputText value="#{upstreamChannel.upChannelCmRegistered}" />
+				</p:column>
+
+				<p:column headerText="Total" sortBy="#{upstreamChannel.upChannelCmTotal}">
+					<h:outputText value="#{upstreamChannel.upChannelCmTotal}" />
+				</p:column>
+
+				<p:column headerText="TxPw" sortBy="#{upstreamChannel.avgOnlineCmTxPower}">
+					<h:outputText value="#{upstreamChannel.avgOnlineCmTxPower / 10}" >
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="RxPw" sortBy="#{upstreamChannel.avgOnlineCmRxPower}">
+					<h:outputText value="#{upstreamChannel.avgOnlineCmRxPower / 10}" >
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="MER" sortBy="#{upstreamChannel.avgOnlineCmDsSNR}">
+					<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}" >
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Time">
+					<h:outputText value="#{user}"></h:outputText>
+					<h:outputText value="#{upstreamChannel.modifiedDate}">
+						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
+					</h:outputText>
 				</p:column>
 
 			</p:dataTable>
 		</h:form>
-		
 	</ui:define>
 </ui:composition>

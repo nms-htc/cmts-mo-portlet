@@ -51,6 +51,7 @@ public class CableModemSoap implements Serializable {
 		soapModel.setCmSubIndex(model.getCmSubIndex());
 		soapModel.setCmtsId(model.getCmtsId());
 		soapModel.setCmIndex(model.getCmIndex());
+		soapModel.setStatus(model.getStatus());
 
 		return soapModel;
 	}
@@ -263,6 +264,14 @@ public class CableModemSoap implements Serializable {
 		_cmIndex = cmIndex;
 	}
 
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int status) {
+		_status = status;
+	}
+
 	private String _macAddress;
 	private Date _createDate;
 	private Date _modifiedDate;
@@ -283,4 +292,5 @@ public class CableModemSoap implements Serializable {
 	private String _cmSubIndex;
 	private long _cmtsId;
 	private int _cmIndex;
+	private int _status;
 }

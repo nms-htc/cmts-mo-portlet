@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
+	template="/views/inc/common_temp.xhtml">
+
+	<ui:define name="main">
+		<h:form>
+			<p:messages globalOnly="true" closable="true" />
+
+			<h3>Upstream Alert Configuration</h3>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-4">
+							<h4>Level 1</h4>
+							<p:outputLabel value="Color" for="lv1Color" />
+							<p:colorPicker id="lv1Color" />
+
+							<p:outputLabel value="Fec" for="lv1FecMin" />
+							<p:spinner id="lv1FecMin" style="width: auto" size="10"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv1FecMax" />
+							<p:message for="lv1FecMin" />
+							<p:message for="lv1FecMax" />
+					</div>
+
+					<div class="ui-grid-col-4">
+							<h4>Level 2</h4>
+
+							<p:outputLabel value="Color" for="lv3Color" />
+							<p:colorPicker id="lv3Color" />
+
+							<p:outputLabel value="Fec" for="lv3FecMin" />
+							<p:inputText id="lv3FecMin" />
+							<p:spacer width="5" />
+							<p:inputText id="lv3FecMax" />
+							<p:message for="lv3FecMin" />
+							<p:message for="lv3FecMax" />
+					</div>
+
+					<div class="ui-grid-col-4">
+							<h4>Level 3</h4>
+
+							<p:outputLabel value="Color" for="lv2Color" />
+							<p:colorPicker id="lv2Color" />
+
+							<p:outputLabel value="Fec" for="lv2FecMin" />
+							<p:inputText id="lv2FecMin" />
+							<p:spacer width="5" />
+							<p:inputText id="lv2FecMax" />
+							<p:message for="lv2FecMin" />
+							<p:message for="lv2FecMax" />
+					</div>
+				</div>
+			</div>
+
+			<p:commandButton value="Save" />
+		</h:form>
+	</ui:define>
+</ui:composition>

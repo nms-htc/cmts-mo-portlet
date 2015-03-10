@@ -94,6 +94,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		attributes.put("cmSubIndex", getCmSubIndex());
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -218,6 +219,12 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 		if (cmIndex != null) {
 			setCmIndex(cmIndex);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -682,6 +689,29 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		}
 	}
 
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_status = status;
+
+		if (_cableModemRemoteModel != null) {
+			try {
+				Class<?> clazz = _cableModemRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatus", int.class);
+
+				method.invoke(_cableModemRemoteModel, status);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getCableModemRemoteModel() {
 		return _cableModemRemoteModel;
 	}
@@ -771,6 +801,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		clone.setCmSubIndex(getCmSubIndex());
 		clone.setCmtsId(getCmtsId());
 		clone.setCmIndex(getCmIndex());
+		clone.setStatus(getStatus());
 
 		return clone;
 	}
@@ -815,7 +846,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{macAddress=");
 		sb.append(getMacAddress());
@@ -857,6 +888,8 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		sb.append(getCmtsId());
 		sb.append(", cmIndex=");
 		sb.append(getCmIndex());
+		sb.append(", status=");
+		sb.append(getStatus());
 		sb.append("}");
 
 		return sb.toString();
@@ -864,7 +897,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(64);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.CableModem");
@@ -950,6 +983,10 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 			"<column><column-name>cmIndex</column-name><column-value><![CDATA[");
 		sb.append(getCmIndex());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -976,6 +1013,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 	private String _cmSubIndex;
 	private long _cmtsId;
 	private int _cmIndex;
+	private int _status;
 	private BaseModel<?> _cableModemRemoteModel;
 	private Class<?> _clpSerializerClass = com.cmcti.cmts.domain.service.ClpSerializer.class;
 }

@@ -48,25 +48,30 @@ public abstract class AbstractLazyDataModel<T extends BaseModel<T>> extends Lazy
 	@Override
 	public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 
-		DynamicQuery query;
+		DynamicQuery listQuery;
+		DynamicQuery countQuery;
 
 		List<T> result = new ArrayList<T>();
 		int count = 0;
 
 		// process search
 		if (searcher != null && searcher.getSearchQuery() != null) {
-			query = searcher.getSearchQuery();
+			listQuery = searcher.getSearchQuery();
+			countQuery = searcher.getSearchQuery();
 		} else {
-			query = getDynamicQuery();
+			listQuery = getDynamicQuery();
+			countQuery = getDynamicQuery();
 		}
 
 		// process filter
 		if (filters != null) {
 			for (Map.Entry<String, Object> entry : filters.entrySet()) {
 				if (entry.getValue() instanceof String) {
-					query.add(RestrictionsFactoryUtil.ilike(entry.getKey(), entry.getValue() + "%"));
+					listQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(), entry.getValue() + "%"));
+					countQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(), entry.getValue() + "%"));
 				} else {
-					query.add(RestrictionsFactoryUtil.eq(entry.getKey(), entry.getValue()));
+					listQuery.add(RestrictionsFactoryUtil.eq(entry.getKey(), entry.getValue()));
+					countQuery.add(RestrictionsFactoryUtil.eq(entry.getKey(), entry.getValue()));
 				}
 				
 			}
@@ -86,13 +91,13 @@ public abstract class AbstractLazyDataModel<T extends BaseModel<T>> extends Lazy
 				break;
 			}
 			
-			if (order != null) query.addOrder(order);
+			if (order != null) listQuery.addOrder(order);
 		}
 		
 		// process search
 		try {
-			result = query(query, first, first + pageSize - 1);
-			count = count(query);
+			result = query(listQuery, first, first + pageSize);
+			count = count(countQuery);
 		} catch (Exception e) {
 			_LOGGER.error(e);
 		}

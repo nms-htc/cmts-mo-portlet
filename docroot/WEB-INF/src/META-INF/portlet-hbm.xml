@@ -32,6 +32,7 @@
 		<property name="cmSubIndex" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CMTS_MONITOR_CableModemHistory">
 		<cache usage="read-write" />
@@ -56,6 +57,7 @@
 		<property name="cmSubIndex" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="CMTS_MONITOR_Cmts">
 		<cache usage="read-write" />
@@ -96,6 +98,8 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="qam" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avgOnlineCmDsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmUsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
@@ -122,6 +126,8 @@
 			<key-property name="createDate" type="org.hibernate.type.TimestampType" />
 		</composite-id>
 		<property name="qam" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="avgOnlineCmDsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="avgOnlineCmUsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmMicRef" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmTxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmRxPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />

@@ -69,6 +69,7 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 		attributes.put("cmSubIndex", getCmSubIndex());
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -193,6 +194,12 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 
 		if (cmIndex != null) {
 			setCmIndex(cmIndex);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -614,6 +621,26 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 	@Override
 	public void setCmIndex(int cmIndex) {
 		_cableModem.setCmIndex(cmIndex);
+	}
+
+	/**
+	* Returns the status of this cable modem.
+	*
+	* @return the status of this cable modem
+	*/
+	@Override
+	public int getStatus() {
+		return _cableModem.getStatus();
+	}
+
+	/**
+	* Sets the status of this cable modem.
+	*
+	* @param status the status of this cable modem
+	*/
+	@Override
+	public void setStatus(int status) {
+		_cableModem.setStatus(status);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(47);
 
 		sb.append("{cmtsId=");
 		sb.append(cmtsId);
@@ -48,6 +48,10 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		sb.append(createDate);
 		sb.append(", qam=");
 		sb.append(qam);
+		sb.append(", avgOnlineCmDsPower=");
+		sb.append(avgOnlineCmDsPower);
+		sb.append(", avgOnlineCmUsPower=");
+		sb.append(avgOnlineCmUsPower);
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(avgOnlineCmMicRef);
 		sb.append(", avgOnlineCmTxPower=");
@@ -108,6 +112,8 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 			upstreamChannelHistoryImpl.setQam(qam);
 		}
 
+		upstreamChannelHistoryImpl.setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+		upstreamChannelHistoryImpl.setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		upstreamChannelHistoryImpl.setAvgOnlineCmMicRef(avgOnlineCmMicRef);
 		upstreamChannelHistoryImpl.setAvgOnlineCmTxPower(avgOnlineCmTxPower);
 		upstreamChannelHistoryImpl.setAvgOnlineCmRxPower(avgOnlineCmRxPower);
@@ -149,6 +155,8 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		ifIndex = objectInput.readInt();
 		createDate = objectInput.readLong();
 		qam = objectInput.readUTF();
+		avgOnlineCmDsPower = objectInput.readDouble();
+		avgOnlineCmUsPower = objectInput.readDouble();
 		avgOnlineCmMicRef = objectInput.readDouble();
 		avgOnlineCmTxPower = objectInput.readDouble();
 		avgOnlineCmRxPower = objectInput.readDouble();
@@ -182,6 +190,8 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 			objectOutput.writeUTF(qam);
 		}
 
+		objectOutput.writeDouble(avgOnlineCmDsPower);
+		objectOutput.writeDouble(avgOnlineCmUsPower);
 		objectOutput.writeDouble(avgOnlineCmMicRef);
 		objectOutput.writeDouble(avgOnlineCmTxPower);
 		objectOutput.writeDouble(avgOnlineCmRxPower);
@@ -217,6 +227,8 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	public int ifIndex;
 	public long createDate;
 	public String qam;
+	public double avgOnlineCmDsPower;
+	public double avgOnlineCmUsPower;
 	public double avgOnlineCmMicRef;
 	public double avgOnlineCmTxPower;
 	public double avgOnlineCmRxPower;

@@ -21,7 +21,7 @@
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-		<column name="enable" type="boolean"/>
+		<column name="enable" type="boolean" />
 
 		<!-- Other fields -->
 
@@ -44,8 +44,8 @@
 	<entity name="CableModem" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
-		<column name="macAddress" type="String"  primary="true"/>
-		
+		<column name="macAddress" type="String" primary="true" />
+
 		<!-- Audit fields -->
 
 		<column name="createDate" type="Date" />
@@ -68,9 +68,9 @@
 		<column name="ucIfIndex" type="int" />
 		<column name="dcIfIndex" type="int" />
 		<column name="cmSubIndex" type="String" />
-		<column name="cmtsId" type="long"/>
-		<column name="cmIndex" type="int"/>
-		
+		<column name="cmtsId" type="long" />
+		<column name="cmIndex" type="int" />
+		<column name="status" type="int" />
 
 		<!-- Order -->
 
@@ -78,12 +78,13 @@
 
 	</entity>
 
-	<entity name="CableModemHistory" local-service="true" remote-service="true">
+	<entity name="CableModemHistory" local-service="true"
+		remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="macAddress" type="String" primary="true"/>
-		<column name="createDate" type="Date" primary="true"/>
+		<column name="macAddress" type="String" primary="true" />
+		<column name="createDate" type="Date" primary="true" />
 
 		<!-- Other fields -->
 
@@ -102,8 +103,9 @@
 		<column name="ucIfIndex" type="int" />
 		<column name="dcIfIndex" type="int" />
 		<column name="cmSubIndex" type="String" />
-		<column name="cmtsId" type="long"/>
-		<column name="cmIndex" type="int"/>
+		<column name="cmtsId" type="long" />
+		<column name="cmIndex" type="int" />
+		<column name="status" type="int" />
 
 		<!-- Order -->
 
@@ -116,9 +118,9 @@
 
 		<!-- PK fields -->
 
-		<column name="ifIndex" type="int" primary="true"/>
-		<column name="cmtsId" type="long" primary="true"/>
-		
+		<column name="ifIndex" type="int" primary="true" />
+		<column name="cmtsId" type="long" primary="true" />
+
 		<!-- Audit fields -->
 
 		<column name="createDate" type="Date" />
@@ -127,7 +129,10 @@
 		<!-- Other fields -->
 
 		<column name="qam" type="String" />
+		<column name="avgOnlineCmDsPower" type="double" />
+		<column name="avgOnlineCmUsPower" type="double" />
 		<column name="avgOnlineCmMicRef" type="double" />
+		<column name="avgOnlineCmDsSNR" type="double" />
 		<column name="avgOnlineCmTxPower" type="double" />
 		<column name="avgOnlineCmRxPower" type="double" />
 		<column name="fecUncorrectable" type="double" />
@@ -155,14 +160,17 @@
 
 		<!-- PK fields -->
 
-		<column name="cmtsId" type="long" primary="true"/>
-		<column name="ifIndex" type="int" primary="true"/>
+		<column name="cmtsId" type="long" primary="true" />
+		<column name="ifIndex" type="int" primary="true" />
 		<column name="createDate" type="Date" primary="true" />
 
 		<!-- Other fields -->
 
 		<column name="qam" type="String" />
+		<column name="avgOnlineCmDsPower" type="double" />
+		<column name="avgOnlineCmUsPower" type="double" />
 		<column name="avgOnlineCmMicRef" type="double" />
+		<column name="avgOnlineCmDsSNR" type="double" />
 		<column name="avgOnlineCmTxPower" type="double" />
 		<column name="avgOnlineCmRxPower" type="double" />
 		<column name="fecUncorrectable" type="double" />
@@ -178,9 +186,9 @@
 		<column name="ifSigQUnerroreds" type="long" />
 		<column name="ifSigQSNR" type="double" />
 		<column name="ifAlias" type="String" />
-		
+
 		<column name="ifDesc" type="String" />
-		
+
 
 		<!-- Finder methods -->
 

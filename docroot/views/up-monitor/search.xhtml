@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ui:component 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<p:panel toggleable="true" toggleSpeed="100" header="Upstream channal monitor search form" collapsed="false">
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="CMTS" for="cmts" />
+					<p:selectOneMenu id="cmts" value="#{upstreamChannelSearcher.cmtsId}">
+						<f:selectItem itemLabel="-- All --" />
+						<f:selectItems value="#{cmtsBean.selectItems}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Fec Corrected" for="minFecCorrected" />
+					<p:inputText placeholder="Min" id="minFecCorrected" value="#{upstreamChannelSearcher.minFecCorrected}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxFecCorrected" label="Fec Corrected Max" placeholder="Max" value="#{upstreamChannelSearcher.maxFecCorrected}" />
+
+					<p:outputLabel value="Fec Uncorrected" />
+					<p:inputText placeholder="Min" id="minFecUncorrected" value="#{upstreamChannelSearcher.minFecUncorrectable}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxFecUncorrected" placeholder="Max" value="#{upstreamChannelSearcher.maxFecUncorrectable}" />
+
+					<p:outputLabel value="SNR" />
+					<p:inputText placeholder="Min" id="minSNR" value="#{upstreamChannelSearcher.minSigQSNR}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxSNR" placeholder="Max" value="#{upstreamChannelSearcher.maxSigQSNR}" />
+				</div>
+
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="Alarm Only" for="alarmOnly" />
+					<p:selectBooleanCheckbox id="alarmOnly" value="#{upstreamChannelSearcher.alarmOnly}" />
+
+					<p:outputLabel value="TxPower" />
+					<p:inputText placeholder="Min" id="minTxPower" value="#{upstreamChannelSearcher.minTxPower}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxTxPower" placeholder="Max" value="#{upstreamChannelSearcher.maxTxPower}" />
+
+					<p:outputLabel value="RxPower" />
+					<p:inputText placeholder="Min" id="minRxPower" value="#{upstreamChannelSearcher.minRxPower}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxRxPower" placeholder="Max" value="#{upstreamChannelSearcher.maxRxPower}" />
+
+					<p:outputLabel value="Mer" />
+					<p:inputText placeholder="Min" id="minMer" value="#{upstreamChannelSearcher.minMer}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxMer" placeholder="Max" value="#{upstreamChannelSearcher.maxMer}" />
+					<p:spacer width="10" />
+				</div>
+			</div>
+		</div>
+
+		<f:facet name="footer">
+			<p:commandButton value="Search" update="@form" />
+		</f:facet>
+	</p:panel>
+</ui:component>

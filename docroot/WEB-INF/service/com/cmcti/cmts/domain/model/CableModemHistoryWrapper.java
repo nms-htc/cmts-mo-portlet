@@ -69,6 +69,7 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 		attributes.put("cmSubIndex", getCmSubIndex());
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -187,6 +188,12 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 
 		if (cmIndex != null) {
 			setCmIndex(cmIndex);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -589,6 +596,26 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 	@Override
 	public void setCmIndex(int cmIndex) {
 		_cableModemHistory.setCmIndex(cmIndex);
+	}
+
+	/**
+	* Returns the status of this cable modem history.
+	*
+	* @return the status of this cable modem history
+	*/
+	@Override
+	public int getStatus() {
+		return _cableModemHistory.getStatus();
+	}
+
+	/**
+	* Sets the status of this cable modem history.
+	*
+	* @param status the status of this cable modem history
+	*/
+	@Override
+	public void setStatus(int status) {
+		_cableModemHistory.setStatus(status);
 	}
 
 	@Override

@@ -133,6 +133,34 @@ public interface UpstreamChannelModel extends BaseModel<UpstreamChannel> {
 	public void setQam(String qam);
 
 	/**
+	 * Returns the avg online cm ds power of this upstream channel.
+	 *
+	 * @return the avg online cm ds power of this upstream channel
+	 */
+	public double getAvgOnlineCmDsPower();
+
+	/**
+	 * Sets the avg online cm ds power of this upstream channel.
+	 *
+	 * @param avgOnlineCmDsPower the avg online cm ds power of this upstream channel
+	 */
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower);
+
+	/**
+	 * Returns the avg online cm us power of this upstream channel.
+	 *
+	 * @return the avg online cm us power of this upstream channel
+	 */
+	public double getAvgOnlineCmUsPower();
+
+	/**
+	 * Sets the avg online cm us power of this upstream channel.
+	 *
+	 * @param avgOnlineCmUsPower the avg online cm us power of this upstream channel
+	 */
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower);
+
+	/**
 	 * Returns the avg online cm mic ref of this upstream channel.
 	 *
 	 * @return the avg online cm mic ref of this upstream channel

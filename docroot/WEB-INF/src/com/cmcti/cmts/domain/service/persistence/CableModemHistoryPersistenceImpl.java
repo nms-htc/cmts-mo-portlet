@@ -344,6 +344,7 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 		cableModemHistoryImpl.setCmSubIndex(cableModemHistory.getCmSubIndex());
 		cableModemHistoryImpl.setCmtsId(cableModemHistory.getCmtsId());
 		cableModemHistoryImpl.setCmIndex(cableModemHistory.getCmIndex());
+		cableModemHistoryImpl.setStatus(cableModemHistory.getStatus());
 
 		return cableModemHistoryImpl;
 	}

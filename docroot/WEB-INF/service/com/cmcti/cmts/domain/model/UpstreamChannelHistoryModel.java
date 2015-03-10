@@ -119,6 +119,34 @@ public interface UpstreamChannelHistoryModel extends BaseModel<UpstreamChannelHi
 	public void setQam(String qam);
 
 	/**
+	 * Returns the avg online cm ds power of this upstream channel history.
+	 *
+	 * @return the avg online cm ds power of this upstream channel history
+	 */
+	public double getAvgOnlineCmDsPower();
+
+	/**
+	 * Sets the avg online cm ds power of this upstream channel history.
+	 *
+	 * @param avgOnlineCmDsPower the avg online cm ds power of this upstream channel history
+	 */
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower);
+
+	/**
+	 * Returns the avg online cm us power of this upstream channel history.
+	 *
+	 * @return the avg online cm us power of this upstream channel history
+	 */
+	public double getAvgOnlineCmUsPower();
+
+	/**
+	 * Sets the avg online cm us power of this upstream channel history.
+	 *
+	 * @param avgOnlineCmUsPower the avg online cm us power of this upstream channel history
+	 */
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower);
+
+	/**
 	 * Returns the avg online cm mic ref of this upstream channel history.
 	 *
 	 * @return the avg online cm mic ref of this upstream channel history

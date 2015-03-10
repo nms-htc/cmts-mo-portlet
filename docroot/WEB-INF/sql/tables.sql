@@ -18,7 +18,8 @@ create table CMTS_MONITOR_CableModem (
 	dcIfIndex INTEGER,
 	cmSubIndex VARCHAR(75) null,
 	cmtsId LONG,
-	cmIndex INTEGER
+	cmIndex INTEGER,
+	status INTEGER
 );
 
 create table CMTS_MONITOR_CableModemHistory (
@@ -41,6 +42,7 @@ create table CMTS_MONITOR_CableModemHistory (
 	cmSubIndex VARCHAR(75) null,
 	cmtsId LONG,
 	cmIndex INTEGER,
+	status INTEGER,
 	primary key (macAddress, createDate)
 );
 
@@ -76,6 +78,8 @@ create table CMTS_MONITOR_UpstreamChannel (
 	createDate DATE null,
 	modifiedDate DATE null,
 	qam VARCHAR(75) null,
+	avgOnlineCmDsPower DOUBLE,
+	avgOnlineCmUsPower DOUBLE,
 	avgOnlineCmMicRef DOUBLE,
 	avgOnlineCmTxPower DOUBLE,
 	avgOnlineCmRxPower DOUBLE,
@@ -101,6 +105,8 @@ create table CMTS_MONITOR_UpstreamChannelHistory (
 	ifIndex INTEGER not null,
 	createDate DATE not null,
 	qam VARCHAR(75) null,
+	avgOnlineCmDsPower DOUBLE,
+	avgOnlineCmUsPower DOUBLE,
 	avgOnlineCmMicRef DOUBLE,
 	avgOnlineCmTxPower DOUBLE,
 	avgOnlineCmRxPower DOUBLE,

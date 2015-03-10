@@ -13,6 +13,7 @@ public class CableModemSearcher implements Searcher, Serializable{
 
 	// serialVersionUID
 	private static final long serialVersionUID = 4662398953120024302L;
+	
 
 	@Override
 	public DynamicQuery getSearchQuery() {

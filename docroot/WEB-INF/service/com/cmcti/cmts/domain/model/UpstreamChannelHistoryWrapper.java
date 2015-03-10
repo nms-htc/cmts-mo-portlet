@@ -55,6 +55,8 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 		attributes.put("ifIndex", getIfIndex());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("qam", getQam());
+		attributes.put("avgOnlineCmDsPower", getAvgOnlineCmDsPower());
+		attributes.put("avgOnlineCmUsPower", getAvgOnlineCmUsPower());
 		attributes.put("avgOnlineCmMicRef", getAvgOnlineCmMicRef());
 		attributes.put("avgOnlineCmTxPower", getAvgOnlineCmTxPower());
 		attributes.put("avgOnlineCmRxPower", getAvgOnlineCmRxPower());
@@ -100,6 +102,18 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 
 		if (qam != null) {
 			setQam(qam);
+		}
+
+		Double avgOnlineCmDsPower = (Double)attributes.get("avgOnlineCmDsPower");
+
+		if (avgOnlineCmDsPower != null) {
+			setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+		}
+
+		Double avgOnlineCmUsPower = (Double)attributes.get("avgOnlineCmUsPower");
+
+		if (avgOnlineCmUsPower != null) {
+			setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		}
 
 		Double avgOnlineCmMicRef = (Double)attributes.get("avgOnlineCmMicRef");
@@ -306,6 +320,46 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 	@Override
 	public void setQam(java.lang.String qam) {
 		_upstreamChannelHistory.setQam(qam);
+	}
+
+	/**
+	* Returns the avg online cm ds power of this upstream channel history.
+	*
+	* @return the avg online cm ds power of this upstream channel history
+	*/
+	@Override
+	public double getAvgOnlineCmDsPower() {
+		return _upstreamChannelHistory.getAvgOnlineCmDsPower();
+	}
+
+	/**
+	* Sets the avg online cm ds power of this upstream channel history.
+	*
+	* @param avgOnlineCmDsPower the avg online cm ds power of this upstream channel history
+	*/
+	@Override
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower) {
+		_upstreamChannelHistory.setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+	}
+
+	/**
+	* Returns the avg online cm us power of this upstream channel history.
+	*
+	* @return the avg online cm us power of this upstream channel history
+	*/
+	@Override
+	public double getAvgOnlineCmUsPower() {
+		return _upstreamChannelHistory.getAvgOnlineCmUsPower();
+	}
+
+	/**
+	* Sets the avg online cm us power of this upstream channel history.
+	*
+	* @param avgOnlineCmUsPower the avg online cm us power of this upstream channel history
+	*/
+	@Override
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower) {
+		_upstreamChannelHistory.setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 	}
 
 	/**

@@ -38,7 +38,7 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("{ifIndex=");
 		sb.append(ifIndex);
@@ -50,6 +50,10 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 		sb.append(modifiedDate);
 		sb.append(", qam=");
 		sb.append(qam);
+		sb.append(", avgOnlineCmDsPower=");
+		sb.append(avgOnlineCmDsPower);
+		sb.append(", avgOnlineCmUsPower=");
+		sb.append(avgOnlineCmUsPower);
 		sb.append(", avgOnlineCmMicRef=");
 		sb.append(avgOnlineCmMicRef);
 		sb.append(", avgOnlineCmTxPower=");
@@ -117,6 +121,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 			upstreamChannelImpl.setQam(qam);
 		}
 
+		upstreamChannelImpl.setAvgOnlineCmDsPower(avgOnlineCmDsPower);
+		upstreamChannelImpl.setAvgOnlineCmUsPower(avgOnlineCmUsPower);
 		upstreamChannelImpl.setAvgOnlineCmMicRef(avgOnlineCmMicRef);
 		upstreamChannelImpl.setAvgOnlineCmTxPower(avgOnlineCmTxPower);
 		upstreamChannelImpl.setAvgOnlineCmRxPower(avgOnlineCmRxPower);
@@ -159,6 +165,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		qam = objectInput.readUTF();
+		avgOnlineCmDsPower = objectInput.readDouble();
+		avgOnlineCmUsPower = objectInput.readDouble();
 		avgOnlineCmMicRef = objectInput.readDouble();
 		avgOnlineCmTxPower = objectInput.readDouble();
 		avgOnlineCmRxPower = objectInput.readDouble();
@@ -193,6 +201,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 			objectOutput.writeUTF(qam);
 		}
 
+		objectOutput.writeDouble(avgOnlineCmDsPower);
+		objectOutput.writeDouble(avgOnlineCmUsPower);
 		objectOutput.writeDouble(avgOnlineCmMicRef);
 		objectOutput.writeDouble(avgOnlineCmTxPower);
 		objectOutput.writeDouble(avgOnlineCmRxPower);
@@ -229,6 +239,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 	public long createDate;
 	public long modifiedDate;
 	public String qam;
+	public double avgOnlineCmDsPower;
+	public double avgOnlineCmUsPower;
 	public double avgOnlineCmMicRef;
 	public double avgOnlineCmTxPower;
 	public double avgOnlineCmRxPower;

@@ -1,11 +1,13 @@
 package com.cmcti.cmts.portlet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -15,7 +17,10 @@ import com.cmcti.cmts.domain.service.persistence.CmtsUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -24,6 +29,9 @@ import com.liferay.portal.kernel.exception.SystemException;
 public class CmtsBean extends AbstractCRUDBean<Cmts> implements Serializable {
 
 	private static final long serialVersionUID = 8227859901233549556L;
+	private static final Logger _LOGGER = LoggerFactory.getLogger(CmtsBean.class);
+	
+	protected SelectItem[] items;
 
 	@Override
 	protected Cmts initEntity() {
@@ -99,6 +107,25 @@ public class CmtsBean extends AbstractCRUDBean<Cmts> implements Serializable {
 	protected void removeEntity(Cmts entity) throws PortalException, SystemException {
 		CmtsLocalServiceUtil.deleteCmts(entity);
 		this.current = null;
+	}
+	
+	public SelectItem[] getSelectItems() {
+		if (items == null) {
+			List<Cmts> cmtses = new ArrayList<>();
+			try {
+				cmtses = CmtsLocalServiceUtil.getCmtses(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			} catch (SystemException e) {
+				_LOGGER.error(e);
+			}
+			items = new SelectItem[cmtses.size()];
+			
+			for (int i = 0; i < cmtses.size(); i++) {
+				Cmts cmts = cmtses.get(i);
+				items[i] = new SelectItem(cmts.getCmtsId(), cmts.getTitle());
+			}
+		}
+		
+		return items;
 	}
 
 }

@@ -33,6 +33,7 @@
 			<basic name="cmSubIndex" />
 			<basic name="cmtsId" />
 			<basic name="cmIndex" />
+			<basic name="status" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -62,6 +63,7 @@
 			<basic name="cmSubIndex" />
 			<basic name="cmtsId" />
 			<basic name="cmIndex" />
+			<basic name="status" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -123,6 +125,8 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="qam" />
+			<basic name="avgOnlineCmDsPower" />
+			<basic name="avgOnlineCmUsPower" />
 			<basic name="avgOnlineCmMicRef" />
 			<basic name="avgOnlineCmTxPower" />
 			<basic name="avgOnlineCmRxPower" />
@@ -154,6 +158,8 @@
 				<temporal>TIMESTAMP</temporal>
 			</id>
 			<basic name="qam" />
+			<basic name="avgOnlineCmDsPower" />
+			<basic name="avgOnlineCmUsPower" />
 			<basic name="avgOnlineCmMicRef" />
 			<basic name="avgOnlineCmTxPower" />
 			<basic name="avgOnlineCmRxPower" />

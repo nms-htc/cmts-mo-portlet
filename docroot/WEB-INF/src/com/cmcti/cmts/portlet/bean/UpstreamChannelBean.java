@@ -51,8 +51,9 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 			@SuppressWarnings("unchecked")
 			@Override
 			protected List<UpstreamChannel> query(DynamicQuery query, int start, int end) throws SystemException, PortalException {
-				if (start >=0 && end >= start)
+				if (start >=0 && end >= start) {
 					return UpstreamChannelLocalServiceUtil.dynamicQuery(query, start, end);
+				}
 				return UpstreamChannelLocalServiceUtil.dynamicQuery(query);
 			}
 			

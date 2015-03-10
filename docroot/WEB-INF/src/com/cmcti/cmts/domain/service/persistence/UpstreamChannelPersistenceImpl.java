@@ -329,6 +329,8 @@ public class UpstreamChannelPersistenceImpl extends BasePersistenceImpl<Upstream
 		upstreamChannelImpl.setCreateDate(upstreamChannel.getCreateDate());
 		upstreamChannelImpl.setModifiedDate(upstreamChannel.getModifiedDate());
 		upstreamChannelImpl.setQam(upstreamChannel.getQam());
+		upstreamChannelImpl.setAvgOnlineCmDsPower(upstreamChannel.getAvgOnlineCmDsPower());
+		upstreamChannelImpl.setAvgOnlineCmUsPower(upstreamChannel.getAvgOnlineCmUsPower());
 		upstreamChannelImpl.setAvgOnlineCmMicRef(upstreamChannel.getAvgOnlineCmMicRef());
 		upstreamChannelImpl.setAvgOnlineCmTxPower(upstreamChannel.getAvgOnlineCmTxPower());
 		upstreamChannelImpl.setAvgOnlineCmRxPower(upstreamChannel.getAvgOnlineCmRxPower());

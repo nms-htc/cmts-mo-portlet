@@ -38,6 +38,8 @@ public class UpstreamChannelSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setQam(model.getQam());
+		soapModel.setAvgOnlineCmDsPower(model.getAvgOnlineCmDsPower());
+		soapModel.setAvgOnlineCmUsPower(model.getAvgOnlineCmUsPower());
 		soapModel.setAvgOnlineCmMicRef(model.getAvgOnlineCmMicRef());
 		soapModel.setAvgOnlineCmTxPower(model.getAvgOnlineCmTxPower());
 		soapModel.setAvgOnlineCmRxPower(model.getAvgOnlineCmRxPower());
@@ -148,6 +150,22 @@ public class UpstreamChannelSoap implements Serializable {
 
 	public void setQam(String qam) {
 		_qam = qam;
+	}
+
+	public double getAvgOnlineCmDsPower() {
+		return _avgOnlineCmDsPower;
+	}
+
+	public void setAvgOnlineCmDsPower(double avgOnlineCmDsPower) {
+		_avgOnlineCmDsPower = avgOnlineCmDsPower;
+	}
+
+	public double getAvgOnlineCmUsPower() {
+		return _avgOnlineCmUsPower;
+	}
+
+	public void setAvgOnlineCmUsPower(double avgOnlineCmUsPower) {
+		_avgOnlineCmUsPower = avgOnlineCmUsPower;
 	}
 
 	public double getAvgOnlineCmMicRef() {
@@ -291,6 +309,8 @@ public class UpstreamChannelSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _qam;
+	private double _avgOnlineCmDsPower;
+	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
 	private double _avgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;

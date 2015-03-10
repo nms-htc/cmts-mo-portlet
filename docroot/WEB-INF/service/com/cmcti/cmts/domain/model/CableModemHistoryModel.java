@@ -329,6 +329,20 @@ public interface CableModemHistoryModel extends BaseModel<CableModemHistory> {
 	 */
 	public void setCmIndex(int cmIndex);
 
+	/**
+	 * Returns the status of this cable modem history.
+	 *
+	 * @return the status of this cable modem history
+	 */
+	public int getStatus();
+
+	/**
+	 * Sets the status of this cable modem history.
+	 *
+	 * @param status the status of this cable modem history
+	 */
+	public void setStatus(int status);
+
 	@Override
 	public boolean isNew();
 
