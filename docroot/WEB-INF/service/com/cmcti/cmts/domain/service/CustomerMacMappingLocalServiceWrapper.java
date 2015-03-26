@@ -289,6 +289,14 @@ public class CustomerMacMappingLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	@Override
+	public com.cmcti.cmts.domain.model.CustomerMacMapping getByMacAddress(
+		java.lang.String macAddress)
+		throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _customerMacMappingLocalService.getByMacAddress(macAddress);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

@@ -275,6 +275,13 @@ public class CustomerMacMappingLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.cmcti.cmts.domain.model.CustomerMacMapping getByMacAddress(
+		java.lang.String macAddress)
+		throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getByMacAddress(macAddress);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

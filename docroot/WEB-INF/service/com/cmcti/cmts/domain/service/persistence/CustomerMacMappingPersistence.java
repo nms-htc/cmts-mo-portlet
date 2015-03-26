@@ -175,6 +175,64 @@ public interface CustomerMacMappingPersistence extends BasePersistence<CustomerM
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the customer mac mapping where macAddress = &#63; or throws a {@link com.cmcti.cmts.domain.NoSuchCustomerMacMappingException} if it could not be found.
+	*
+	* @param macAddress the mac address
+	* @return the matching customer mac mapping
+	* @throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException if a matching customer mac mapping could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.cmcti.cmts.domain.model.CustomerMacMapping findByMacAddress(
+		java.lang.String macAddress)
+		throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the customer mac mapping where macAddress = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param macAddress the mac address
+	* @return the matching customer mac mapping, or <code>null</code> if a matching customer mac mapping could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.cmcti.cmts.domain.model.CustomerMacMapping fetchByMacAddress(
+		java.lang.String macAddress)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the customer mac mapping where macAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param macAddress the mac address
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching customer mac mapping, or <code>null</code> if a matching customer mac mapping could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.cmcti.cmts.domain.model.CustomerMacMapping fetchByMacAddress(
+		java.lang.String macAddress, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the customer mac mapping where macAddress = &#63; from the database.
+	*
+	* @param macAddress the mac address
+	* @return the customer mac mapping that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.cmcti.cmts.domain.model.CustomerMacMapping removeByMacAddress(
+		java.lang.String macAddress)
+		throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of customer mac mappings where macAddress = &#63;.
+	*
+	* @param macAddress the mac address
+	* @return the number of matching customer mac mappings
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByMacAddress(java.lang.String macAddress)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the customer mac mapping in the entity cache if it is enabled.
 	*
 	* @param customerMacMapping the customer mac mapping

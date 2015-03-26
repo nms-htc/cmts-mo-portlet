@@ -91,8 +91,9 @@ public class CustomerMacMappingModelImpl extends BaseModelImpl<CustomerMacMappin
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.cmcti.cmts.domain.model.CustomerMacMapping"),
 			true);
-	public static long USERID_COLUMN_BITMASK = 1L;
-	public static long TITLE_COLUMN_BITMASK = 2L;
+	public static long MACADDRESS_COLUMN_BITMASK = 1L;
+	public static long USERID_COLUMN_BITMASK = 2L;
+	public static long TITLE_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -362,7 +363,17 @@ public class CustomerMacMappingModelImpl extends BaseModelImpl<CustomerMacMappin
 
 	@Override
 	public void setMacAddress(String macAddress) {
+		_columnBitmask |= MACADDRESS_COLUMN_BITMASK;
+
+		if (_originalMacAddress == null) {
+			_originalMacAddress = _macAddress;
+		}
+
 		_macAddress = macAddress;
+	}
+
+	public String getOriginalMacAddress() {
+		return GetterUtil.getString(_originalMacAddress);
 	}
 
 	public long getColumnBitmask() {
@@ -457,6 +468,8 @@ public class CustomerMacMappingModelImpl extends BaseModelImpl<CustomerMacMappin
 		customerMacMappingModelImpl._originalUserId = customerMacMappingModelImpl._userId;
 
 		customerMacMappingModelImpl._setOriginalUserId = false;
+
+		customerMacMappingModelImpl._originalMacAddress = customerMacMappingModelImpl._macAddress;
 
 		customerMacMappingModelImpl._columnBitmask = 0;
 	}
@@ -596,6 +609,7 @@ public class CustomerMacMappingModelImpl extends BaseModelImpl<CustomerMacMappin
 	private Date _modifiedDate;
 	private String _title;
 	private String _macAddress;
+	private String _originalMacAddress;
 	private long _columnBitmask;
 	private CustomerMacMapping _escapedModel;
 }

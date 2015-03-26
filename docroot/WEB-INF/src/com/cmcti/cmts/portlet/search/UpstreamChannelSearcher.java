@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 
 @ManagedBean
@@ -40,7 +41,7 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 		DynamicQuery query = UpstreamChannelLocalServiceUtil.dynamicQuery();
 
 		if (cmtsId != null && cmtsId != 0) {
-			query.add(RestrictionsFactoryUtil.eq("cmtsId", cmtsId));
+			query.add(PropertyFactoryUtil.forName("primaryKey.cmtsId").eq(cmtsId));
 		}
 		
 		if (minFecCorrected != null) {

@@ -1,15 +1,88 @@
 <?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
+	template="/views/inc/common_temp.xhtml">
 
-<f:view
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
->
-	<h:head />
-	<h:body>
-		<h:outputText value="#{i18n['cm-monitor-hello-world']}" /> in view mode.
-	</h:body>
-</f:view>
+	<ui:define name="main">
+		<h:form id="listForm">
+			<p:messages globalOnly="false" closable="true" />
+
+			<ui:include src="search.xhtml" />
+
+			<p:spacer />
+
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="10"
+				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="10,15,20" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true">
+				
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Mac Address" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%"/>
+						<p:column headerText="Subscriber Address" rowspan="2"/>
+						<p:column headerText="Status" rowspan="2"/>
+						<p:column headerText="Modem Parameters" colspan="6"/>
+						<p:column headerText="Time" rowspan="2"/>
+					</p:row>
+					<p:row>
+						<p:column headerText="DnSNR"/>
+						<p:column headerText="UpSNR"/>
+						<p:column headerText="Fec %"/>
+						<p:column headerText="Fec-Un %"/>
+						<p:column headerText="DnPower"/>
+						<p:column headerText="UpPower"/>
+					</p:row>
+				</p:columnGroup>
+				
+				<p:column>
+					<h:outputText value="#{cableModem.macAddress}"/>
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}"/>
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false"/>
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{cableModem.dsSNR / 10}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.usSNR /10}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.fecCorrected}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.fecUncorrectable}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.dsPower / 10}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.usPower / 10}">
+						<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cableModem.modifiedDate}">
+						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

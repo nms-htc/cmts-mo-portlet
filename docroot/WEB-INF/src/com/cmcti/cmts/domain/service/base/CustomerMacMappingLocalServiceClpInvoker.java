@@ -113,6 +113,10 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 		_methodName65 = "setBeanIdentifier";
 
 		_methodParameterTypes65 = new String[] { "java.lang.String" };
+
+		_methodName70 = "getByMacAddress";
+
+		_methodParameterTypes70 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +220,11 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+			return CustomerMacMappingLocalServiceUtil.getByMacAddress((java.lang.String)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,4 +264,6 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 	private String[] _methodParameterTypes64;
 	private String _methodName65;
 	private String[] _methodParameterTypes65;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
 }

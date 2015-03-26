@@ -229,6 +229,10 @@
 		<finder name="User" return-type="Collection">
 			<finder-column name="userId" />
 		</finder>
+		
+		<finder name="MacAddress" return-type="CustomerMacMapping" unique="true">
+			<finder-column name="macAddress"/>
+		</finder>
 
 
 	</entity>

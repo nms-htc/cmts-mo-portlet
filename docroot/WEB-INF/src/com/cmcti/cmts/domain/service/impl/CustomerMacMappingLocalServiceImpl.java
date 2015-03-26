@@ -14,7 +14,10 @@
 
 package com.cmcti.cmts.domain.service.impl;
 
+import com.cmcti.cmts.domain.NoSuchCustomerMacMappingException;
+import com.cmcti.cmts.domain.model.CustomerMacMapping;
 import com.cmcti.cmts.domain.service.base.CustomerMacMappingLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the customer mac mapping local service.
@@ -37,4 +40,7 @@ public class CustomerMacMappingLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.cmcti.cmts.domain.service.CustomerMacMappingLocalServiceUtil} to access the customer mac mapping local service.
 	 */
+	public CustomerMacMapping getByMacAddress(String macAddress) throws NoSuchCustomerMacMappingException, SystemException {
+		return customerMacMappingPersistence.findByMacAddress(macAddress);
+	}
 }

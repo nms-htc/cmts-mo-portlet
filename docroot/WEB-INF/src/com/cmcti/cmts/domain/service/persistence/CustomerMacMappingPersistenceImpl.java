@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnmodifiableList;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -576,6 +577,249 @@ public class CustomerMacMappingPersistenceImpl extends BasePersistenceImpl<Custo
 	}
 
 	private static final String _FINDER_COLUMN_USER_USERID_2 = "customerMacMapping.userId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_MACADDRESS = new FinderPath(CustomerMacMappingModelImpl.ENTITY_CACHE_ENABLED,
+			CustomerMacMappingModelImpl.FINDER_CACHE_ENABLED,
+			CustomerMacMappingImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchByMacAddress", new String[] { String.class.getName() },
+			CustomerMacMappingModelImpl.MACADDRESS_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_MACADDRESS = new FinderPath(CustomerMacMappingModelImpl.ENTITY_CACHE_ENABLED,
+			CustomerMacMappingModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByMacAddress",
+			new String[] { String.class.getName() });
+
+	/**
+	 * Returns the customer mac mapping where macAddress = &#63; or throws a {@link com.cmcti.cmts.domain.NoSuchCustomerMacMappingException} if it could not be found.
+	 *
+	 * @param macAddress the mac address
+	 * @return the matching customer mac mapping
+	 * @throws com.cmcti.cmts.domain.NoSuchCustomerMacMappingException if a matching customer mac mapping could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CustomerMacMapping findByMacAddress(String macAddress)
+		throws NoSuchCustomerMacMappingException, SystemException {
+		CustomerMacMapping customerMacMapping = fetchByMacAddress(macAddress);
+
+		if (customerMacMapping == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("macAddress=");
+			msg.append(macAddress);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchCustomerMacMappingException(msg.toString());
+		}
+
+		return customerMacMapping;
+	}
+
+	/**
+	 * Returns the customer mac mapping where macAddress = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param macAddress the mac address
+	 * @return the matching customer mac mapping, or <code>null</code> if a matching customer mac mapping could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CustomerMacMapping fetchByMacAddress(String macAddress)
+		throws SystemException {
+		return fetchByMacAddress(macAddress, true);
+	}
+
+	/**
+	 * Returns the customer mac mapping where macAddress = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param macAddress the mac address
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching customer mac mapping, or <code>null</code> if a matching customer mac mapping could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CustomerMacMapping fetchByMacAddress(String macAddress,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { macAddress };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+					finderArgs, this);
+		}
+
+		if (result instanceof CustomerMacMapping) {
+			CustomerMacMapping customerMacMapping = (CustomerMacMapping)result;
+
+			if (!Validator.equals(macAddress, customerMacMapping.getMacAddress())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_CUSTOMERMACMAPPING_WHERE);
+
+			boolean bindMacAddress = false;
+
+			if (macAddress == null) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_1);
+			}
+			else if (macAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_3);
+			}
+			else {
+				bindMacAddress = true;
+
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindMacAddress) {
+					qPos.add(macAddress);
+				}
+
+				List<CustomerMacMapping> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+						finderArgs, list);
+				}
+				else {
+					CustomerMacMapping customerMacMapping = list.get(0);
+
+					result = customerMacMapping;
+
+					cacheResult(customerMacMapping);
+
+					if ((customerMacMapping.getMacAddress() == null) ||
+							!customerMacMapping.getMacAddress()
+												   .equals(macAddress)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+							finderArgs, customerMacMapping);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (CustomerMacMapping)result;
+		}
+	}
+
+	/**
+	 * Removes the customer mac mapping where macAddress = &#63; from the database.
+	 *
+	 * @param macAddress the mac address
+	 * @return the customer mac mapping that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CustomerMacMapping removeByMacAddress(String macAddress)
+		throws NoSuchCustomerMacMappingException, SystemException {
+		CustomerMacMapping customerMacMapping = findByMacAddress(macAddress);
+
+		return remove(customerMacMapping);
+	}
+
+	/**
+	 * Returns the number of customer mac mappings where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @return the number of matching customer mac mappings
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByMacAddress(String macAddress) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_MACADDRESS;
+
+		Object[] finderArgs = new Object[] { macAddress };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CUSTOMERMACMAPPING_WHERE);
+
+			boolean bindMacAddress = false;
+
+			if (macAddress == null) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_1);
+			}
+			else if (macAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_3);
+			}
+			else {
+				bindMacAddress = true;
+
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindMacAddress) {
+					qPos.add(macAddress);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_1 = "customerMacMapping.macAddress IS NULL";
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_2 = "customerMacMapping.macAddress = ?";
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_3 = "(customerMacMapping.macAddress IS NULL OR customerMacMapping.macAddress = '')";
 
 	public CustomerMacMappingPersistenceImpl() {
 		setModelClass(CustomerMacMapping.class);
@@ -590,6 +834,10 @@ public class CustomerMacMappingPersistenceImpl extends BasePersistenceImpl<Custo
 	public void cacheResult(CustomerMacMapping customerMacMapping) {
 		EntityCacheUtil.putResult(CustomerMacMappingModelImpl.ENTITY_CACHE_ENABLED,
 			CustomerMacMappingImpl.class, customerMacMapping.getPrimaryKey(),
+			customerMacMapping);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+			new Object[] { customerMacMapping.getMacAddress() },
 			customerMacMapping);
 
 		customerMacMapping.resetOriginalValues();
@@ -649,6 +897,8 @@ public class CustomerMacMappingPersistenceImpl extends BasePersistenceImpl<Custo
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(customerMacMapping);
 	}
 
 	@Override
@@ -659,6 +909,53 @@ public class CustomerMacMappingPersistenceImpl extends BasePersistenceImpl<Custo
 		for (CustomerMacMapping customerMacMapping : customerMacMappings) {
 			EntityCacheUtil.removeResult(CustomerMacMappingModelImpl.ENTITY_CACHE_ENABLED,
 				CustomerMacMappingImpl.class, customerMacMapping.getPrimaryKey());
+
+			clearUniqueFindersCache(customerMacMapping);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		CustomerMacMapping customerMacMapping) {
+		if (customerMacMapping.isNew()) {
+			Object[] args = new Object[] { customerMacMapping.getMacAddress() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MACADDRESS, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MACADDRESS, args,
+				customerMacMapping);
+		}
+		else {
+			CustomerMacMappingModelImpl customerMacMappingModelImpl = (CustomerMacMappingModelImpl)customerMacMapping;
+
+			if ((customerMacMappingModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_MACADDRESS.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { customerMacMapping.getMacAddress() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MACADDRESS,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MACADDRESS,
+					args, customerMacMapping);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(
+		CustomerMacMapping customerMacMapping) {
+		CustomerMacMappingModelImpl customerMacMappingModelImpl = (CustomerMacMappingModelImpl)customerMacMapping;
+
+		Object[] args = new Object[] { customerMacMapping.getMacAddress() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MACADDRESS, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MACADDRESS, args);
+
+		if ((customerMacMappingModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_MACADDRESS.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					customerMacMappingModelImpl.getOriginalMacAddress()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MACADDRESS, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MACADDRESS, args);
 		}
 	}
 
@@ -825,6 +1122,9 @@ public class CustomerMacMappingPersistenceImpl extends BasePersistenceImpl<Custo
 		EntityCacheUtil.putResult(CustomerMacMappingModelImpl.ENTITY_CACHE_ENABLED,
 			CustomerMacMappingImpl.class, customerMacMapping.getPrimaryKey(),
 			customerMacMapping);
+
+		clearUniqueFindersCache(customerMacMapping);
+		cacheUniqueFindersCache(customerMacMapping);
 
 		return customerMacMapping;
 	}
