@@ -100,7 +100,17 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.cmcti.cmts.domain.model.UpstreamChannel"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.cmcti.cmts.domain.model.UpstreamChannel"),
+			true);
+	public static long AVGONLINECMDSSNR_COLUMN_BITMASK = 1L;
+	public static long AVGONLINECMRXPOWER_COLUMN_BITMASK = 2L;
+	public static long AVGONLINECMTXPOWER_COLUMN_BITMASK = 4L;
+	public static long CMTSID_COLUMN_BITMASK = 8L;
+	public static long FECCORRECTED_COLUMN_BITMASK = 16L;
+	public static long FECUNCORRECTABLE_COLUMN_BITMASK = 32L;
+	public static long IFSIGQSNR_COLUMN_BITMASK = 64L;
+	public static long IFINDEX_COLUMN_BITMASK = 128L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -409,7 +419,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setCmtsId(long cmtsId) {
+		_columnBitmask |= CMTSID_COLUMN_BITMASK;
+
+		if (!_setOriginalCmtsId) {
+			_setOriginalCmtsId = true;
+
+			_originalCmtsId = _cmtsId;
+		}
+
 		_cmtsId = cmtsId;
+	}
+
+	public long getOriginalCmtsId() {
+		return _originalCmtsId;
 	}
 
 	@JSON
@@ -491,7 +513,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setAvgOnlineCmDsSNR(double avgOnlineCmDsSNR) {
+		_columnBitmask |= AVGONLINECMDSSNR_COLUMN_BITMASK;
+
+		if (!_setOriginalAvgOnlineCmDsSNR) {
+			_setOriginalAvgOnlineCmDsSNR = true;
+
+			_originalAvgOnlineCmDsSNR = _avgOnlineCmDsSNR;
+		}
+
 		_avgOnlineCmDsSNR = avgOnlineCmDsSNR;
+	}
+
+	public double getOriginalAvgOnlineCmDsSNR() {
+		return _originalAvgOnlineCmDsSNR;
 	}
 
 	@JSON
@@ -502,7 +536,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setAvgOnlineCmTxPower(double avgOnlineCmTxPower) {
+		_columnBitmask |= AVGONLINECMTXPOWER_COLUMN_BITMASK;
+
+		if (!_setOriginalAvgOnlineCmTxPower) {
+			_setOriginalAvgOnlineCmTxPower = true;
+
+			_originalAvgOnlineCmTxPower = _avgOnlineCmTxPower;
+		}
+
 		_avgOnlineCmTxPower = avgOnlineCmTxPower;
+	}
+
+	public double getOriginalAvgOnlineCmTxPower() {
+		return _originalAvgOnlineCmTxPower;
 	}
 
 	@JSON
@@ -513,7 +559,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setAvgOnlineCmRxPower(double avgOnlineCmRxPower) {
+		_columnBitmask |= AVGONLINECMRXPOWER_COLUMN_BITMASK;
+
+		if (!_setOriginalAvgOnlineCmRxPower) {
+			_setOriginalAvgOnlineCmRxPower = true;
+
+			_originalAvgOnlineCmRxPower = _avgOnlineCmRxPower;
+		}
+
 		_avgOnlineCmRxPower = avgOnlineCmRxPower;
+	}
+
+	public double getOriginalAvgOnlineCmRxPower() {
+		return _originalAvgOnlineCmRxPower;
 	}
 
 	@JSON
@@ -524,7 +582,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setFecUncorrectable(double fecUncorrectable) {
+		_columnBitmask |= FECUNCORRECTABLE_COLUMN_BITMASK;
+
+		if (!_setOriginalFecUncorrectable) {
+			_setOriginalFecUncorrectable = true;
+
+			_originalFecUncorrectable = _fecUncorrectable;
+		}
+
 		_fecUncorrectable = fecUncorrectable;
+	}
+
+	public double getOriginalFecUncorrectable() {
+		return _originalFecUncorrectable;
 	}
 
 	@JSON
@@ -535,7 +605,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setFecCorrected(double fecCorrected) {
+		_columnBitmask |= FECCORRECTED_COLUMN_BITMASK;
+
+		if (!_setOriginalFecCorrected) {
+			_setOriginalFecCorrected = true;
+
+			_originalFecCorrected = _fecCorrected;
+		}
+
 		_fecCorrected = fecCorrected;
+	}
+
+	public double getOriginalFecCorrected() {
+		return _originalFecCorrected;
 	}
 
 	@JSON
@@ -645,7 +727,19 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void setIfSigQSNR(double ifSigQSNR) {
+		_columnBitmask |= IFSIGQSNR_COLUMN_BITMASK;
+
+		if (!_setOriginalIfSigQSNR) {
+			_setOriginalIfSigQSNR = true;
+
+			_originalIfSigQSNR = _ifSigQSNR;
+		}
+
 		_ifSigQSNR = ifSigQSNR;
+	}
+
+	public double getOriginalIfSigQSNR() {
+		return _originalIfSigQSNR;
 	}
 
 	@JSON
@@ -678,6 +772,10 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 	@Override
 	public void setIfDesc(String ifDesc) {
 		_ifDesc = ifDesc;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -761,6 +859,37 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public void resetOriginalValues() {
+		UpstreamChannelModelImpl upstreamChannelModelImpl = this;
+
+		upstreamChannelModelImpl._originalCmtsId = upstreamChannelModelImpl._cmtsId;
+
+		upstreamChannelModelImpl._setOriginalCmtsId = false;
+
+		upstreamChannelModelImpl._originalAvgOnlineCmDsSNR = upstreamChannelModelImpl._avgOnlineCmDsSNR;
+
+		upstreamChannelModelImpl._setOriginalAvgOnlineCmDsSNR = false;
+
+		upstreamChannelModelImpl._originalAvgOnlineCmTxPower = upstreamChannelModelImpl._avgOnlineCmTxPower;
+
+		upstreamChannelModelImpl._setOriginalAvgOnlineCmTxPower = false;
+
+		upstreamChannelModelImpl._originalAvgOnlineCmRxPower = upstreamChannelModelImpl._avgOnlineCmRxPower;
+
+		upstreamChannelModelImpl._setOriginalAvgOnlineCmRxPower = false;
+
+		upstreamChannelModelImpl._originalFecUncorrectable = upstreamChannelModelImpl._fecUncorrectable;
+
+		upstreamChannelModelImpl._setOriginalFecUncorrectable = false;
+
+		upstreamChannelModelImpl._originalFecCorrected = upstreamChannelModelImpl._fecCorrected;
+
+		upstreamChannelModelImpl._setOriginalFecCorrected = false;
+
+		upstreamChannelModelImpl._originalIfSigQSNR = upstreamChannelModelImpl._ifSigQSNR;
+
+		upstreamChannelModelImpl._setOriginalIfSigQSNR = false;
+
+		upstreamChannelModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -1031,6 +1160,8 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		};
 	private int _ifIndex;
 	private long _cmtsId;
+	private long _originalCmtsId;
+	private boolean _setOriginalCmtsId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _qam;
@@ -1038,10 +1169,20 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 	private double _avgOnlineCmUsPower;
 	private double _avgOnlineCmMicRef;
 	private double _avgOnlineCmDsSNR;
+	private double _originalAvgOnlineCmDsSNR;
+	private boolean _setOriginalAvgOnlineCmDsSNR;
 	private double _avgOnlineCmTxPower;
+	private double _originalAvgOnlineCmTxPower;
+	private boolean _setOriginalAvgOnlineCmTxPower;
 	private double _avgOnlineCmRxPower;
+	private double _originalAvgOnlineCmRxPower;
+	private boolean _setOriginalAvgOnlineCmRxPower;
 	private double _fecUncorrectable;
+	private double _originalFecUncorrectable;
+	private boolean _setOriginalFecUncorrectable;
 	private double _fecCorrected;
+	private double _originalFecCorrected;
+	private boolean _setOriginalFecCorrected;
 	private int _upChannelCmTotal;
 	private int _upChannelCmRegistered;
 	private int _upChannelCmActive;
@@ -1052,7 +1193,10 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 	private long _ifSigQCorrecteds;
 	private long _ifSigQUnerroreds;
 	private double _ifSigQSNR;
+	private double _originalIfSigQSNR;
+	private boolean _setOriginalIfSigQSNR;
 	private String _ifAlias;
 	private String _ifDesc;
+	private long _columnBitmask;
 	private UpstreamChannel _escapedModel;
 }

@@ -95,7 +95,16 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.cmcti.cmts.domain.model.CableModem"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.cmcti.cmts.domain.model.CableModem"),
+			true);
+	public static long DSPOWER_COLUMN_BITMASK = 1L;
+	public static long DSSNR_COLUMN_BITMASK = 2L;
+	public static long FECCORRECTED_COLUMN_BITMASK = 4L;
+	public static long FECUNCORRECTABLE_COLUMN_BITMASK = 8L;
+	public static long USPOWER_COLUMN_BITMASK = 16L;
+	public static long USSNR_COLUMN_BITMASK = 32L;
+	public static long MACADDRESS_COLUMN_BITMASK = 64L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -395,7 +404,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setFecUncorrectable(double fecUncorrectable) {
+		_columnBitmask |= FECUNCORRECTABLE_COLUMN_BITMASK;
+
+		if (!_setOriginalFecUncorrectable) {
+			_setOriginalFecUncorrectable = true;
+
+			_originalFecUncorrectable = _fecUncorrectable;
+		}
+
 		_fecUncorrectable = fecUncorrectable;
+	}
+
+	public double getOriginalFecUncorrectable() {
+		return _originalFecUncorrectable;
 	}
 
 	@JSON
@@ -406,7 +427,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setFecCorrected(double fecCorrected) {
+		_columnBitmask |= FECCORRECTED_COLUMN_BITMASK;
+
+		if (!_setOriginalFecCorrected) {
+			_setOriginalFecCorrected = true;
+
+			_originalFecCorrected = _fecCorrected;
+		}
+
 		_fecCorrected = fecCorrected;
+	}
+
+	public double getOriginalFecCorrected() {
+		return _originalFecCorrected;
 	}
 
 	@JSON
@@ -450,7 +483,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setUsPower(int usPower) {
+		_columnBitmask |= USPOWER_COLUMN_BITMASK;
+
+		if (!_setOriginalUsPower) {
+			_setOriginalUsPower = true;
+
+			_originalUsPower = _usPower;
+		}
+
 		_usPower = usPower;
+	}
+
+	public int getOriginalUsPower() {
+		return _originalUsPower;
 	}
 
 	@JSON
@@ -461,7 +506,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setDsPower(int dsPower) {
+		_columnBitmask |= DSPOWER_COLUMN_BITMASK;
+
+		if (!_setOriginalDsPower) {
+			_setOriginalDsPower = true;
+
+			_originalDsPower = _dsPower;
+		}
+
 		_dsPower = dsPower;
+	}
+
+	public int getOriginalDsPower() {
+		return _originalDsPower;
 	}
 
 	@JSON
@@ -505,7 +562,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setDsSNR(int dsSNR) {
+		_columnBitmask |= DSSNR_COLUMN_BITMASK;
+
+		if (!_setOriginalDsSNR) {
+			_setOriginalDsSNR = true;
+
+			_originalDsSNR = _dsSNR;
+		}
+
 		_dsSNR = dsSNR;
+	}
+
+	public int getOriginalDsSNR() {
+		return _originalDsSNR;
 	}
 
 	@JSON
@@ -516,7 +585,19 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void setUsSNR(int usSNR) {
+		_columnBitmask |= USSNR_COLUMN_BITMASK;
+
+		if (!_setOriginalUsSNR) {
+			_setOriginalUsSNR = true;
+
+			_originalUsSNR = _usSNR;
+		}
+
 		_usSNR = usSNR;
+	}
+
+	public int getOriginalUsSNR() {
+		return _originalUsSNR;
 	}
 
 	@JSON
@@ -588,6 +669,10 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 	@Override
 	public void setStatus(int status) {
 		_status = status;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -667,6 +752,33 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public void resetOriginalValues() {
+		CableModemModelImpl cableModemModelImpl = this;
+
+		cableModemModelImpl._originalFecUncorrectable = cableModemModelImpl._fecUncorrectable;
+
+		cableModemModelImpl._setOriginalFecUncorrectable = false;
+
+		cableModemModelImpl._originalFecCorrected = cableModemModelImpl._fecCorrected;
+
+		cableModemModelImpl._setOriginalFecCorrected = false;
+
+		cableModemModelImpl._originalUsPower = cableModemModelImpl._usPower;
+
+		cableModemModelImpl._setOriginalUsPower = false;
+
+		cableModemModelImpl._originalDsPower = cableModemModelImpl._dsPower;
+
+		cableModemModelImpl._setOriginalDsPower = false;
+
+		cableModemModelImpl._originalDsSNR = cableModemModelImpl._dsSNR;
+
+		cableModemModelImpl._setOriginalDsSNR = false;
+
+		cableModemModelImpl._originalUsSNR = cableModemModelImpl._usSNR;
+
+		cableModemModelImpl._setOriginalUsSNR = false;
+
+		cableModemModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -901,22 +1013,35 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private double _fecUncorrectable;
+	private double _originalFecUncorrectable;
+	private boolean _setOriginalFecUncorrectable;
 	private double _fecCorrected;
+	private double _originalFecCorrected;
+	private boolean _setOriginalFecCorrected;
 	private long _microRef;
 	private int _rxPower;
 	private int _txPower;
 	private int _usPower;
+	private int _originalUsPower;
+	private boolean _setOriginalUsPower;
 	private int _dsPower;
+	private int _originalDsPower;
+	private boolean _setOriginalDsPower;
 	private long _uncorrectables;
 	private long _correcteds;
 	private long _unerroreds;
 	private int _dsSNR;
+	private int _originalDsSNR;
+	private boolean _setOriginalDsSNR;
 	private int _usSNR;
+	private int _originalUsSNR;
+	private boolean _setOriginalUsSNR;
 	private int _ucIfIndex;
 	private int _dcIfIndex;
 	private String _cmSubIndex;
 	private long _cmtsId;
 	private int _cmIndex;
 	private int _status;
+	private long _columnBitmask;
 	private CableModem _escapedModel;
 }

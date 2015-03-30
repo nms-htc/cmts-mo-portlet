@@ -7,7 +7,7 @@ import com.cmcti.cmts.domain.service.CmtsLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
-@FacesConverter(forClass = Cmts.class)
+@FacesConverter("cmtsConverter")
 public class CmtsConverter extends AbstractConverter<Cmts> {
 
 	@Override

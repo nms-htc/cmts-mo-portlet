@@ -8,7 +8,7 @@ import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
-@FacesConverter(forClass=UpstreamChannel.class)
+@FacesConverter("upstreamConverter")
 public class UpstreamChannelConverter extends AbstractConverter<UpstreamChannel> {
 
 	@Override

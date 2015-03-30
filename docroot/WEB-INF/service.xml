@@ -75,6 +75,30 @@
 		<!-- Order -->
 
 		<!-- Finder methods -->
+		
+		<finder return-type="Collection" name="FecUncorrectable">
+			<finder-column name="fecUncorrectable"/>
+		</finder>
+		
+		<finder return-type="Collection" name="FecCorrected">
+			<finder-column name="fecCorrected"/>
+		</finder>
+		
+		<finder return-type="Collection" name="UsSNR">
+			<finder-column name="usSNR"/>
+		</finder>
+		
+		<finder return-type="Collection" name="DsSNR">
+			<finder-column name="dsSNR"/>
+		</finder>
+		
+		<finder return-type="Collection" name="UsPower">
+			<finder-column name="usPower"/>
+		</finder>
+		
+		<finder return-type="Collection" name="DsPower">
+			<finder-column name="dsPower"/>
+		</finder>
 
 	</entity>
 
@@ -151,6 +175,34 @@
 		<column name="ifDesc" type="String" />
 
 		<!-- Finder methods -->
+		
+		<finder return-type="Collection" name="FecUncorrectable">
+			<finder-column name="fecUncorrectable"/>
+		</finder>
+		
+		<finder return-type="Collection" name="FecCorrected">
+			<finder-column name="fecCorrected"/>
+		</finder>
+		
+		<finder return-type="Collection" name="IfSigQSNR">
+			<finder-column name="ifSigQSNR"/>
+		</finder>
+		
+		<finder return-type="Collection" name="Cmts">
+			<finder-column name="cmtsId"/>
+		</finder>
+		
+		<finder return-type="Collection" name="AvgOnlineCmTxPower">
+			<finder-column name="avgOnlineCmTxPower"/>
+		</finder>
+		
+		<finder return-type="Collection" name="AvgOnlineCmRxPower">
+			<finder-column name="avgOnlineCmRxPower"/>
+		</finder>
+		
+		<finder return-type="Collection" name="AvgOnlineDsSNR">
+			<finder-column name="avgOnlineCmDsSNR"/>
+		</finder>
 
 
 	</entity>
