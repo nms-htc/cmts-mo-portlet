@@ -17,7 +17,7 @@ package com.cmcti.cmts.domain.model;
 import com.liferay.portal.model.PersistedModel;
 
 /**
- * The extended model interface for the Cmts service. Represents a row in the &quot;CMTS_MONITOR_Cmts&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the Cmts service. Represents a row in the &quot;Cmts&quot; database table, with each column mapped to a property of this class.
  *
  * @author richard
  * @see CmtsModel

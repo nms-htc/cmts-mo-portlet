@@ -1,4 +1,4 @@
-create table CMTS_MONITOR_CableModem (
+create table CableModem (
 	macAddress VARCHAR(75) not null primary key,
 	createDate DATE null,
 	modifiedDate DATE null,
@@ -22,7 +22,7 @@ create table CMTS_MONITOR_CableModem (
 	status INTEGER
 );
 
-create table CMTS_MONITOR_CableModemHistory (
+create table CableModemHistory (
 	macAddress VARCHAR(75) not null,
 	createDate DATE not null,
 	fecUncorrectable DOUBLE,
@@ -46,7 +46,7 @@ create table CMTS_MONITOR_CableModemHistory (
 	primary key (macAddress, createDate)
 );
 
-create table CMTS_MONITOR_Cmts (
+create table Cmts (
 	cmtsId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -61,7 +61,7 @@ create table CMTS_MONITOR_Cmts (
 	description VARCHAR(75) null
 );
 
-create table CMTS_MONITOR_CustomerMacMapping (
+create table CustomerMacMapping (
 	customerMacId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -72,7 +72,7 @@ create table CMTS_MONITOR_CustomerMacMapping (
 	macAddress VARCHAR(75) null
 );
 
-create table CMTS_MONITOR_UpstreamChannel (
+create table UpstreamChannel (
 	ifIndex INTEGER not null,
 	cmtsId LONG not null,
 	createDate DATE null,
@@ -101,7 +101,7 @@ create table CMTS_MONITOR_UpstreamChannel (
 	primary key (ifIndex, cmtsId)
 );
 
-create table CMTS_MONITOR_UpstreamChannelHistory (
+create table UpstreamChannelHistory (
 	cmtsId LONG not null,
 	ifIndex INTEGER not null,
 	createDate DATE not null,

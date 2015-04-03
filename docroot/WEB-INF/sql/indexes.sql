@@ -1,19 +1,19 @@
-create index IX_BECBE498 on CMTS_MONITOR_CableModem (dsPower);
-create index IX_D70334CA on CMTS_MONITOR_CableModem (dsSNR);
-create index IX_25CCE227 on CMTS_MONITOR_CableModem (fecCorrected);
-create index IX_41EFF1A9 on CMTS_MONITOR_CableModem (fecUncorrectable);
-create index IX_975743A9 on CMTS_MONITOR_CableModem (usPower);
-create index IX_5A4D241B on CMTS_MONITOR_CableModem (usSNR);
+create index IX_9F29EF33 on CableModem (dsPower);
+create index IX_21092A25 on CableModem (dsSNR);
+create index IX_E924406C on CableModem (fecCorrected);
+create index IX_B234A56E on CableModem (fecUncorrectable);
+create index IX_77B54E44 on CableModem (usPower);
+create index IX_A4531976 on CableModem (usSNR);
 
-create index IX_69221D84 on CMTS_MONITOR_Cmts (userId);
+create index IX_AE08FB49 on Cmts (userId);
 
-create unique index IX_280C4177 on CMTS_MONITOR_CustomerMacMapping (macAddress);
-create index IX_5B1073D8 on CMTS_MONITOR_CustomerMacMapping (userId);
+create unique index IX_99F317FC on CustomerMacMapping (macAddress);
+create index IX_A60954DD on CustomerMacMapping (userId);
 
-create index IX_B74EA8C0 on CMTS_MONITOR_UpstreamChannel (avgOnlineCmDsSNR);
-create index IX_DD2E2577 on CMTS_MONITOR_UpstreamChannel (avgOnlineCmRxPower);
-create index IX_5B70379 on CMTS_MONITOR_UpstreamChannel (avgOnlineCmTxPower);
-create index IX_56D4770B on CMTS_MONITOR_UpstreamChannel (cmtsId);
-create index IX_52399F0C on CMTS_MONITOR_UpstreamChannel (fecCorrected);
-create index IX_BE39B40E on CMTS_MONITOR_UpstreamChannel (fecUncorrectable);
-create index IX_376DC6F7 on CMTS_MONITOR_UpstreamChannel (ifSigQSNR);
+create index IX_952C881B on UpstreamChannel (avgOnlineCmDsSNR);
+create index IX_BB119A12 on UpstreamChannel (avgOnlineCmRxPower);
+create index IX_E39A7814 on UpstreamChannel (avgOnlineCmTxPower);
+create index IX_6DA5BC26 on UpstreamChannel (cmtsId);
+create index IX_EA8B63E7 on UpstreamChannel (fecCorrected);
+create index IX_9C179369 on UpstreamChannel (fecUncorrectable);
+create index IX_8266A7FC on UpstreamChannel (ifSigQSNR);

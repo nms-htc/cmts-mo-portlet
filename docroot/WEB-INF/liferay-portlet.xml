@@ -6,6 +6,7 @@
 	<portlet>
 		<portlet-name>cmts</portlet-name>
 		<icon>/icon.png</icon>
+		<!-- friendly-url-mapper-class>com.cmcti.cmts.portlet.url.MyURLMapper</friendly-url-mapper-class -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<ajaxable>false</ajaxable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
@@ -49,18 +50,6 @@
 			/js/main.js
 		</footer-portlet-javascript>
 		<css-class-wrapper>upstream-monitor-portlet</css-class-wrapper>
-	</portlet>
-	<portlet>
-		<portlet-name>test</portlet-name>
-		<icon>/icon.png</icon>
-		<requires-namespaced-parameters>
-			false
-		</requires-namespaced-parameters>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-		<footer-portlet-javascript>
-			/js/main.js
-		</footer-portlet-javascript>
-		<css-class-wrapper>test-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

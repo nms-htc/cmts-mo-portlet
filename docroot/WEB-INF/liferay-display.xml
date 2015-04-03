@@ -8,6 +8,5 @@
 		<portlet id="cus-mac"></portlet>
 		<portlet id="cm-monitor"></portlet>
 		<portlet id="upstream-monitor"></portlet>
-		<portlet id="test"></portlet>
 	</category>
 </display>

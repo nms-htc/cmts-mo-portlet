@@ -17,7 +17,7 @@ package com.cmcti.cmts.domain.model;
 import com.liferay.portal.model.PersistedModel;
 
 /**
- * The extended model interface for the CustomerMacMapping service. Represents a row in the &quot;CMTS_MONITOR_CustomerMacMapping&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the CustomerMacMapping service. Represents a row in the &quot;CustomerMacMapping&quot; database table, with each column mapped to a property of this class.
  *
  * @author richard
  * @see CustomerMacMappingModel

@@ -185,27 +185,27 @@
 		</attributes>
 	</mapped-superclass>
 	<entity class="com.cmcti.cmts.domain.model.impl.CableModemImpl" name="CableModem">
-		<table name="CMTS_MONITOR_CableModem" />
+		<table name="CableModem" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" name="CableModemHistory">
-		<table name="CMTS_MONITOR_CableModemHistory" />
+		<table name="CableModemHistory" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CmtsImpl" name="Cmts">
-		<table name="CMTS_MONITOR_Cmts" />
+		<table name="Cmts" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" name="CustomerMacMapping">
-		<table name="CMTS_MONITOR_CustomerMacMapping" />
+		<table name="CustomerMacMapping" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">
-		<table name="CMTS_MONITOR_UpstreamChannel" />
+		<table name="UpstreamChannel" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" name="UpstreamChannelHistory">
-		<table name="CMTS_MONITOR_UpstreamChannelHistory" />
+		<table name="UpstreamChannelHistory" />
 		<attributes />
 	</entity>
 </entity-mappings>

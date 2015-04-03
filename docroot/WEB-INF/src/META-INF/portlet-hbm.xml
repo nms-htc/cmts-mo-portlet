@@ -8,7 +8,7 @@
 	<import class="com.cmcti.cmts.domain.model.CustomerMacMapping" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannel" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannelHistory" />
-	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CMTS_MONITOR_CableModem">
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CableModem">
 		<cache usage="read-write" />
 		<id name="macAddress" type="java.lang.String">
 			<generator class="assigned" />
@@ -34,7 +34,7 @@
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CMTS_MONITOR_CableModemHistory">
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CableModemHistory">
 		<cache usage="read-write" />
 		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK">
 			<key-property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
@@ -59,7 +59,7 @@
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="CMTS_MONITOR_Cmts">
+	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="Cmts">
 		<cache usage="read-write" />
 		<id name="cmtsId" type="long">
 			<generator class="assigned" />
@@ -76,7 +76,7 @@
 		<property name="community" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CMTS_MONITOR_CustomerMacMapping">
+	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CustomerMacMapping">
 		<cache usage="read-write" />
 		<id name="customerMacId" type="long">
 			<generator class="assigned" />
@@ -89,7 +89,7 @@
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="CMTS_MONITOR_UpstreamChannel">
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="UpstreamChannel">
 		<cache usage="read-write" />
 		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK">
 			<key-property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
@@ -119,7 +119,7 @@
 		<property name="ifAlias" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ifDesc" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="CMTS_MONITOR_UpstreamChannelHistory">
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="UpstreamChannelHistory">
 		<cache usage="read-write" />
 		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK">
 			<key-property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
