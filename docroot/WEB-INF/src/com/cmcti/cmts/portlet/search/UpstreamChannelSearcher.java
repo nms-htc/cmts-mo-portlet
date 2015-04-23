@@ -36,7 +36,7 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 	protected Double minMer;
 	protected Double maxMer;
 	
-	@ManagedProperty("ucRowStyleAlarmGenerator")
+	@ManagedProperty("#{ucRowStyleAlarmGenerator}")
 	private UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator;
 
 	public UpstreamChannelSearcher() {
@@ -109,13 +109,13 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 			
 			// fecCorrected check
 			Junction fecCorrectedConjunction = RestrictionsFactoryUtil.conjunction();
-			fecCorrectedConjunction.add(RestrictionsFactoryUtil.ge("fecCorrected", ucRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
-			fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected", ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
+			fecCorrectedConjunction.add(RestrictionsFactoryUtil.gt("fecCorrected", ucRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
+			//fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected", ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
 			
 			// fecUncorrectable check
 			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
-			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.ge("fecUncorrectable", ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
-			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable", ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable", ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			//fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable", ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
 			
 			// ifSigQSNR check
 			Junction ifSigQSNRConjunction = RestrictionsFactoryUtil.conjunction();
@@ -246,4 +246,12 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 		this.maxMer = maxMer;
 	}
 
+	public UcRowStyleAlarmGenerator getUcRowStyleAlarmGenerator() {
+		return ucRowStyleAlarmGenerator;
+	}
+
+	public void setUcRowStyleAlarmGenerator(UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator) {
+		this.ucRowStyleAlarmGenerator = ucRowStyleAlarmGenerator;
+	}
+	
 }
