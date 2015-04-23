@@ -55,29 +55,27 @@ public class UpstreamChannelHistoryLocalServiceUtil {
 	/**
 	* Creates a new upstream channel history with the primary key. Does not add the upstream channel history to the database.
 	*
-	* @param upstreamChannelHistoryPK the primary key for the new upstream channel history
+	* @param ucHisId the primary key for the new upstream channel history
 	* @return the new upstream channel history
 	*/
 	public static com.cmcti.cmts.domain.model.UpstreamChannelHistory createUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK) {
-		return getService()
-				   .createUpstreamChannelHistory(upstreamChannelHistoryPK);
+		long ucHisId) {
+		return getService().createUpstreamChannelHistory(ucHisId);
 	}
 
 	/**
 	* Deletes the upstream channel history with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param upstreamChannelHistoryPK the primary key of the upstream channel history
+	* @param ucHisId the primary key of the upstream channel history
 	* @return the upstream channel history that was removed
 	* @throws PortalException if a upstream channel history with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.cmcti.cmts.domain.model.UpstreamChannelHistory deleteUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .deleteUpstreamChannelHistory(upstreamChannelHistoryPK);
+		return getService().deleteUpstreamChannelHistory(ucHisId);
 	}
 
 	/**
@@ -184,24 +182,24 @@ public class UpstreamChannelHistoryLocalServiceUtil {
 	}
 
 	public static com.cmcti.cmts.domain.model.UpstreamChannelHistory fetchUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchUpstreamChannelHistory(upstreamChannelHistoryPK);
+		return getService().fetchUpstreamChannelHistory(ucHisId);
 	}
 
 	/**
 	* Returns the upstream channel history with the primary key.
 	*
-	* @param upstreamChannelHistoryPK the primary key of the upstream channel history
+	* @param ucHisId the primary key of the upstream channel history
 	* @return the upstream channel history
 	* @throws PortalException if a upstream channel history with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.cmcti.cmts.domain.model.UpstreamChannelHistory getUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getUpstreamChannelHistory(upstreamChannelHistoryPK);
+		return getService().getUpstreamChannelHistory(ucHisId);
 	}
 
 	public static com.liferay.portal.model.PersistedModel getPersistedModel(

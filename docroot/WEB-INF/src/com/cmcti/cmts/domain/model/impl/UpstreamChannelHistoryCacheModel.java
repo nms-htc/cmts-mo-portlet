@@ -38,9 +38,11 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(51);
 
-		sb.append("{cmtsId=");
+		sb.append("{ucHisId=");
+		sb.append(ucHisId);
+		sb.append(", cmtsId=");
 		sb.append(cmtsId);
 		sb.append(", ifIndex=");
 		sb.append(ifIndex);
@@ -97,6 +99,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	public UpstreamChannelHistory toEntityModel() {
 		UpstreamChannelHistoryImpl upstreamChannelHistoryImpl = new UpstreamChannelHistoryImpl();
 
+		upstreamChannelHistoryImpl.setUcHisId(ucHisId);
 		upstreamChannelHistoryImpl.setCmtsId(cmtsId);
 		upstreamChannelHistoryImpl.setIfIndex(ifIndex);
 
@@ -154,6 +157,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		ucHisId = objectInput.readLong();
 		cmtsId = objectInput.readLong();
 		ifIndex = objectInput.readInt();
 		createDate = objectInput.readLong();
@@ -183,6 +187,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
+		objectOutput.writeLong(ucHisId);
 		objectOutput.writeLong(cmtsId);
 		objectOutput.writeInt(ifIndex);
 		objectOutput.writeLong(createDate);
@@ -228,6 +233,7 @@ public class UpstreamChannelHistoryCacheModel implements CacheModel<UpstreamChan
 		}
 	}
 
+	public long ucHisId;
 	public long cmtsId;
 	public int ifIndex;
 	public long createDate;

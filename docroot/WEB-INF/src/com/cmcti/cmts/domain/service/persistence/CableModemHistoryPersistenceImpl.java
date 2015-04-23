@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -35,8 +36,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnmodifiableList;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -82,6 +85,1040 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
 			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_MACADDRESS =
+		new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED,
+			CableModemHistoryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByMacAddress",
+			new String[] {
+				String.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MACADDRESS =
+		new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED,
+			CableModemHistoryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByMacAddress",
+			new String[] { String.class.getName() },
+			CableModemHistoryModelImpl.MACADDRESS_COLUMN_BITMASK |
+			CableModemHistoryModelImpl.CREATEDATE_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_MACADDRESS = new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByMacAddress",
+			new String[] { String.class.getName() });
+
+	/**
+	 * Returns all the cable modem histories where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @return the matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByMacAddress(String macAddress)
+		throws SystemException {
+		return findByMacAddress(macAddress, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the cable modem histories where macAddress = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param macAddress the mac address
+	 * @param start the lower bound of the range of cable modem histories
+	 * @param end the upper bound of the range of cable modem histories (not inclusive)
+	 * @return the range of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByMacAddress(String macAddress,
+		int start, int end) throws SystemException {
+		return findByMacAddress(macAddress, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the cable modem histories where macAddress = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param macAddress the mac address
+	 * @param start the lower bound of the range of cable modem histories
+	 * @param end the upper bound of the range of cable modem histories (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByMacAddress(String macAddress,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MACADDRESS;
+			finderArgs = new Object[] { macAddress };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_MACADDRESS;
+			finderArgs = new Object[] { macAddress, start, end, orderByComparator };
+		}
+
+		List<CableModemHistory> list = (List<CableModemHistory>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (CableModemHistory cableModemHistory : list) {
+				if (!Validator.equals(macAddress,
+							cableModemHistory.getMacAddress())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_CABLEMODEMHISTORY_WHERE);
+
+			boolean bindMacAddress = false;
+
+			if (macAddress == null) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_1);
+			}
+			else if (macAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_3);
+			}
+			else {
+				bindMacAddress = true;
+
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(CableModemHistoryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindMacAddress) {
+					qPos.add(macAddress);
+				}
+
+				if (!pagination) {
+					list = (List<CableModemHistory>)QueryUtil.list(q,
+							getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<CableModemHistory>(list);
+				}
+				else {
+					list = (List<CableModemHistory>)QueryUtil.list(q,
+							getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first cable modem history in the ordered set where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory findByMacAddress_First(String macAddress,
+		OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = fetchByMacAddress_First(macAddress,
+				orderByComparator);
+
+		if (cableModemHistory != null) {
+			return cableModemHistory;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("macAddress=");
+		msg.append(macAddress);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCableModemHistoryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first cable modem history in the ordered set where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cable modem history, or <code>null</code> if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory fetchByMacAddress_First(String macAddress,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<CableModemHistory> list = findByMacAddress(macAddress, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last cable modem history in the ordered set where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory findByMacAddress_Last(String macAddress,
+		OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = fetchByMacAddress_Last(macAddress,
+				orderByComparator);
+
+		if (cableModemHistory != null) {
+			return cableModemHistory;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("macAddress=");
+		msg.append(macAddress);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCableModemHistoryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last cable modem history in the ordered set where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cable modem history, or <code>null</code> if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory fetchByMacAddress_Last(String macAddress,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByMacAddress(macAddress);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CableModemHistory> list = findByMacAddress(macAddress, count - 1,
+				count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the cable modem histories before and after the current cable modem history in the ordered set where macAddress = &#63;.
+	 *
+	 * @param cmHisId the primary key of the current cable modem history
+	 * @param macAddress the mac address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a cable modem history with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory[] findByMacAddress_PrevAndNext(long cmHisId,
+		String macAddress, OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = findByPrimaryKey(cmHisId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CableModemHistory[] array = new CableModemHistoryImpl[3];
+
+			array[0] = getByMacAddress_PrevAndNext(session, cableModemHistory,
+					macAddress, orderByComparator, true);
+
+			array[1] = cableModemHistory;
+
+			array[2] = getByMacAddress_PrevAndNext(session, cableModemHistory,
+					macAddress, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CableModemHistory getByMacAddress_PrevAndNext(Session session,
+		CableModemHistory cableModemHistory, String macAddress,
+		OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_CABLEMODEMHISTORY_WHERE);
+
+		boolean bindMacAddress = false;
+
+		if (macAddress == null) {
+			query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_1);
+		}
+		else if (macAddress.equals(StringPool.BLANK)) {
+			query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_3);
+		}
+		else {
+			bindMacAddress = true;
+
+			query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(CableModemHistoryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		if (bindMacAddress) {
+			qPos.add(macAddress);
+		}
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(cableModemHistory);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CableModemHistory> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the cable modem histories where macAddress = &#63; from the database.
+	 *
+	 * @param macAddress the mac address
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByMacAddress(String macAddress) throws SystemException {
+		for (CableModemHistory cableModemHistory : findByMacAddress(
+				macAddress, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(cableModemHistory);
+		}
+	}
+
+	/**
+	 * Returns the number of cable modem histories where macAddress = &#63;.
+	 *
+	 * @param macAddress the mac address
+	 * @return the number of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByMacAddress(String macAddress) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_MACADDRESS;
+
+		Object[] finderArgs = new Object[] { macAddress };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CABLEMODEMHISTORY_WHERE);
+
+			boolean bindMacAddress = false;
+
+			if (macAddress == null) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_1);
+			}
+			else if (macAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_3);
+			}
+			else {
+				bindMacAddress = true;
+
+				query.append(_FINDER_COLUMN_MACADDRESS_MACADDRESS_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindMacAddress) {
+					qPos.add(macAddress);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_1 = "cableModemHistory.macAddress IS NULL";
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_2 = "cableModemHistory.macAddress = ?";
+	private static final String _FINDER_COLUMN_MACADDRESS_MACADDRESS_3 = "(cableModemHistory.macAddress IS NULL OR cableModemHistory.macAddress = '')";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CMTSID = new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED,
+			CableModemHistoryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCmtsId",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CMTSID =
+		new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED,
+			CableModemHistoryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCmtsId",
+			new String[] { Long.class.getName() },
+			CableModemHistoryModelImpl.CMTSID_COLUMN_BITMASK |
+			CableModemHistoryModelImpl.CREATEDATE_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CMTSID = new FinderPath(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
+			CableModemHistoryModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCmtsId",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns all the cable modem histories where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @return the matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByCmtsId(long cmtsId)
+		throws SystemException {
+		return findByCmtsId(cmtsId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the cable modem histories where cmtsId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param start the lower bound of the range of cable modem histories
+	 * @param end the upper bound of the range of cable modem histories (not inclusive)
+	 * @return the range of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByCmtsId(long cmtsId, int start, int end)
+		throws SystemException {
+		return findByCmtsId(cmtsId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the cable modem histories where cmtsId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param start the lower bound of the range of cable modem histories
+	 * @param end the upper bound of the range of cable modem histories (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<CableModemHistory> findByCmtsId(long cmtsId, int start,
+		int end, OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CMTSID;
+			finderArgs = new Object[] { cmtsId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CMTSID;
+			finderArgs = new Object[] { cmtsId, start, end, orderByComparator };
+		}
+
+		List<CableModemHistory> list = (List<CableModemHistory>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (CableModemHistory cableModemHistory : list) {
+				if ((cmtsId != cableModemHistory.getCmtsId())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_CABLEMODEMHISTORY_WHERE);
+
+			query.append(_FINDER_COLUMN_CMTSID_CMTSID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(CableModemHistoryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(cmtsId);
+
+				if (!pagination) {
+					list = (List<CableModemHistory>)QueryUtil.list(q,
+							getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<CableModemHistory>(list);
+				}
+				else {
+					list = (List<CableModemHistory>)QueryUtil.list(q,
+							getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first cable modem history in the ordered set where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory findByCmtsId_First(long cmtsId,
+		OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = fetchByCmtsId_First(cmtsId,
+				orderByComparator);
+
+		if (cableModemHistory != null) {
+			return cableModemHistory;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("cmtsId=");
+		msg.append(cmtsId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCableModemHistoryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first cable modem history in the ordered set where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching cable modem history, or <code>null</code> if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory fetchByCmtsId_First(long cmtsId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<CableModemHistory> list = findByCmtsId(cmtsId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last cable modem history in the ordered set where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory findByCmtsId_Last(long cmtsId,
+		OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = fetchByCmtsId_Last(cmtsId,
+				orderByComparator);
+
+		if (cableModemHistory != null) {
+			return cableModemHistory;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("cmtsId=");
+		msg.append(cmtsId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCableModemHistoryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last cable modem history in the ordered set where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching cable modem history, or <code>null</code> if a matching cable modem history could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory fetchByCmtsId_Last(long cmtsId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByCmtsId(cmtsId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CableModemHistory> list = findByCmtsId(cmtsId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the cable modem histories before and after the current cable modem history in the ordered set where cmtsId = &#63;.
+	 *
+	 * @param cmHisId the primary key of the current cable modem history
+	 * @param cmtsId the cmts ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next cable modem history
+	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a cable modem history with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public CableModemHistory[] findByCmtsId_PrevAndNext(long cmHisId,
+		long cmtsId, OrderByComparator orderByComparator)
+		throws NoSuchCableModemHistoryException, SystemException {
+		CableModemHistory cableModemHistory = findByPrimaryKey(cmHisId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CableModemHistory[] array = new CableModemHistoryImpl[3];
+
+			array[0] = getByCmtsId_PrevAndNext(session, cableModemHistory,
+					cmtsId, orderByComparator, true);
+
+			array[1] = cableModemHistory;
+
+			array[2] = getByCmtsId_PrevAndNext(session, cableModemHistory,
+					cmtsId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CableModemHistory getByCmtsId_PrevAndNext(Session session,
+		CableModemHistory cableModemHistory, long cmtsId,
+		OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_CABLEMODEMHISTORY_WHERE);
+
+		query.append(_FINDER_COLUMN_CMTSID_CMTSID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(CableModemHistoryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(cmtsId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(cableModemHistory);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CableModemHistory> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the cable modem histories where cmtsId = &#63; from the database.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByCmtsId(long cmtsId) throws SystemException {
+		for (CableModemHistory cableModemHistory : findByCmtsId(cmtsId,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(cableModemHistory);
+		}
+	}
+
+	/**
+	 * Returns the number of cable modem histories where cmtsId = &#63;.
+	 *
+	 * @param cmtsId the cmts ID
+	 * @return the number of matching cable modem histories
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByCmtsId(long cmtsId) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_CMTSID;
+
+		Object[] finderArgs = new Object[] { cmtsId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CABLEMODEMHISTORY_WHERE);
+
+			query.append(_FINDER_COLUMN_CMTSID_CMTSID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(cmtsId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CMTSID_CMTSID_2 = "cableModemHistory.cmtsId = ?";
 
 	public CableModemHistoryPersistenceImpl() {
 		setModelClass(CableModemHistory.class);
@@ -171,15 +1208,15 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	/**
 	 * Creates a new cable modem history with the primary key. Does not add the cable modem history to the database.
 	 *
-	 * @param cableModemHistoryPK the primary key for the new cable modem history
+	 * @param cmHisId the primary key for the new cable modem history
 	 * @return the new cable modem history
 	 */
 	@Override
-	public CableModemHistory create(CableModemHistoryPK cableModemHistoryPK) {
+	public CableModemHistory create(long cmHisId) {
 		CableModemHistory cableModemHistory = new CableModemHistoryImpl();
 
 		cableModemHistory.setNew(true);
-		cableModemHistory.setPrimaryKey(cableModemHistoryPK);
+		cableModemHistory.setPrimaryKey(cmHisId);
 
 		return cableModemHistory;
 	}
@@ -187,15 +1224,15 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	/**
 	 * Removes the cable modem history with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param cableModemHistoryPK the primary key of the cable modem history
+	 * @param cmHisId the primary key of the cable modem history
 	 * @return the cable modem history that was removed
 	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a cable modem history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CableModemHistory remove(CableModemHistoryPK cableModemHistoryPK)
+	public CableModemHistory remove(long cmHisId)
 		throws NoSuchCableModemHistoryException, SystemException {
-		return remove((Serializable)cableModemHistoryPK);
+		return remove((Serializable)cmHisId);
 	}
 
 	/**
@@ -280,6 +1317,8 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 
 		boolean isNew = cableModemHistory.isNew();
 
+		CableModemHistoryModelImpl cableModemHistoryModelImpl = (CableModemHistoryModelImpl)cableModemHistory;
+
 		Session session = null;
 
 		try {
@@ -303,8 +1342,46 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (isNew) {
+		if (isNew || !CableModemHistoryModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((cableModemHistoryModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MACADDRESS.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						cableModemHistoryModelImpl.getOriginalMacAddress()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MACADDRESS,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MACADDRESS,
+					args);
+
+				args = new Object[] { cableModemHistoryModelImpl.getMacAddress() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MACADDRESS,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MACADDRESS,
+					args);
+			}
+
+			if ((cableModemHistoryModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CMTSID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						cableModemHistoryModelImpl.getOriginalCmtsId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CMTSID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CMTSID,
+					args);
+
+				args = new Object[] { cableModemHistoryModelImpl.getCmtsId() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CMTSID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CMTSID,
+					args);
+			}
 		}
 
 		EntityCacheUtil.putResult(CableModemHistoryModelImpl.ENTITY_CACHE_ENABLED,
@@ -325,6 +1402,7 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 		cableModemHistoryImpl.setNew(cableModemHistory.isNew());
 		cableModemHistoryImpl.setPrimaryKey(cableModemHistory.getPrimaryKey());
 
+		cableModemHistoryImpl.setCmHisId(cableModemHistory.getCmHisId());
 		cableModemHistoryImpl.setMacAddress(cableModemHistory.getMacAddress());
 		cableModemHistoryImpl.setCreateDate(cableModemHistory.getCreateDate());
 		cableModemHistoryImpl.setFecUncorrectable(cableModemHistory.getFecUncorrectable());
@@ -377,16 +1455,15 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	/**
 	 * Returns the cable modem history with the primary key or throws a {@link com.cmcti.cmts.domain.NoSuchCableModemHistoryException} if it could not be found.
 	 *
-	 * @param cableModemHistoryPK the primary key of the cable modem history
+	 * @param cmHisId the primary key of the cable modem history
 	 * @return the cable modem history
 	 * @throws com.cmcti.cmts.domain.NoSuchCableModemHistoryException if a cable modem history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CableModemHistory findByPrimaryKey(
-		CableModemHistoryPK cableModemHistoryPK)
+	public CableModemHistory findByPrimaryKey(long cmHisId)
 		throws NoSuchCableModemHistoryException, SystemException {
-		return findByPrimaryKey((Serializable)cableModemHistoryPK);
+		return findByPrimaryKey((Serializable)cmHisId);
 	}
 
 	/**
@@ -441,14 +1518,14 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	/**
 	 * Returns the cable modem history with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param cableModemHistoryPK the primary key of the cable modem history
+	 * @param cmHisId the primary key of the cable modem history
 	 * @return the cable modem history, or <code>null</code> if a cable modem history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CableModemHistory fetchByPrimaryKey(
-		CableModemHistoryPK cableModemHistoryPK) throws SystemException {
-		return fetchByPrimaryKey((Serializable)cableModemHistoryPK);
+	public CableModemHistory fetchByPrimaryKey(long cmHisId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)cmHisId);
 	}
 
 	/**
@@ -657,9 +1734,12 @@ public class CableModemHistoryPersistenceImpl extends BasePersistenceImpl<CableM
 	}
 
 	private static final String _SQL_SELECT_CABLEMODEMHISTORY = "SELECT cableModemHistory FROM CableModemHistory cableModemHistory";
+	private static final String _SQL_SELECT_CABLEMODEMHISTORY_WHERE = "SELECT cableModemHistory FROM CableModemHistory cableModemHistory WHERE ";
 	private static final String _SQL_COUNT_CABLEMODEMHISTORY = "SELECT COUNT(cableModemHistory) FROM CableModemHistory cableModemHistory";
+	private static final String _SQL_COUNT_CABLEMODEMHISTORY_WHERE = "SELECT COUNT(cableModemHistory) FROM CableModemHistory cableModemHistory WHERE ";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "cableModemHistory.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CableModemHistory exists with the primary key ";
+	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CableModemHistory exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(CableModemHistoryPersistenceImpl.class);

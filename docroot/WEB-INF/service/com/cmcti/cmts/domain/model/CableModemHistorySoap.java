@@ -14,8 +14,6 @@
 
 package com.cmcti.cmts.domain.model;
 
-import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -33,6 +31,7 @@ public class CableModemHistorySoap implements Serializable {
 	public static CableModemHistorySoap toSoapModel(CableModemHistory model) {
 		CableModemHistorySoap soapModel = new CableModemHistorySoap();
 
+		soapModel.setCmHisId(model.getCmHisId());
 		soapModel.setMacAddress(model.getMacAddress());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setFecUncorrectable(model.getFecUncorrectable());
@@ -100,13 +99,20 @@ public class CableModemHistorySoap implements Serializable {
 	public CableModemHistorySoap() {
 	}
 
-	public CableModemHistoryPK getPrimaryKey() {
-		return new CableModemHistoryPK(_macAddress, _createDate);
+	public long getPrimaryKey() {
+		return _cmHisId;
 	}
 
-	public void setPrimaryKey(CableModemHistoryPK pk) {
-		setMacAddress(pk.macAddress);
-		setCreateDate(pk.createDate);
+	public void setPrimaryKey(long pk) {
+		setCmHisId(pk);
+	}
+
+	public long getCmHisId() {
+		return _cmHisId;
+	}
+
+	public void setCmHisId(long cmHisId) {
+		_cmHisId = cmHisId;
 	}
 
 	public String getMacAddress() {
@@ -269,6 +275,7 @@ public class CableModemHistorySoap implements Serializable {
 		_status = status;
 	}
 
+	private long _cmHisId;
 	private String _macAddress;
 	private Date _createDate;
 	private double _fecUncorrectable;

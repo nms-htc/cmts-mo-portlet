@@ -8,7 +8,7 @@
 	<import class="com.cmcti.cmts.domain.model.CustomerMacMapping" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannel" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannelHistory" />
-	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CableModem">
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CMTS_CableModem">
 		<cache usage="read-write" />
 		<id name="macAddress" type="java.lang.String">
 			<generator class="assigned" />
@@ -34,12 +34,13 @@
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CableModemHistory">
+	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CMTS_CMHis">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK">
-			<key-property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-			<key-property name="createDate" type="org.hibernate.type.TimestampType" />
-		</composite-id>
+		<id name="cmHisId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="fecUncorrectable" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="fecCorrected" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="microRef" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -59,7 +60,7 @@
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="Cmts">
+	<class name="com.cmcti.cmts.domain.model.impl.CmtsImpl" table="CMTS_Cmts">
 		<cache usage="read-write" />
 		<id name="cmtsId" type="long">
 			<generator class="assigned" />
@@ -76,7 +77,7 @@
 		<property name="community" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CustomerMacMapping">
+	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CMTS_CusMacMap">
 		<cache usage="read-write" />
 		<id name="customerMacId" type="long">
 			<generator class="assigned" />
@@ -89,7 +90,7 @@
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="UpstreamChannel">
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="CMTS_UpstreamChannel">
 		<cache usage="read-write" />
 		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK">
 			<key-property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
@@ -119,13 +120,14 @@
 		<property name="ifAlias" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ifDesc" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="UpstreamChannelHistory">
+	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="CMTS_UCHis">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK">
-			<key-property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-			<key-property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-			<key-property name="createDate" type="org.hibernate.type.TimestampType" />
-		</composite-id>
+		<id name="ucHisId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ifIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="qam" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="avgOnlineCmDsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="avgOnlineCmUsPower" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />

@@ -14,47 +14,115 @@
 					<div class="ui-grid-col-4">
 							<h4>Level 1</h4>
 							<p:outputLabel value="Color" for="lv1Color" />
-							<p:colorPicker id="lv1Color" />
+							<p:colorPicker id="lv1Color" value="#{mutablePortletPreferencesValues['alarmColorLv1'].value}"/>
 
-							<p:outputLabel value="Fec" for="lv1FecMin" />
-							<p:spinner id="lv1FecMin" style="width: auto" size="10"/>
+							<p:outputLabel value="Fec (min/max)" for="lv1FecMin" />
+							<p:inputText id="lv1FecMin" value="#{mutablePortletPreferencesValues['minFecCorrectedLv1'].value}"/>
 							<p:spacer width="5" />
-							<p:inputText id="lv1FecMax" />
+							<p:inputText id="lv1FecMax" value="#{mutablePortletPreferencesValues['maxFecCorrectedLv1'].value}"/>
 							<p:message for="lv1FecMin" />
 							<p:message for="lv1FecMax" />
+							
+							<p:outputLabel value="UnFec (min/max)" for="lv1UnFecMin" />
+							<p:inputText id="lv1UnFecMin" value="#{mutablePortletPreferencesValues['minFecUncorrectableLv1'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv1UnFecMax" value="#{mutablePortletPreferencesValues['maxFecUncorrectableLv1'].value}"/>
+							<p:message for="lv1UnFecMin" />
+							<p:message for="lv1UnFecMax" />
+							
+							<p:outputLabel value="SNR (min/max)" for="lv1minSNR" />
+							<p:inputText id="lv1minSNR" value="#{mutablePortletPreferencesValues['minIfSigQSNRLv1'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv1MaxSNR" value="#{mutablePortletPreferencesValues['maxIfSigQSNRLv1'].value}"/>
+							<p:message for="lv1minSNR" />
+							<p:message for="lv1MaxSNR" />
+							
+							<p:outputLabel value="MER (min/max)" for="lv1minMer" />
+							<p:inputText id="lv1minMer" value="#{mutablePortletPreferencesValues['minAvgOnlineCmDnSNRLv1'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv1maxMer" value="#{mutablePortletPreferencesValues['maxAvgOnlineCmDnSNRLv1'].value}"/>
+							<p:message for="lv1minMer" />
+							<p:message for="lv1maxMer" />
 					</div>
 
 					<div class="ui-grid-col-4">
 							<h4>Level 2</h4>
 
-							<p:outputLabel value="Color" for="lv3Color" />
-							<p:colorPicker id="lv3Color" />
+							<p:outputLabel value="Color" for="lv2Color" />
+							<p:colorPicker id="lv2Color" value="#{mutablePortletPreferencesValues['alarmColorLv2'].value}"/>
 
-							<p:outputLabel value="Fec" for="lv3FecMin" />
-							<p:inputText id="lv3FecMin" />
+							<p:outputLabel value="Fec (min/max)" for="lv2FecMin" />
+							<p:inputText id="lv2FecMin" value="#{mutablePortletPreferencesValues['minFecCorrectedLv2'].value}"/>
 							<p:spacer width="5" />
-							<p:inputText id="lv3FecMax" />
-							<p:message for="lv3FecMin" />
-							<p:message for="lv3FecMax" />
+							<p:inputText id="lv2FecMax" value="#{mutablePortletPreferencesValues['maxFecCorrectedLv2'].value}"/>
+							<p:message for="lv2FecMin" />
+							<p:message for="lv2FecMax" />
+							
+							<p:outputLabel value="UnFec (min/max)" for="lv2UnFecMin" />
+							<p:inputText id="lv2UnFecMin" value="#{mutablePortletPreferencesValues['minFecUncorrectableLv2'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv2UnFecMax" value="#{mutablePortletPreferencesValues['maxFecUncorrectableLv2'].value}"/>
+							<p:message for="lv2UnFecMin" />
+							<p:message for="lv2UnFecMax" />
+							
+							<p:outputLabel value="SNR (min/max)" for="lv2minSNR" />
+							<p:inputText id="lv2minSNR" value="#{mutablePortletPreferencesValues['minIfSigQSNRLv2'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv2MaxSNR" value="#{mutablePortletPreferencesValues['maxIfSigQSNRLv2'].value}"/>
+							<p:message for="lv2minSNR" />
+							<p:message for="lv2MaxSNR" />
+							
+							<p:outputLabel value="MER (min/max)" for="lv2minMer" />
+							<p:inputText id="lv2minMer" value="#{mutablePortletPreferencesValues['minAvgOnlineCmDnSNRLv2'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv2maxMer" value="#{mutablePortletPreferencesValues['maxAvgOnlineCmDnSNRLv2'].value}"/>
+							<p:message for="lv2minMer" />
+							<p:message for="lv2maxMer" />
 					</div>
 
 					<div class="ui-grid-col-4">
 							<h4>Level 3</h4>
+							
+							<p:outputLabel value="Color" for="lv3Color" />
+							<p:colorPicker id="lv3Color" value="#{mutablePortletPreferencesValues['alarmColorLv3'].value}"/>
 
-							<p:outputLabel value="Color" for="lv2Color" />
-							<p:colorPicker id="lv2Color" />
-
-							<p:outputLabel value="Fec" for="lv2FecMin" />
-							<p:inputText id="lv2FecMin" />
+							<p:outputLabel value="Fec (min/max)" for="lv3FecMin" />
+							<p:inputText id="lv3FecMin" value="#{mutablePortletPreferencesValues['minFecCorrectedLv3'].value}"/>
 							<p:spacer width="5" />
-							<p:inputText id="lv2FecMax" />
-							<p:message for="lv2FecMin" />
-							<p:message for="lv2FecMax" />
+							<p:inputText id="lv3FecMax" value="#{mutablePortletPreferencesValues['maxFecCorrectedLv3'].value}" disabled="true"/>
+							<p:message for="lv3FecMin" />
+							<p:message for="lv3FecMax" />
+							
+							<p:outputLabel value="UnFec (min/max)" for="lv3UnFecMin" />
+							<p:inputText id="lv3UnFecMin" value="#{mutablePortletPreferencesValues['minFecUncorrectableLv3'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv3UnFecMax" value="#{mutablePortletPreferencesValues['maxFecUncorrectableLv3'].value}" disabled="true"/>
+							<p:message for="lv3UnFecMin" />
+							<p:message for="lv3UnFecMax" />
+							
+							<p:outputLabel value="SNR (min/max)" for="lv3minSNR" />
+							<p:inputText id="lv3minSNR" value="#{mutablePortletPreferencesValues['minIfSigQSNRLv3'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv3MaxSNR" value="#{mutablePortletPreferencesValues['maxIfSigQSNRLv3'].value}"/>
+							<p:message for="lv3minSNR" />
+							<p:message for="lv3MaxSNR" />
+							
+							<p:outputLabel value="MER (min/max)" for="lv3minMer" />
+							<p:inputText id="lv3minMer" value="#{mutablePortletPreferencesValues['minAvgOnlineCmDnSNRLv3'].value}"/>
+							<p:spacer width="5" />
+							<p:inputText id="lv3maxMer" value="#{mutablePortletPreferencesValues['maxAvgOnlineCmDnSNRLv3'].value}"/>
+							<p:message for="lv3minMer" />
+							<p:message for="lv3maxMer" />
+							
 					</div>
 				</div>
 			</div>
+			
+			<div class="separator"></div>
 
-			<p:commandButton value="Save" />
+			<p:commandButton value="${i18n['submit']}" actionListener="#{portletPreferencesBackingBean.submit}" icon="ui-icon-disk" ajax="false"/>
+			<p:spacer width="10"/>
+			<p:commandButton value="${i18n['reset']}" actionListener="#{portletPreferencesBackingBean.reset}" icon="ui-icon-refresh" update="@form"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

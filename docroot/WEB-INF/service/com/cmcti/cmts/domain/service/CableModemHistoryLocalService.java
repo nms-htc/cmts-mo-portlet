@@ -61,23 +61,23 @@ public interface CableModemHistoryLocalService extends BaseLocalService,
 	/**
 	* Creates a new cable modem history with the primary key. Does not add the cable modem history to the database.
 	*
-	* @param cableModemHistoryPK the primary key for the new cable modem history
+	* @param cmHisId the primary key for the new cable modem history
 	* @return the new cable modem history
 	*/
 	public com.cmcti.cmts.domain.model.CableModemHistory createCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK);
+		long cmHisId);
 
 	/**
 	* Deletes the cable modem history with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cableModemHistoryPK the primary key of the cable modem history
+	* @param cmHisId the primary key of the cable modem history
 	* @return the cable modem history that was removed
 	* @throws PortalException if a cable modem history with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.DELETE)
 	public com.cmcti.cmts.domain.model.CableModemHistory deleteCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -172,20 +172,20 @@ public interface CableModemHistoryLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.cmcti.cmts.domain.model.CableModemHistory fetchCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Returns the cable modem history with the primary key.
 	*
-	* @param cableModemHistoryPK the primary key of the cable modem history
+	* @param cmHisId the primary key of the cable modem history
 	* @return the cable modem history
 	* @throws PortalException if a cable modem history with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.cmcti.cmts.domain.model.CableModemHistory getCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

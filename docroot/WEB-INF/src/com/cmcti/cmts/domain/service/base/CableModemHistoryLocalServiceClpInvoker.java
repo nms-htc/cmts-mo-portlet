@@ -32,15 +32,11 @@ public class CableModemHistoryLocalServiceClpInvoker {
 
 		_methodName1 = "createCableModemHistory";
 
-		_methodParameterTypes1 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes1 = new String[] { "long" };
 
 		_methodName2 = "deleteCableModemHistory";
 
-		_methodParameterTypes2 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes2 = new String[] { "long" };
 
 		_methodName3 = "deleteCableModemHistory";
 
@@ -86,15 +82,11 @@ public class CableModemHistoryLocalServiceClpInvoker {
 
 		_methodName10 = "fetchCableModemHistory";
 
-		_methodParameterTypes10 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes10 = new String[] { "long" };
 
 		_methodName11 = "getCableModemHistory";
 
-		_methodParameterTypes11 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes11 = new String[] { "long" };
 
 		_methodName12 = "getPersistedModel";
 
@@ -132,12 +124,12 @@ public class CableModemHistoryLocalServiceClpInvoker {
 
 		if (_methodName1.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-			return CableModemHistoryLocalServiceUtil.createCableModemHistory((com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK)arguments[0]);
+			return CableModemHistoryLocalServiceUtil.createCableModemHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName2.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-			return CableModemHistoryLocalServiceUtil.deleteCableModemHistory((com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK)arguments[0]);
+			return CableModemHistoryLocalServiceUtil.deleteCableModemHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName3.equals(name) &&
@@ -183,12 +175,12 @@ public class CableModemHistoryLocalServiceClpInvoker {
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return CableModemHistoryLocalServiceUtil.fetchCableModemHistory((com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK)arguments[0]);
+			return CableModemHistoryLocalServiceUtil.fetchCableModemHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return CableModemHistoryLocalServiceUtil.getCableModemHistory((com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK)arguments[0]);
+			return CableModemHistoryLocalServiceUtil.getCableModemHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&

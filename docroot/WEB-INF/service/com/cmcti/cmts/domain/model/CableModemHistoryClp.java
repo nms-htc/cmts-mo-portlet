@@ -16,10 +16,10 @@ package com.cmcti.cmts.domain.model;
 
 import com.cmcti.cmts.domain.service.CableModemHistoryLocalServiceUtil;
 import com.cmcti.cmts.domain.service.ClpSerializer;
-import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -52,30 +52,30 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 	}
 
 	@Override
-	public CableModemHistoryPK getPrimaryKey() {
-		return new CableModemHistoryPK(_macAddress, _createDate);
+	public long getPrimaryKey() {
+		return _cmHisId;
 	}
 
 	@Override
-	public void setPrimaryKey(CableModemHistoryPK primaryKey) {
-		setMacAddress(primaryKey.macAddress);
-		setCreateDate(primaryKey.createDate);
+	public void setPrimaryKey(long primaryKey) {
+		setCmHisId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new CableModemHistoryPK(_macAddress, _createDate);
+		return _cmHisId;
 	}
 
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey((CableModemHistoryPK)primaryKeyObj);
+		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("cmHisId", getCmHisId());
 		attributes.put("macAddress", getMacAddress());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -102,6 +102,12 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long cmHisId = (Long)attributes.get("cmHisId");
+
+		if (cmHisId != null) {
+			setCmHisId(cmHisId);
+		}
+
 		String macAddress = (String)attributes.get("macAddress");
 
 		if (macAddress != null) {
@@ -220,6 +226,29 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 		if (status != null) {
 			setStatus(status);
+		}
+	}
+
+	@Override
+	public long getCmHisId() {
+		return _cmHisId;
+	}
+
+	@Override
+	public void setCmHisId(long cmHisId) {
+		_cmHisId = cmHisId;
+
+		if (_cableModemHistoryRemoteModel != null) {
+			try {
+				Class<?> clazz = _cableModemHistoryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCmHisId", long.class);
+
+				method.invoke(_cableModemHistoryRemoteModel, cmHisId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
 		}
 	}
 
@@ -755,6 +784,7 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 	public Object clone() {
 		CableModemHistoryClp clone = new CableModemHistoryClp();
 
+		clone.setCmHisId(getCmHisId());
 		clone.setMacAddress(getMacAddress());
 		clone.setCreateDate(getCreateDate());
 		clone.setFecUncorrectable(getFecUncorrectable());
@@ -781,9 +811,18 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 	@Override
 	public int compareTo(CableModemHistory cableModemHistory) {
-		CableModemHistoryPK primaryKey = cableModemHistory.getPrimaryKey();
+		int value = 0;
 
-		return getPrimaryKey().compareTo(primaryKey);
+		value = DateUtil.compareTo(getCreateDate(),
+				cableModemHistory.getCreateDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -798,9 +837,9 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 		CableModemHistoryClp cableModemHistory = (CableModemHistoryClp)obj;
 
-		CableModemHistoryPK primaryKey = cableModemHistory.getPrimaryKey();
+		long primaryKey = cableModemHistory.getPrimaryKey();
 
-		if (getPrimaryKey().equals(primaryKey)) {
+		if (getPrimaryKey() == primaryKey) {
 			return true;
 		}
 		else {
@@ -814,14 +853,16 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 	@Override
 	public int hashCode() {
-		return getPrimaryKey().hashCode();
+		return (int)getPrimaryKey();
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
-		sb.append("{macAddress=");
+		sb.append("{cmHisId=");
+		sb.append(getCmHisId());
+		sb.append(", macAddress=");
 		sb.append(getMacAddress());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
@@ -868,12 +909,16 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(64);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.CableModemHistory");
 		sb.append("</model-name>");
 
+		sb.append(
+			"<column><column-name>cmHisId</column-name><column-value><![CDATA[");
+		sb.append(getCmHisId());
+		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>macAddress</column-name><column-value><![CDATA[");
 		sb.append(getMacAddress());
@@ -960,6 +1005,7 @@ public class CableModemHistoryClp extends BaseModelImpl<CableModemHistory>
 		return sb.toString();
 	}
 
+	private long _cmHisId;
 	private String _macAddress;
 	private Date _createDate;
 	private double _fecUncorrectable;

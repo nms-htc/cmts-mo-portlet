@@ -33,6 +33,6 @@ public abstract class UpstreamChannelHistoryActionableDynamicQuery
 
 		setClassLoader(com.cmcti.cmts.domain.service.ClpSerializer.class.getClassLoader());
 
-		setPrimaryKeyPropertyName("primaryKey.cmtsId");
+		setPrimaryKeyPropertyName("ucHisId");
 	}
 }

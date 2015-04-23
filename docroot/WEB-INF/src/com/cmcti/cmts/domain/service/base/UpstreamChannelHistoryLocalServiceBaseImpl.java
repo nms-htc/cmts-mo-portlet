@@ -20,7 +20,6 @@ import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.CableModemPersistence;
 import com.cmcti.cmts.domain.service.persistence.CmtsPersistence;
 import com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistence;
-import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence;
 
@@ -88,29 +87,27 @@ public abstract class UpstreamChannelHistoryLocalServiceBaseImpl
 	/**
 	 * Creates a new upstream channel history with the primary key. Does not add the upstream channel history to the database.
 	 *
-	 * @param upstreamChannelHistoryPK the primary key for the new upstream channel history
+	 * @param ucHisId the primary key for the new upstream channel history
 	 * @return the new upstream channel history
 	 */
 	@Override
-	public UpstreamChannelHistory createUpstreamChannelHistory(
-		UpstreamChannelHistoryPK upstreamChannelHistoryPK) {
-		return upstreamChannelHistoryPersistence.create(upstreamChannelHistoryPK);
+	public UpstreamChannelHistory createUpstreamChannelHistory(long ucHisId) {
+		return upstreamChannelHistoryPersistence.create(ucHisId);
 	}
 
 	/**
 	 * Deletes the upstream channel history with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param upstreamChannelHistoryPK the primary key of the upstream channel history
+	 * @param ucHisId the primary key of the upstream channel history
 	 * @return the upstream channel history that was removed
 	 * @throws PortalException if a upstream channel history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public UpstreamChannelHistory deleteUpstreamChannelHistory(
-		UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+	public UpstreamChannelHistory deleteUpstreamChannelHistory(long ucHisId)
 		throws PortalException, SystemException {
-		return upstreamChannelHistoryPersistence.remove(upstreamChannelHistoryPK);
+		return upstreamChannelHistoryPersistence.remove(ucHisId);
 	}
 
 	/**
@@ -222,25 +219,23 @@ public abstract class UpstreamChannelHistoryLocalServiceBaseImpl
 	}
 
 	@Override
-	public UpstreamChannelHistory fetchUpstreamChannelHistory(
-		UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+	public UpstreamChannelHistory fetchUpstreamChannelHistory(long ucHisId)
 		throws SystemException {
-		return upstreamChannelHistoryPersistence.fetchByPrimaryKey(upstreamChannelHistoryPK);
+		return upstreamChannelHistoryPersistence.fetchByPrimaryKey(ucHisId);
 	}
 
 	/**
 	 * Returns the upstream channel history with the primary key.
 	 *
-	 * @param upstreamChannelHistoryPK the primary key of the upstream channel history
+	 * @param ucHisId the primary key of the upstream channel history
 	 * @return the upstream channel history
 	 * @throws PortalException if a upstream channel history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public UpstreamChannelHistory getUpstreamChannelHistory(
-		UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+	public UpstreamChannelHistory getUpstreamChannelHistory(long ucHisId)
 		throws PortalException, SystemException {
-		return upstreamChannelHistoryPersistence.findByPrimaryKey(upstreamChannelHistoryPK);
+		return upstreamChannelHistoryPersistence.findByPrimaryKey(ucHisId);
 	}
 
 	@Override

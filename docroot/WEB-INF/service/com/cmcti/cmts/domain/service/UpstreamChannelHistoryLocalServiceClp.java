@@ -34,15 +34,11 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 		_methodName1 = "createUpstreamChannelHistory";
 
-		_methodParameterTypes1 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes1 = new String[] { "long" };
 
 		_methodName2 = "deleteUpstreamChannelHistory";
 
-		_methodParameterTypes2 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes2 = new String[] { "long" };
 
 		_methodName3 = "deleteUpstreamChannelHistory";
 
@@ -88,15 +84,11 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 		_methodName10 = "fetchUpstreamChannelHistory";
 
-		_methodParameterTypes10 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes10 = new String[] { "long" };
 
 		_methodName11 = "getUpstreamChannelHistory";
 
-		_methodParameterTypes11 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes11 = new String[] { "long" };
 
 		_methodName12 = "getPersistedModel";
 
@@ -159,15 +151,12 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.UpstreamChannelHistory createUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK) {
+		long ucHisId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName1,
-					_methodParameterTypes1,
-					new Object[] {
-						ClpSerializer.translateInput(upstreamChannelHistoryPK)
-					});
+					_methodParameterTypes1, new Object[] { ucHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -186,17 +175,14 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.UpstreamChannelHistory deleteUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName2,
-					_methodParameterTypes2,
-					new Object[] {
-						ClpSerializer.translateInput(upstreamChannelHistoryPK)
-					});
+					_methodParameterTypes2, new Object[] { ucHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -452,16 +438,13 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.UpstreamChannelHistory fetchUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
-					new Object[] {
-						ClpSerializer.translateInput(upstreamChannelHistoryPK)
-					});
+					_methodParameterTypes10, new Object[] { ucHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -484,17 +467,14 @@ public class UpstreamChannelHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.UpstreamChannelHistory getUpstreamChannelHistory(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK upstreamChannelHistoryPK)
+		long ucHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
-					new Object[] {
-						ClpSerializer.translateInput(upstreamChannelHistoryPK)
-					});
+					_methodParameterTypes11, new Object[] { ucHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

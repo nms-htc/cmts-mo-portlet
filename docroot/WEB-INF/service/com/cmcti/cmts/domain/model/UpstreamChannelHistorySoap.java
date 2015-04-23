@@ -14,8 +14,6 @@
 
 package com.cmcti.cmts.domain.model;
 
-import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ public class UpstreamChannelHistorySoap implements Serializable {
 		UpstreamChannelHistory model) {
 		UpstreamChannelHistorySoap soapModel = new UpstreamChannelHistorySoap();
 
+		soapModel.setUcHisId(model.getUcHisId());
 		soapModel.setCmtsId(model.getCmtsId());
 		soapModel.setIfIndex(model.getIfIndex());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -105,14 +104,20 @@ public class UpstreamChannelHistorySoap implements Serializable {
 	public UpstreamChannelHistorySoap() {
 	}
 
-	public UpstreamChannelHistoryPK getPrimaryKey() {
-		return new UpstreamChannelHistoryPK(_cmtsId, _ifIndex, _createDate);
+	public long getPrimaryKey() {
+		return _ucHisId;
 	}
 
-	public void setPrimaryKey(UpstreamChannelHistoryPK pk) {
-		setCmtsId(pk.cmtsId);
-		setIfIndex(pk.ifIndex);
-		setCreateDate(pk.createDate);
+	public void setPrimaryKey(long pk) {
+		setUcHisId(pk);
+	}
+
+	public long getUcHisId() {
+		return _ucHisId;
+	}
+
+	public void setUcHisId(long ucHisId) {
+		_ucHisId = ucHisId;
 	}
 
 	public long getCmtsId() {
@@ -307,6 +312,7 @@ public class UpstreamChannelHistorySoap implements Serializable {
 		_ifDesc = ifDesc;
 	}
 
+	private long _ucHisId;
 	private long _cmtsId;
 	private int _ifIndex;
 	private Date _createDate;

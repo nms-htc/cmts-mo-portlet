@@ -16,7 +16,6 @@ package com.cmcti.cmts.domain.service.base;
 
 import com.cmcti.cmts.domain.model.CableModemHistory;
 import com.cmcti.cmts.domain.service.CableModemHistoryLocalService;
-import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK;
 import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.CableModemPersistence;
 import com.cmcti.cmts.domain.service.persistence.CmtsPersistence;
@@ -87,29 +86,27 @@ public abstract class CableModemHistoryLocalServiceBaseImpl
 	/**
 	 * Creates a new cable modem history with the primary key. Does not add the cable modem history to the database.
 	 *
-	 * @param cableModemHistoryPK the primary key for the new cable modem history
+	 * @param cmHisId the primary key for the new cable modem history
 	 * @return the new cable modem history
 	 */
 	@Override
-	public CableModemHistory createCableModemHistory(
-		CableModemHistoryPK cableModemHistoryPK) {
-		return cableModemHistoryPersistence.create(cableModemHistoryPK);
+	public CableModemHistory createCableModemHistory(long cmHisId) {
+		return cableModemHistoryPersistence.create(cmHisId);
 	}
 
 	/**
 	 * Deletes the cable modem history with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param cableModemHistoryPK the primary key of the cable modem history
+	 * @param cmHisId the primary key of the cable modem history
 	 * @return the cable modem history that was removed
 	 * @throws PortalException if a cable modem history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CableModemHistory deleteCableModemHistory(
-		CableModemHistoryPK cableModemHistoryPK)
+	public CableModemHistory deleteCableModemHistory(long cmHisId)
 		throws PortalException, SystemException {
-		return cableModemHistoryPersistence.remove(cableModemHistoryPK);
+		return cableModemHistoryPersistence.remove(cmHisId);
 	}
 
 	/**
@@ -220,24 +217,23 @@ public abstract class CableModemHistoryLocalServiceBaseImpl
 	}
 
 	@Override
-	public CableModemHistory fetchCableModemHistory(
-		CableModemHistoryPK cableModemHistoryPK) throws SystemException {
-		return cableModemHistoryPersistence.fetchByPrimaryKey(cableModemHistoryPK);
+	public CableModemHistory fetchCableModemHistory(long cmHisId)
+		throws SystemException {
+		return cableModemHistoryPersistence.fetchByPrimaryKey(cmHisId);
 	}
 
 	/**
 	 * Returns the cable modem history with the primary key.
 	 *
-	 * @param cableModemHistoryPK the primary key of the cable modem history
+	 * @param cmHisId the primary key of the cable modem history
 	 * @return the cable modem history
 	 * @throws PortalException if a cable modem history with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CableModemHistory getCableModemHistory(
-		CableModemHistoryPK cableModemHistoryPK)
+	public CableModemHistory getCableModemHistory(long cmHisId)
 		throws PortalException, SystemException {
-		return cableModemHistoryPersistence.findByPrimaryKey(cableModemHistoryPK);
+		return cableModemHistoryPersistence.findByPrimaryKey(cmHisId);
 	}
 
 	@Override

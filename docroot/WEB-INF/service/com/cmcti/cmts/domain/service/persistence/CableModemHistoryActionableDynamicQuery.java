@@ -32,6 +32,6 @@ public abstract class CableModemHistoryActionableDynamicQuery
 
 		setClassLoader(com.cmcti.cmts.domain.service.ClpSerializer.class.getClassLoader());
 
-		setPrimaryKeyPropertyName("primaryKey.cmtsId");
+		setPrimaryKeyPropertyName("cmHisId");
 	}
 }

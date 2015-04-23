@@ -38,9 +38,11 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
-		sb.append("{macAddress=");
+		sb.append("{cmHisId=");
+		sb.append(cmHisId);
+		sb.append(", macAddress=");
 		sb.append(macAddress);
 		sb.append(", createDate=");
 		sb.append(createDate);
@@ -89,6 +91,8 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 	public CableModemHistory toEntityModel() {
 		CableModemHistoryImpl cableModemHistoryImpl = new CableModemHistoryImpl();
 
+		cableModemHistoryImpl.setCmHisId(cmHisId);
+
 		if (macAddress == null) {
 			cableModemHistoryImpl.setMacAddress(StringPool.BLANK);
 		}
@@ -136,6 +140,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		cmHisId = objectInput.readLong();
 		macAddress = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		fecUncorrectable = objectInput.readDouble();
@@ -161,6 +166,8 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
+		objectOutput.writeLong(cmHisId);
+
 		if (macAddress == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -196,6 +203,7 @@ public class CableModemHistoryCacheModel implements CacheModel<CableModemHistory
 		objectOutput.writeInt(status);
 	}
 
+	public long cmHisId;
 	public String macAddress;
 	public long createDate;
 	public double fecUncorrectable;

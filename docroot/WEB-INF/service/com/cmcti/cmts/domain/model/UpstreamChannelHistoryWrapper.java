@@ -51,6 +51,7 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("ucHisId", getUcHisId());
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("ifIndex", getIfIndex());
 		attributes.put("createDate", getCreateDate());
@@ -81,6 +82,12 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long ucHisId = (Long)attributes.get("ucHisId");
+
+		if (ucHisId != null) {
+			setUcHisId(ucHisId);
+		}
+
 		Long cmtsId = (Long)attributes.get("cmtsId");
 
 		if (cmtsId != null) {
@@ -234,7 +241,7 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 	* @return the primary key of this upstream channel history
 	*/
 	@Override
-	public com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK getPrimaryKey() {
+	public long getPrimaryKey() {
 		return _upstreamChannelHistory.getPrimaryKey();
 	}
 
@@ -244,9 +251,28 @@ public class UpstreamChannelHistoryWrapper implements UpstreamChannelHistory,
 	* @param primaryKey the primary key of this upstream channel history
 	*/
 	@Override
-	public void setPrimaryKey(
-		com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK primaryKey) {
+	public void setPrimaryKey(long primaryKey) {
 		_upstreamChannelHistory.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	* Returns the uc his ID of this upstream channel history.
+	*
+	* @return the uc his ID of this upstream channel history
+	*/
+	@Override
+	public long getUcHisId() {
+		return _upstreamChannelHistory.getUcHisId();
+	}
+
+	/**
+	* Sets the uc his ID of this upstream channel history.
+	*
+	* @param ucHisId the uc his ID of this upstream channel history
+	*/
+	@Override
+	public void setUcHisId(long ucHisId) {
+		_upstreamChannelHistory.setUcHisId(ucHisId);
 	}
 
 	/**

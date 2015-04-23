@@ -100,5 +100,9 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String calculate(String name) {
+		return "Fuck you :" + name;
+	}
 
 }

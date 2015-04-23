@@ -50,6 +50,7 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("cmHisId", getCmHisId());
 		attributes.put("macAddress", getMacAddress());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("fecUncorrectable", getFecUncorrectable());
@@ -76,6 +77,12 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long cmHisId = (Long)attributes.get("cmHisId");
+
+		if (cmHisId != null) {
+			setCmHisId(cmHisId);
+		}
+
 		String macAddress = (String)attributes.get("macAddress");
 
 		if (macAddress != null) {
@@ -203,7 +210,7 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 	* @return the primary key of this cable modem history
 	*/
 	@Override
-	public com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK getPrimaryKey() {
+	public long getPrimaryKey() {
 		return _cableModemHistory.getPrimaryKey();
 	}
 
@@ -213,9 +220,28 @@ public class CableModemHistoryWrapper implements CableModemHistory,
 	* @param primaryKey the primary key of this cable modem history
 	*/
 	@Override
-	public void setPrimaryKey(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK primaryKey) {
+	public void setPrimaryKey(long primaryKey) {
 		_cableModemHistory.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	* Returns the cm his ID of this cable modem history.
+	*
+	* @return the cm his ID of this cable modem history
+	*/
+	@Override
+	public long getCmHisId() {
+		return _cableModemHistory.getCmHisId();
+	}
+
+	/**
+	* Sets the cm his ID of this cable modem history.
+	*
+	* @param cmHisId the cm his ID of this cable modem history
+	*/
+	@Override
+	public void setCmHisId(long cmHisId) {
+		_cableModemHistory.setCmHisId(cmHisId);
 	}
 
 	/**

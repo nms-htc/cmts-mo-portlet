@@ -3,10 +3,14 @@ package com.cmcti.cmts.portlet.search;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
+import com.cmcti.cmts.portlet.bean.UcRowStyleAlarmGenerator;
+import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Junction;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 
@@ -31,6 +35,9 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 	protected Double maxRxPower;
 	protected Double minMer;
 	protected Double maxMer;
+	
+	@ManagedProperty("ucRowStyleAlarmGenerator")
+	private UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator;
 
 	public UpstreamChannelSearcher() {
 
@@ -93,7 +100,35 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 		}
 		
 		if (alarmOnly) {
+			Junction mainDisjunction = RestrictionsFactoryUtil.disjunction();
 			
+			// avgOnlineCmDsSNR check
+			Junction avgOnlineCmDsSNRConjunction = RestrictionsFactoryUtil.conjunction();
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMinAvgOnlineCmDnSNRLv3()));
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMaxAvgOnlineCmDnSNRLv1()));
+			
+			// fecCorrected check
+			Junction fecCorrectedConjunction = RestrictionsFactoryUtil.conjunction();
+			fecCorrectedConjunction.add(RestrictionsFactoryUtil.ge("fecCorrected", ucRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
+			fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected", ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
+			
+			// fecUncorrectable check
+			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.ge("fecUncorrectable", ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable", ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
+			
+			// ifSigQSNR check
+			Junction ifSigQSNRConjunction = RestrictionsFactoryUtil.conjunction();
+			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.ge("ifSigQSNR", ucRowStyleAlarmGenerator.getMinIfSigQSNRLv3()));
+			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.le("ifSigQSNR", ucRowStyleAlarmGenerator.getMaxIfSigQSNRLv1()));
+			
+			// Build junction
+			mainDisjunction.add(avgOnlineCmDsSNRConjunction);
+			mainDisjunction.add(fecCorrectedConjunction);
+			mainDisjunction.add(fecUncorrectableConjunction);
+			mainDisjunction.add(ifSigQSNRConjunction);
+			
+			query.add(mainDisjunction);
 		}
 
 		return query;

@@ -17,7 +17,7 @@ package com.cmcti.cmts.domain.model;
 import com.liferay.portal.model.PersistedModel;
 
 /**
- * The extended model interface for the CableModemHistory service. Represents a row in the &quot;CableModemHistory&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the CableModemHistory service. Represents a row in the &quot;CMTS_CMHis&quot; database table, with each column mapped to a property of this class.
  *
  * @author richard
  * @see CableModemHistoryModel

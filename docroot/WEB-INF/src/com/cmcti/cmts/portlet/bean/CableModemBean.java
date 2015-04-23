@@ -117,7 +117,7 @@ public class CableModemBean extends AbstractCRUDBean<CableModem> implements Seri
 		try {
 			mapping = CustomerMacMappingLocalServiceUtil.getByMacAddress(macAddress);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.info("Customer mapping not found for mac {0}", macAddress);
 		}
 		return mapping == null ? null : mapping.getTitle();
 	}

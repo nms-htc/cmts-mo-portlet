@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
-<service-builder package-path="com.cmcti.cmts.domain" auto-namespace-tables="false">
+<service-builder package-path="com.cmcti.cmts.domain"
+	auto-namespace-tables="true">
 	<author>richard</author>
 	<namespace>CMTS</namespace>
 
@@ -75,43 +76,43 @@
 		<!-- Order -->
 
 		<!-- Finder methods -->
-		
+
 		<finder return-type="Collection" name="FecUncorrectable">
-			<finder-column name="fecUncorrectable"/>
+			<finder-column name="fecUncorrectable" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="FecCorrected">
-			<finder-column name="fecCorrected"/>
+			<finder-column name="fecCorrected" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="UsSNR">
-			<finder-column name="usSNR"/>
+			<finder-column name="usSNR" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="DsSNR">
-			<finder-column name="dsSNR"/>
+			<finder-column name="dsSNR" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="UsPower">
-			<finder-column name="usPower"/>
+			<finder-column name="usPower" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="DsPower">
-			<finder-column name="dsPower"/>
+			<finder-column name="dsPower" />
 		</finder>
 
 	</entity>
 
-	<entity name="CableModemHistory" local-service="true"
+	<entity name="CableModemHistory" table="CMTS_CMHis" local-service="true"
 		remote-service="true">
 
 		<!-- PK fields -->
+		<column name="cmHisId" type="long" primary="true" />
 
-		<column name="macAddress" type="String" primary="true" />
-		<column name="createDate" type="Date" primary="true" />
 
 		<!-- Other fields -->
-
+		<column name="macAddress" type="String" />
+		<column name="createDate" type="Date" />
 		<column name="fecUncorrectable" type="double" />
 		<column name="fecCorrected" type="double" />
 		<column name="microRef" type="long" />
@@ -132,8 +133,18 @@
 		<column name="status" type="int" />
 
 		<!-- Order -->
+		<order>
+			<order-column name="createDate" order-by="desc" />
+		</order>
 
 		<!-- Finder methods -->
+		<finder return-type="Collection" name="MacAddress">
+			<finder-column name="macAddress" />
+		</finder>
+
+		<finder return-type="Collection" name="CmtsId">
+			<finder-column name="cmtsId" />
+		</finder>
 
 	</entity>
 
@@ -175,49 +186,48 @@
 		<column name="ifDesc" type="String" />
 
 		<!-- Finder methods -->
-		
+
 		<finder return-type="Collection" name="FecUncorrectable">
-			<finder-column name="fecUncorrectable"/>
+			<finder-column name="fecUncorrectable" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="FecCorrected">
-			<finder-column name="fecCorrected"/>
+			<finder-column name="fecCorrected" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="IfSigQSNR">
-			<finder-column name="ifSigQSNR"/>
+			<finder-column name="ifSigQSNR" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="Cmts">
-			<finder-column name="cmtsId"/>
+			<finder-column name="cmtsId" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="AvgOnlineCmTxPower">
-			<finder-column name="avgOnlineCmTxPower"/>
+			<finder-column name="avgOnlineCmTxPower" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="AvgOnlineCmRxPower">
-			<finder-column name="avgOnlineCmRxPower"/>
+			<finder-column name="avgOnlineCmRxPower" />
 		</finder>
-		
+
 		<finder return-type="Collection" name="AvgOnlineDsSNR">
-			<finder-column name="avgOnlineCmDsSNR"/>
+			<finder-column name="avgOnlineCmDsSNR" />
 		</finder>
 
 
 	</entity>
 
-	<entity name="UpstreamChannelHistory" local-service="true"
+	<entity name="UpstreamChannelHistory" table="CMTS_UCHis" local-service="true"
 		remote-service="true">
 
 		<!-- PK fields -->
-
-		<column name="cmtsId" type="long" primary="true" />
-		<column name="ifIndex" type="int" primary="true" />
-		<column name="createDate" type="Date" primary="true" />
+		<column name="ucHisId" type="long" primary="true" />
 
 		<!-- Other fields -->
-
+		<column name="cmtsId" type="long" />
+		<column name="ifIndex" type="int" />
+		<column name="createDate" type="Date" />
 		<column name="qam" type="String" />
 		<column name="avgOnlineCmDsPower" type="double" />
 		<column name="avgOnlineCmUsPower" type="double" />
@@ -241,13 +251,23 @@
 
 		<column name="ifDesc" type="String" />
 
+		<order>
+			<order-column name="createDate" order-by="desc" />
+		</order>
 
 		<!-- Finder methods -->
+		<finder return-type="Collection" name="IfIndex">
+			<finder-column name="ifIndex" />
+		</finder>
+
+		<finder return-type="Collection" name="CmtsId">
+			<finder-column name="cmtsId" />
+		</finder>
 
 
 	</entity>
 
-	<entity name="CustomerMacMapping" local-service="true"
+	<entity name="CustomerMacMapping" table="CMTS_CusMacMap" local-service="true"
 		remote-service="true">
 
 		<!-- PK fields -->
@@ -281,9 +301,10 @@
 		<finder name="User" return-type="Collection">
 			<finder-column name="userId" />
 		</finder>
-		
-		<finder name="MacAddress" return-type="CustomerMacMapping" unique="true">
-			<finder-column name="macAddress"/>
+
+		<finder name="MacAddress" return-type="CustomerMacMapping"
+			unique="true">
+			<finder-column name="macAddress" />
 		</finder>
 
 

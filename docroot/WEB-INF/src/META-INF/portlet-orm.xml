@@ -40,12 +40,12 @@
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.CableModemHistoryModelImpl">
-		<id-class class="com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK" />
 		<attributes>
-			<id name="macAddress" />
-			<id name="createDate">
+			<id name="cmHisId" />
+			<basic name="macAddress" />
+			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
-			</id>
+			</basic>
 			<basic name="fecUncorrectable" />
 			<basic name="fecCorrected" />
 			<basic name="microRef" />
@@ -151,13 +151,13 @@
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryModelImpl">
-		<id-class class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK" />
 		<attributes>
-			<id name="cmtsId" />
-			<id name="ifIndex" />
-			<id name="createDate">
+			<id name="ucHisId" />
+			<basic name="cmtsId" />
+			<basic name="ifIndex" />
+			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
-			</id>
+			</basic>
 			<basic name="qam" />
 			<basic name="avgOnlineCmDsPower" />
 			<basic name="avgOnlineCmUsPower" />
@@ -185,27 +185,27 @@
 		</attributes>
 	</mapped-superclass>
 	<entity class="com.cmcti.cmts.domain.model.impl.CableModemImpl" name="CableModem">
-		<table name="CableModem" />
+		<table name="CMTS_CableModem" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" name="CableModemHistory">
-		<table name="CableModemHistory" />
+		<table name="CMTS_CMHis" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CmtsImpl" name="Cmts">
-		<table name="Cmts" />
+		<table name="CMTS_Cmts" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" name="CustomerMacMapping">
-		<table name="CustomerMacMapping" />
+		<table name="CMTS_CusMacMap" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">
-		<table name="UpstreamChannel" />
+		<table name="CMTS_UpstreamChannel" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" name="UpstreamChannelHistory">
-		<table name="UpstreamChannelHistory" />
+		<table name="CMTS_UCHis" />
 		<attributes />
 	</entity>
 </entity-mappings>

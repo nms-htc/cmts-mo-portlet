@@ -16,10 +16,10 @@ package com.cmcti.cmts.domain.model;
 
 import com.cmcti.cmts.domain.service.ClpSerializer;
 import com.cmcti.cmts.domain.service.UpstreamChannelHistoryLocalServiceUtil;
-import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -52,31 +52,30 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 	}
 
 	@Override
-	public UpstreamChannelHistoryPK getPrimaryKey() {
-		return new UpstreamChannelHistoryPK(_cmtsId, _ifIndex, _createDate);
+	public long getPrimaryKey() {
+		return _ucHisId;
 	}
 
 	@Override
-	public void setPrimaryKey(UpstreamChannelHistoryPK primaryKey) {
-		setCmtsId(primaryKey.cmtsId);
-		setIfIndex(primaryKey.ifIndex);
-		setCreateDate(primaryKey.createDate);
+	public void setPrimaryKey(long primaryKey) {
+		setUcHisId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new UpstreamChannelHistoryPK(_cmtsId, _ifIndex, _createDate);
+		return _ucHisId;
 	}
 
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey((UpstreamChannelHistoryPK)primaryKeyObj);
+		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("ucHisId", getUcHisId());
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("ifIndex", getIfIndex());
 		attributes.put("createDate", getCreateDate());
@@ -107,6 +106,12 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		Long ucHisId = (Long)attributes.get("ucHisId");
+
+		if (ucHisId != null) {
+			setUcHisId(ucHisId);
+		}
+
 		Long cmtsId = (Long)attributes.get("cmtsId");
 
 		if (cmtsId != null) {
@@ -251,6 +256,29 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 		if (ifDesc != null) {
 			setIfDesc(ifDesc);
+		}
+	}
+
+	@Override
+	public long getUcHisId() {
+		return _ucHisId;
+	}
+
+	@Override
+	public void setUcHisId(long ucHisId) {
+		_ucHisId = ucHisId;
+
+		if (_upstreamChannelHistoryRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelHistoryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUcHisId", long.class);
+
+				method.invoke(_upstreamChannelHistoryRemoteModel, ucHisId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
 		}
 	}
 
@@ -906,6 +934,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 	public Object clone() {
 		UpstreamChannelHistoryClp clone = new UpstreamChannelHistoryClp();
 
+		clone.setUcHisId(getUcHisId());
 		clone.setCmtsId(getCmtsId());
 		clone.setIfIndex(getIfIndex());
 		clone.setCreateDate(getCreateDate());
@@ -936,9 +965,18 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public int compareTo(UpstreamChannelHistory upstreamChannelHistory) {
-		UpstreamChannelHistoryPK primaryKey = upstreamChannelHistory.getPrimaryKey();
+		int value = 0;
 
-		return getPrimaryKey().compareTo(primaryKey);
+		value = DateUtil.compareTo(getCreateDate(),
+				upstreamChannelHistory.getCreateDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -953,9 +991,9 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 		UpstreamChannelHistoryClp upstreamChannelHistory = (UpstreamChannelHistoryClp)obj;
 
-		UpstreamChannelHistoryPK primaryKey = upstreamChannelHistory.getPrimaryKey();
+		long primaryKey = upstreamChannelHistory.getPrimaryKey();
 
-		if (getPrimaryKey().equals(primaryKey)) {
+		if (getPrimaryKey() == primaryKey) {
 			return true;
 		}
 		else {
@@ -969,14 +1007,16 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public int hashCode() {
-		return getPrimaryKey().hashCode();
+		return (int)getPrimaryKey();
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(51);
 
-		sb.append("{cmtsId=");
+		sb.append("{ucHisId=");
+		sb.append(getUcHisId());
+		sb.append(", cmtsId=");
 		sb.append(getCmtsId());
 		sb.append(", ifIndex=");
 		sb.append(getIfIndex());
@@ -1031,12 +1071,16 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(76);
+		StringBundler sb = new StringBundler(79);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannelHistory");
 		sb.append("</model-name>");
 
+		sb.append(
+			"<column><column-name>ucHisId</column-name><column-value><![CDATA[");
+		sb.append(getUcHisId());
+		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>cmtsId</column-name><column-value><![CDATA[");
 		sb.append(getCmtsId());
@@ -1139,6 +1183,7 @@ public class UpstreamChannelHistoryClp extends BaseModelImpl<UpstreamChannelHist
 		return sb.toString();
 	}
 
+	private long _ucHisId;
 	private long _cmtsId;
 	private int _ifIndex;
 	private Date _createDate;

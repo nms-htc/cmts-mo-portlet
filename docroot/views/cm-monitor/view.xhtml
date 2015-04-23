@@ -14,7 +14,7 @@
 
 			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="10"
 				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="10,15,20" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true">
+				rowsPerPageTemplate="100,200,500" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true">
 				
 				<p:columnGroup type="header">
 					<p:row>

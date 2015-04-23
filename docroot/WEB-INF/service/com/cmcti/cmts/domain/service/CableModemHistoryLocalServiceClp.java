@@ -34,15 +34,11 @@ public class CableModemHistoryLocalServiceClp
 
 		_methodName1 = "createCableModemHistory";
 
-		_methodParameterTypes1 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes1 = new String[] { "long" };
 
 		_methodName2 = "deleteCableModemHistory";
 
-		_methodParameterTypes2 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes2 = new String[] { "long" };
 
 		_methodName3 = "deleteCableModemHistory";
 
@@ -88,15 +84,11 @@ public class CableModemHistoryLocalServiceClp
 
 		_methodName10 = "fetchCableModemHistory";
 
-		_methodParameterTypes10 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes10 = new String[] { "long" };
 
 		_methodName11 = "getCableModemHistory";
 
-		_methodParameterTypes11 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK"
-			};
+		_methodParameterTypes11 = new String[] { "long" };
 
 		_methodName12 = "getPersistedModel";
 
@@ -158,15 +150,12 @@ public class CableModemHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.CableModemHistory createCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK) {
+		long cmHisId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName1,
-					_methodParameterTypes1,
-					new Object[] {
-						ClpSerializer.translateInput(cableModemHistoryPK)
-					});
+					_methodParameterTypes1, new Object[] { cmHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -185,17 +174,14 @@ public class CableModemHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.CableModemHistory deleteCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName2,
-					_methodParameterTypes2,
-					new Object[] {
-						ClpSerializer.translateInput(cableModemHistoryPK)
-					});
+					_methodParameterTypes2, new Object[] { cmHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -450,16 +436,13 @@ public class CableModemHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.CableModemHistory fetchCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
-					new Object[] {
-						ClpSerializer.translateInput(cableModemHistoryPK)
-					});
+					_methodParameterTypes10, new Object[] { cmHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -482,17 +465,14 @@ public class CableModemHistoryLocalServiceClp
 
 	@Override
 	public com.cmcti.cmts.domain.model.CableModemHistory getCableModemHistory(
-		com.cmcti.cmts.domain.service.persistence.CableModemHistoryPK cableModemHistoryPK)
+		long cmHisId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
-					new Object[] {
-						ClpSerializer.translateInput(cableModemHistoryPK)
-					});
+					_methodParameterTypes11, new Object[] { cmHisId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

@@ -32,15 +32,11 @@ public class UpstreamChannelHistoryLocalServiceClpInvoker {
 
 		_methodName1 = "createUpstreamChannelHistory";
 
-		_methodParameterTypes1 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes1 = new String[] { "long" };
 
 		_methodName2 = "deleteUpstreamChannelHistory";
 
-		_methodParameterTypes2 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes2 = new String[] { "long" };
 
 		_methodName3 = "deleteUpstreamChannelHistory";
 
@@ -86,15 +82,11 @@ public class UpstreamChannelHistoryLocalServiceClpInvoker {
 
 		_methodName10 = "fetchUpstreamChannelHistory";
 
-		_methodParameterTypes10 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes10 = new String[] { "long" };
 
 		_methodName11 = "getUpstreamChannelHistory";
 
-		_methodParameterTypes11 = new String[] {
-				"com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK"
-			};
+		_methodParameterTypes11 = new String[] { "long" };
 
 		_methodName12 = "getPersistedModel";
 
@@ -132,12 +124,12 @@ public class UpstreamChannelHistoryLocalServiceClpInvoker {
 
 		if (_methodName1.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-			return UpstreamChannelHistoryLocalServiceUtil.createUpstreamChannelHistory((com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK)arguments[0]);
+			return UpstreamChannelHistoryLocalServiceUtil.createUpstreamChannelHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName2.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-			return UpstreamChannelHistoryLocalServiceUtil.deleteUpstreamChannelHistory((com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK)arguments[0]);
+			return UpstreamChannelHistoryLocalServiceUtil.deleteUpstreamChannelHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName3.equals(name) &&
@@ -183,12 +175,12 @@ public class UpstreamChannelHistoryLocalServiceClpInvoker {
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return UpstreamChannelHistoryLocalServiceUtil.fetchUpstreamChannelHistory((com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK)arguments[0]);
+			return UpstreamChannelHistoryLocalServiceUtil.fetchUpstreamChannelHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return UpstreamChannelHistoryLocalServiceUtil.getUpstreamChannelHistory((com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPK)arguments[0]);
+			return UpstreamChannelHistoryLocalServiceUtil.getUpstreamChannelHistory(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
