@@ -7,29 +7,21 @@
 	<ui:define name="main">
 		<h:form id="listForm">
 			<p:messages globalOnly="false" closable="true" />
+			
+			<h3>Upstream channel History <small>Alias : ${upstreamChannelHistoryBean.channel.ifAlias} - Cmts: ${upstreamChannelHistoryBean.cmts.title}</small></h3>
 
-			<ui:include src="search.xhtml" />
+			<!-- <ui:include src="search.xhtml" /> -->
 
 			<p:spacer />
 
-			<p:dataTable id="listTable" reflow="true" widgetVar="listTable" value="#{upstreamChannelBean.lazyDataModel}" var="upstreamChannel"
+			<p:dataTable id="listTable" reflow="true" widgetVar="listTable" value="#{upstreamChannelHistoryBean.lazyDataModel}" var="upstreamChannel"
 				rowIndexVar="index" rows="50" paginator="true" stickyHeader="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true"
 				resizableColumns="true">
 				
-				<p:column width="20" resizable="false">
-					<p:button icon="ui-icon-signal-diag" outcome="history">
-						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}"/>
-						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}"/>
-					</p:button>
-				</p:column>
-
 				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%" width="90">
-					<p:link outcome="/views/cm-monitor/view.xhtml" value="#{upstreamChannel.ifDesc}">
-						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}"/>
-						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}"/>
-					</p:link>
+					<h:outputText value="#{upstreamChannel.ifDesc}"/>
 				</p:column>
 
 				<p:column headerText="Alias" width="300" filterBy="#{upstreamChannel.ifAlias}" sortBy="#{upstreamChannel.ifAlias}" filterStyle="width: 90%">
@@ -102,7 +94,7 @@
 
 				<p:column headerText="Time" width="100">
 					<h:outputText value="#{user}"></h:outputText>
-					<h:outputText value="#{upstreamChannel.modifiedDate}">
+					<h:outputText value="#{upstreamChannel.createDate}">
 						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
 					</h:outputText>
 				</p:column>

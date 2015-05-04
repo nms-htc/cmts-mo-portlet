@@ -67,8 +67,8 @@ public abstract class AbstractLazyDataModel<T extends BaseModel<T>> extends Lazy
 		if (filters != null) {
 			for (Map.Entry<String, Object> entry : filters.entrySet()) {
 				if (entry.getValue() instanceof String) {
-					listQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(), entry.getValue() + "%"));
-					countQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(), entry.getValue() + "%"));
+					listQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(),"%" + entry.getValue() + "%"));
+					countQuery.add(RestrictionsFactoryUtil.ilike(entry.getKey(),"%" +  entry.getValue() + "%"));
 				} else {
 					listQuery.add(RestrictionsFactoryUtil.eq(entry.getKey(), entry.getValue()));
 					countQuery.add(RestrictionsFactoryUtil.eq(entry.getKey(), entry.getValue()));

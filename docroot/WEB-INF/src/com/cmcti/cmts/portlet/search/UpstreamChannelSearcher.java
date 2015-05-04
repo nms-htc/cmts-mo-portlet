@@ -8,7 +8,6 @@ import javax.faces.bean.ViewScoped;
 
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
 import com.cmcti.cmts.portlet.bean.UcRowStyleAlarmGenerator;
-import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Junction;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;

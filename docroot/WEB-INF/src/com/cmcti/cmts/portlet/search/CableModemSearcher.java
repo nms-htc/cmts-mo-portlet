@@ -2,11 +2,21 @@ package com.cmcti.cmts.portlet.search;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.cmcti.cmts.domain.model.UpstreamChannel;
 import com.cmcti.cmts.domain.service.CableModemLocalServiceUtil;
+import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
+import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
+import com.cmcti.cmts.portlet.bean.CmRowStyleAlarmGenerator;
+import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Junction;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 
 @ManagedBean
@@ -15,6 +25,9 @@ public class CableModemSearcher implements Searcher, Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 4662398953120024302L;
+	private static final Logger logger = LoggerFactory.getLogger(CableModemSearcher.class);
+	private static final String IFINDEX_PARAM = "ifIndex";
+	private static final String CMTSID_PARAM = "cmtsId";
 
 	protected Double minDsSNR;
 	protected Double maxDsSNR;
@@ -30,9 +43,43 @@ public class CableModemSearcher implements Searcher, Serializable {
 	protected Double maxDsPower;
 	protected boolean alarmOnly = false;
 
+	/**
+	 * For display cable model for one upstream...
+	 */
+	private int ifIndex;
+	private long cmtsId;
+
+	private UpstreamChannel upstreamChannel;
+
+	@PostConstruct
+	public void init() {
+		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
+
+		ifIndex = liferayFacesContext.getRequestParameterAsInt(IFINDEX_PARAM, 0);
+		cmtsId = liferayFacesContext.getRequestParameterAsLong(CMTSID_PARAM, 0);
+
+		if (cmtsId > 0 && ifIndex > 0) {
+			try {
+				UpstreamChannelPK upstreamChannelPK = new UpstreamChannelPK(ifIndex, cmtsId);
+				upstreamChannel = UpstreamChannelLocalServiceUtil.getUpstreamChannel(upstreamChannelPK);
+			} catch (Exception e) {
+				logger.warn("Upstream channel is not found with cmtsId = {0} and ifIndex = {1}", cmtsId, ifIndex);
+			}
+		}
+	}
+
+	@ManagedProperty("#{cmRowStyleAlarmGenerator}")
+	private CmRowStyleAlarmGenerator cmRowStyleAlarmGenerator;
+
 	@Override
 	public DynamicQuery getSearchQuery() {
 		DynamicQuery query = CableModemLocalServiceUtil.dynamicQuery();
+
+		// Filter upstream channel.
+		if (upstreamChannel != null) {
+			query.add(RestrictionsFactoryUtil.eq("ucIfIndex", upstreamChannel.getIfIndex()));
+			query.add(RestrictionsFactoryUtil.eq("cmtsId", upstreamChannel.getCmtsId()));
+		}
 
 		if (minDsSNR != null) {
 			query.add(RestrictionsFactoryUtil.ge("dsSNR", (int) (minDsSNR * 10)));
@@ -47,7 +94,7 @@ public class CableModemSearcher implements Searcher, Serializable {
 		}
 
 		if (maxUsSNR != null) {
-			query.add(RestrictionsFactoryUtil.le("usSNR", (int)  (maxUsSNR * 10)));
+			query.add(RestrictionsFactoryUtil.le("usSNR", (int) (maxUsSNR * 10)));
 		}
 
 		if (minFecCorrected != null) {
@@ -81,9 +128,36 @@ public class CableModemSearcher implements Searcher, Serializable {
 		if (maxUsPower != null) {
 			query.add(RestrictionsFactoryUtil.le("usPower", (int) (maxUsPower * 10)));
 		}
-		
+
 		if (alarmOnly) {
-			// 
+			Junction mainDisjunction = RestrictionsFactoryUtil.disjunction();
+
+			// avgOnlineCmDsSNR check
+			Junction dsSNRConjunction = RestrictionsFactoryUtil.conjunction();
+			dsSNRConjunction.add(RestrictionsFactoryUtil.ge("dsSNR", cmRowStyleAlarmGenerator.getMinDsSNRLv3()));
+			dsSNRConjunction.add(RestrictionsFactoryUtil.le("dsSNR", cmRowStyleAlarmGenerator.getMaxDsSNRLv1()));
+
+			// ifSigQSNR check
+			Junction usSNRConjunction = RestrictionsFactoryUtil.conjunction();
+			usSNRConjunction.add(RestrictionsFactoryUtil.ge("usSNR", cmRowStyleAlarmGenerator.getMinUsSNRLv3()));
+			usSNRConjunction.add(RestrictionsFactoryUtil.le("usSNR", cmRowStyleAlarmGenerator.getMaxUsSNRLv1()));
+
+			// fecCorrected check
+			Junction fecCorrectedConjunction = RestrictionsFactoryUtil.conjunction();
+			fecCorrectedConjunction.add(RestrictionsFactoryUtil.gt("fecCorrected", cmRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
+
+			// fecUncorrectable check
+			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable",
+					cmRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+
+			// Build junction
+			mainDisjunction.add(dsSNRConjunction);
+			mainDisjunction.add(usSNRConjunction);
+			mainDisjunction.add(fecCorrectedConjunction);
+			mainDisjunction.add(fecUncorrectableConjunction);
+
+			query.add(mainDisjunction);
 		}
 
 		return query;
@@ -191,6 +265,38 @@ public class CableModemSearcher implements Searcher, Serializable {
 
 	public void setAlarmOnly(boolean alarmOnly) {
 		this.alarmOnly = alarmOnly;
+	}
+
+	public CmRowStyleAlarmGenerator getCmRowStyleAlarmGenerator() {
+		return cmRowStyleAlarmGenerator;
+	}
+
+	public void setCmRowStyleAlarmGenerator(CmRowStyleAlarmGenerator cmRowStyleAlarmGenerator) {
+		this.cmRowStyleAlarmGenerator = cmRowStyleAlarmGenerator;
+	}
+
+	public int getIfIndex() {
+		return ifIndex;
+	}
+
+	public void setIfIndex(int ifIndex) {
+		this.ifIndex = ifIndex;
+	}
+
+	public long getCmtsId() {
+		return cmtsId;
+	}
+
+	public void setCmtsId(long cmtsId) {
+		this.cmtsId = cmtsId;
+	}
+
+	public UpstreamChannel getUpstreamChannel() {
+		return upstreamChannel;
+	}
+
+	public void setUpstreamChannel(UpstreamChannel upstreamChannel) {
+		this.upstreamChannel = upstreamChannel;
 	}
 
 }

@@ -30,10 +30,13 @@ public class CableModemBean extends AbstractCRUDBean<CableModem> implements Seri
 	// serialVersionUID
 	private static final long serialVersionUID = -8931856153021958206L;
 	private static final Logger logger = LoggerFactory.getLogger(CableModemBean.class);
-
+	
 	@ManagedProperty("#{cableModemSearcher}")
 	private Searcher searcher;
-
+	
+	public CableModemBean() {
+	}
+	
 	public Searcher getSearcher() {
 		return searcher;
 	}
@@ -162,4 +165,5 @@ public class CableModemBean extends AbstractCRUDBean<CableModem> implements Seri
 
 		return statusStr;
 	}
+
 }

@@ -7,19 +7,18 @@
 	<ui:define name="main">
 		<h:form id="listForm">
 			<p:messages globalOnly="false" closable="true" />
-
-			<ui:include src="search.xhtml" />
+			
+			<h3>Cable Modem History <small>${cableModemHistoryBean.macAddress}</small> </h3>
 
 			<p:spacer />
 
-			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="50"
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemHistoryBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="50"
 				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true" reflow="true"
 				stickyHeader="true">
 
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column width="30" resizable="false" rowspan="2" />
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
 						<p:column headerText="Subscriber Address" rowspan="2" />
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="130"/>
@@ -37,21 +36,15 @@
 				</p:columnGroup>
 				
 				<p:column>
-					<p:button icon="ui-icon-signal-diag" outcome="history">
-						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
-					</p:button>
-				</p:column>
-
-				<p:column>
 					<h:outputText value="#{cableModem.macAddress}" />
 				</p:column>
 
 				<p:column>
-					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
+					<h:outputText value="#{cableModemHistoryBean.getCustomerTitle(cableModem.macAddress)}" />
 				</p:column>
 
 				<p:column>
-					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false" />
+					<h:outputText value="#{i18n[cableModemHistoryBean.getCableStatus(cableModem.status)]}" escape="false" />
 				</p:column>
 
 				<p:column>
@@ -86,7 +79,7 @@
 					</h:outputText>
 				</p:column>
 				<p:column>
-					<h:outputText value="#{cableModem.modifiedDate}">
+					<h:outputText value="#{cableModem.createDate}">
 						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
 					</h:outputText>
 				</p:column>

@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
-	<p:panel toggleable="true" toggleSpeed="100" header="Cable Modem monitor search form" collapsed="false">
+	<p:panel toggleable="true" toggleSpeed="100" header="Cable Modem monitor search #{cableModemSearcher.upstreamChannel != null ? 'For Node : '.concat(cableModemSearcher.upstreamChannel.ifAlias) : '' }" collapsed="false">
 		<div class="ui-grid ui-grid-responsive">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6">
@@ -50,7 +50,9 @@
 		</div>
 
 		<f:facet name="footer">
-			<p:commandButton value="Search" update="@form" />
+			<p:commandButton value="Search" update="@form" icon="ui-icon-search"/>
+			<p:spacer width="5"/>
+			<p:button value="Cancel" outcome="/views/up-monitor/view.xhtml" rendered="#{cableModemSearcher.upstreamChannel != null}" icon="ui-icon-arrowreturn-1-w"/>
 		</f:facet>
 	</p:panel>
 </ui:component>
