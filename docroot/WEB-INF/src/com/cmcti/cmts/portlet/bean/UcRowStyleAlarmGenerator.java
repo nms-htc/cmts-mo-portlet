@@ -77,7 +77,7 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 		alarmColorLv1 = portletPreferences.getValue("alarmColorLv1", "#ff9900");
 		alarmColorLv2 = portletPreferences.getValue("alarmColorLv2", "#ff00ff");
-		alarmColorLv3 = portletPreferences.getValue("alarmColorLv2", "#ff0000");
+		alarmColorLv3 = portletPreferences.getValue("alarmColorLv3", "#ff0000");
 
 		minFecCorrectedLv1 = parseDouble(portletPreferences.getValue("minFecCorrectedLv1", "0"));
 		maxFecCorrectedLv1 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv1", "5"));

@@ -60,7 +60,7 @@ public class CmRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 		alarmColorLv1 = portletPreferences.getValue("alarmColorLv1", "#ff9900");
 		alarmColorLv2 = portletPreferences.getValue("alarmColorLv2", "#ff00ff");
-		alarmColorLv3 = portletPreferences.getValue("alarmColorLv2", "#ff0000");
+		alarmColorLv3 = portletPreferences.getValue("alarmColorLv3", "#ff0000");
 
 		minDsSNRLv1 = parseInt(portletPreferences.getValue("minDsSNRLv1", "30")) * 10;
 		minDsSNRLv2 = parseInt(portletPreferences.getValue("minDsSNRLv2", "28")) * 10;

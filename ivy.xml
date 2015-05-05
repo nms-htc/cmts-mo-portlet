@@ -18,5 +18,6 @@
 		<dependency name="liferay-faces-util" org="com.liferay.faces" rev="3.2.4-ga5" />
 		<dependency name="primefaces" org="org.primefaces" rev="5.2.RC2"/> 
 		<dependency name="bootstrap" org="org.primefaces.themes" rev="1.0.10"/>
+		
 	</dependencies>
 </ivy-module>
