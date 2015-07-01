@@ -289,6 +289,12 @@ public class UpstreamChannelLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
+	public java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> fetchByCmtsId(
+		long cmtsId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _upstreamChannelLocalService.fetchByCmtsId(cmtsId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

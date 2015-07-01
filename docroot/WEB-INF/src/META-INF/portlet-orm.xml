@@ -82,11 +82,11 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="enable" />
 			<basic name="title" />
 			<basic name="host" />
 			<basic name="community" />
 			<basic name="description" />
+			<basic name="enable" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -107,6 +107,55 @@
 			</basic>
 			<basic name="title" />
 			<basic name="macAddress" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.MerchantModelImpl">
+		<attributes>
+			<id name="merchantId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="title" />
+			<basic name="code">
+				<column name="CODE_" />
+			</basic>
+			<basic name="parentId" />
+			<basic name="parentCode" />
+			<basic name="description" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.OptionModelImpl">
+		<attributes>
+			<id name="optionId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="optionType" />
+			<basic name="optionKey" />
+			<basic name="optionValue" />
+			<basic name="description" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -198,6 +247,14 @@
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" name="CustomerMacMapping">
 		<table name="CMTS_CusMacMap" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.MerchantImpl" name="Merchant">
+		<table name="CMTS_Merchant" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.OptionImpl" name="Option">
+		<table name="CMTS_Option" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">

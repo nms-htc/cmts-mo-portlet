@@ -282,6 +282,14 @@ public class CustomerMacMappingLocalServiceUtil {
 		return getService().getByMacAddress(macAddress);
 	}
 
+	public static void importAddressFromXls(java.io.InputStream is,
+		int sheetIdx, int startRow,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().importAddressFromXls(is, sheetIdx, startRow, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

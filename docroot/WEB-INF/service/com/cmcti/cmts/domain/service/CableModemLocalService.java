@@ -253,4 +253,12 @@ public interface CableModemLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List getAvgValueForUpstream(long cmtsId, int ifIndex,
+		int status) throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.util.List<com.cmcti.cmts.domain.model.CableModem> findByMacAddress(
+		java.lang.String macAddress, int maxResults)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

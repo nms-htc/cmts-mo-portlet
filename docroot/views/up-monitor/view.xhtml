@@ -15,20 +15,23 @@
 			<p:dataTable id="listTable" reflow="true" widgetVar="listTable" value="#{upstreamChannelBean.lazyDataModel}" var="upstreamChannel"
 				rowIndexVar="index" rows="50" paginator="true" stickyHeader="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true"
-				resizableColumns="true">
-				
-				<p:column width="20" resizable="false">
+				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true" resizableColumns="true">
+
+				<p:column width="40"  resizable="false" exportable="false" >
 					<p:button icon="ui-icon-signal-diag" outcome="history">
-						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}"/>
-						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}"/>
+						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}" />
+						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
+					</p:button>
+					<p:button icon="ui-icon-refresh" outcome="upstream">
+						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}" />
+						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
 					</p:button>
 				</p:column>
 
 				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%" width="90">
 					<p:link outcome="/views/cm-monitor/view.xhtml" value="#{upstreamChannel.ifDesc}">
-						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}"/>
-						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}"/>
+						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}" />
+						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
 					</p:link>
 				</p:column>
 
@@ -37,7 +40,7 @@
 				</p:column>
 
 				<p:column headerText="SNR" sortBy="#{upstreamChannel.ifSigQSNR}" width="40">
-					<h:outputText value="#{upstreamChannel.ifSigQSNR / 10}" style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.ifSigQSNR, 'ifSigQSNR')}"/>
+					<h:outputText value="#{upstreamChannel.ifSigQSNR / 10}" style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.ifSigQSNR, 'ifSigQSNR')}" />
 				</p:column>
 
 				<p:column headerText="FRE" sortBy="#{upstreamChannel.upChannelFrequency}" width="40">
@@ -52,7 +55,7 @@
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Fec" sortBy="#{upstreamChannel.fecCorrected}" width="40">
-					<h:outputText value="#{upstreamChannel.fecCorrected}" 
+					<h:outputText value="#{upstreamChannel.fecCorrected}"
 						style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.fecCorrected, 'fecCorrected')}">
 						<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
 					</h:outputText>
@@ -90,18 +93,17 @@
 				</p:column>
 
 				<p:column headerText="MER" sortBy="#{upstreamChannel.avgOnlineCmDsSNR}" width="40">
-					<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}" 
+					<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}"
 						style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.avgOnlineCmDsSNR, 'avgOnlineCmDsSNR')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Qam" width="40">
-					<h:outputText value="#{upstreamChannel.qam}"/>
+					<h:outputText value="#{upstreamChannel.qam}" />
 				</p:column>
 
 				<p:column headerText="Time" width="100">
-					<h:outputText value="#{user}"></h:outputText>
 					<h:outputText value="#{upstreamChannel.modifiedDate}">
 						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
 					</h:outputText>

@@ -54,11 +54,11 @@ create table CMTS_Cmts (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	enable BOOLEAN,
 	title VARCHAR(75) null,
 	host VARCHAR(75) null,
 	community VARCHAR(75) null,
-	description VARCHAR(75) null
+	description VARCHAR(75) null,
+	enable BOOLEAN
 );
 
 create table CMTS_CusMacMap (
@@ -72,15 +72,33 @@ create table CMTS_CusMacMap (
 	macAddress VARCHAR(75) null
 );
 
-create table CMTS_CustomerMacMapping (
-	customerMacId LONG not null primary key,
+create table CMTS_Merchant (
+	merchantId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
+	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	title VARCHAR(75) null,
-	macAddress VARCHAR(75) null
+	code_ VARCHAR(75) null,
+	parentId LONG,
+	parentCode VARCHAR(75) null,
+	description VARCHAR(75) null
+);
+
+create table CMTS_Option (
+	optionId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	optionType VARCHAR(75) null,
+	optionKey VARCHAR(75) null,
+	optionValue VARCHAR(75) null,
+	description VARCHAR(75) null
 );
 
 create table CMTS_UCHis (
@@ -138,187 +156,4 @@ create table CMTS_UpstreamChannel (
 	ifAlias VARCHAR(75) null,
 	ifDesc VARCHAR(75) null,
 	primary key (ifIndex, cmtsId)
-);
-
-create table CableModem (
-	macAddress VARCHAR(75) not null primary key,
-	createDate DATE null,
-	modifiedDate DATE null,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	microRef LONG,
-	rxPower INTEGER,
-	txPower INTEGER,
-	usPower INTEGER,
-	dsPower INTEGER,
-	uncorrectables LONG,
-	correcteds LONG,
-	unerroreds LONG,
-	dsSNR INTEGER,
-	usSNR INTEGER,
-	ucIfIndex INTEGER,
-	dcIfIndex INTEGER,
-	cmSubIndex VARCHAR(75) null,
-	cmtsId LONG,
-	cmIndex INTEGER,
-	status INTEGER
-);
-
-create table CableModemHis (
-	id_ LONG not null primary key,
-	macAddress VARCHAR(75) null,
-	createDate DATE null,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	microRef LONG,
-	rxPower INTEGER,
-	txPower INTEGER,
-	usPower INTEGER,
-	dsPower INTEGER,
-	uncorrectables LONG,
-	correcteds LONG,
-	unerroreds LONG,
-	dsSNR INTEGER,
-	usSNR INTEGER,
-	ucIfIndex INTEGER,
-	dcIfIndex INTEGER,
-	cmSubIndex VARCHAR(75) null,
-	cmtsId LONG,
-	cmIndex INTEGER,
-	status INTEGER
-);
-
-create table CableModemHistory (
-	id_ LONG not null primary key,
-	macAddress VARCHAR(75) null,
-	createDate DATE null,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	microRef LONG,
-	rxPower INTEGER,
-	txPower INTEGER,
-	usPower INTEGER,
-	dsPower INTEGER,
-	uncorrectables LONG,
-	correcteds LONG,
-	unerroreds LONG,
-	dsSNR INTEGER,
-	usSNR INTEGER,
-	ucIfIndex INTEGER,
-	dcIfIndex INTEGER,
-	cmSubIndex VARCHAR(75) null,
-	cmtsId LONG,
-	cmIndex INTEGER,
-	status INTEGER
-);
-
-create table Cmts (
-	cmtsId LONG not null primary key,
-	groupId LONG,
-	companyId LONG,
-	userId LONG,
-	userName VARCHAR(75) null,
-	createDate DATE null,
-	modifiedDate DATE null,
-	enable BOOLEAN,
-	title VARCHAR(75) null,
-	host VARCHAR(75) null,
-	community VARCHAR(75) null,
-	description VARCHAR(75) null
-);
-
-create table CustomerMacMapping (
-	customerMacId LONG not null primary key,
-	groupId LONG,
-	companyId LONG,
-	userId LONG,
-	createDate DATE null,
-	modifiedDate DATE null,
-	title VARCHAR(75) null,
-	macAddress VARCHAR(75) null
-);
-
-create table UpstreamChannel (
-	ifIndex INTEGER not null,
-	cmtsId LONG not null,
-	createDate DATE null,
-	modifiedDate DATE null,
-	qam VARCHAR(75) null,
-	avgOnlineCmDsPower DOUBLE,
-	avgOnlineCmUsPower DOUBLE,
-	avgOnlineCmMicRef DOUBLE,
-	avgOnlineCmDsSNR DOUBLE,
-	avgOnlineCmTxPower DOUBLE,
-	avgOnlineCmRxPower DOUBLE,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	upChannelCmTotal INTEGER,
-	upChannelCmRegistered INTEGER,
-	upChannelCmActive INTEGER,
-	upChannelModProfile INTEGER,
-	upChannelWidth LONG,
-	upChannelFrequency LONG,
-	ifSigQUncorrectables LONG,
-	ifSigQCorrecteds LONG,
-	ifSigQUnerroreds LONG,
-	ifSigQSNR DOUBLE,
-	ifAlias VARCHAR(75) null,
-	ifDesc VARCHAR(75) null,
-	primary key (ifIndex, cmtsId)
-);
-
-create table UpstreamChannelHis (
-	id_ LONG not null primary key,
-	cmtsId LONG,
-	ifIndex INTEGER,
-	createDate DATE null,
-	qam VARCHAR(75) null,
-	avgOnlineCmDsPower DOUBLE,
-	avgOnlineCmUsPower DOUBLE,
-	avgOnlineCmMicRef DOUBLE,
-	avgOnlineCmDsSNR DOUBLE,
-	avgOnlineCmTxPower DOUBLE,
-	avgOnlineCmRxPower DOUBLE,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	upChannelCmTotal INTEGER,
-	upChannelCmRegistered INTEGER,
-	upChannelCmActive INTEGER,
-	upChannelModProfile INTEGER,
-	upChannelWidth LONG,
-	upChannelFrequency LONG,
-	ifSigQUncorrectables LONG,
-	ifSigQCorrecteds LONG,
-	ifSigQUnerroreds LONG,
-	ifSigQSNR DOUBLE,
-	ifAlias VARCHAR(75) null,
-	ifDesc VARCHAR(75) null
-);
-
-create table UpstreamChannelHistory (
-	id_ LONG not null primary key,
-	cmtsId LONG,
-	ifIndex INTEGER,
-	createDate DATE null,
-	qam VARCHAR(75) null,
-	avgOnlineCmDsPower DOUBLE,
-	avgOnlineCmUsPower DOUBLE,
-	avgOnlineCmMicRef DOUBLE,
-	avgOnlineCmDsSNR DOUBLE,
-	avgOnlineCmTxPower DOUBLE,
-	avgOnlineCmRxPower DOUBLE,
-	fecUncorrectable DOUBLE,
-	fecCorrected DOUBLE,
-	upChannelCmTotal INTEGER,
-	upChannelCmRegistered INTEGER,
-	upChannelCmActive INTEGER,
-	upChannelModProfile INTEGER,
-	upChannelWidth LONG,
-	upChannelFrequency LONG,
-	ifSigQUncorrectables LONG,
-	ifSigQCorrecteds LONG,
-	ifSigQUnerroreds LONG,
-	ifSigQSNR DOUBLE,
-	ifAlias VARCHAR(75) null,
-	ifDesc VARCHAR(75) null
 );

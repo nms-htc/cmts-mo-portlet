@@ -53,8 +53,6 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", enable=");
-		sb.append(enable);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", host=");
@@ -63,6 +61,8 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 		sb.append(community);
 		sb.append(", description=");
 		sb.append(description);
+		sb.append(", enable=");
+		sb.append(enable);
 		sb.append("}");
 
 		return sb.toString();
@@ -98,8 +98,6 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 			cmtsImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		cmtsImpl.setEnable(enable);
-
 		if (title == null) {
 			cmtsImpl.setTitle(StringPool.BLANK);
 		}
@@ -128,6 +126,8 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 			cmtsImpl.setDescription(description);
 		}
 
+		cmtsImpl.setEnable(enable);
+
 		cmtsImpl.resetOriginalValues();
 
 		return cmtsImpl;
@@ -142,11 +142,11 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		enable = objectInput.readBoolean();
 		title = objectInput.readUTF();
 		host = objectInput.readUTF();
 		community = objectInput.readUTF();
 		description = objectInput.readUTF();
+		enable = objectInput.readBoolean();
 	}
 
 	@Override
@@ -166,7 +166,6 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeBoolean(enable);
 
 		if (title == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -195,6 +194,8 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 		else {
 			objectOutput.writeUTF(description);
 		}
+
+		objectOutput.writeBoolean(enable);
 	}
 
 	public long cmtsId;
@@ -204,9 +205,9 @@ public class CmtsCacheModel implements CacheModel<Cmts>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public boolean enable;
 	public String title;
 	public String host;
 	public String community;
 	public String description;
+	public boolean enable;
 }

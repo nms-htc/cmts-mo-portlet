@@ -14,7 +14,14 @@
 
 package com.cmcti.cmts.domain.service.impl;
 
+import java.util.List;
+
+import com.cmcti.cmts.domain.model.CableModem;
 import com.cmcti.cmts.domain.service.base.CableModemLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the cable modem local service.
@@ -36,4 +43,40 @@ public class CableModemLocalServiceImpl extends CableModemLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.cmcti.cmts.domain.service.CableModemLocalServiceUtil} to access the cable modem local service.
 	 */
+	
+	@SuppressWarnings({"rawtypes" })
+	public List getAvgValueForUpstream(long cmtsId, int ifIndex, int status) throws SystemException {
+		
+		DynamicQuery query = dynamicQuery();
+		
+		// restrictions
+		query.add(RestrictionsFactoryUtil.eq("cmtsId", cmtsId));
+		query.add(RestrictionsFactoryUtil.eq("ucIfIndex", ifIndex));
+		query.add(RestrictionsFactoryUtil.eq("status", status));
+		
+		// projection
+		query.setProjection(ProjectionFactoryUtil.projectionList()
+				.add(ProjectionFactoryUtil.avg("microRef"))
+				.add(ProjectionFactoryUtil.avg("rxPower"))
+				.add(ProjectionFactoryUtil.avg("txPower"))
+				.add(ProjectionFactoryUtil.avg("usPower"))
+				.add(ProjectionFactoryUtil.avg("dsPower"))
+				.add(ProjectionFactoryUtil.avg("dsSNR")));
+		
+		query.setLimit(0, 1);
+		
+		return dynamicQuery(query);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CableModem> findByMacAddress(String macAddress, int maxResults) throws SystemException {
+		DynamicQuery query = dynamicQuery();
+		
+		query.add(RestrictionsFactoryUtil.ilike("macAddress", "%" + macAddress + "%"));
+		
+		query.setLimit(0, maxResults);
+		
+		return dynamicQuery(query);
+	}
+	
 }

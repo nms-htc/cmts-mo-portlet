@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
+	template="/views/inc/common_temp.xhtml">
+
+	<ui:define name="main">
+		<h:form id="listForm">
+			<p:messages globalOnly="false" closable="true" />
+			
+			<p:panel header="Select Node" id="selectPanel">
+				<div class="ui-fluid">
+					<p:panelGrid columns="5" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank">
+						<p:outputLabel for="cmts" value="CMTS"/>
+						<p:selectOneMenu id="cmts" value="#{upstreamChannelDetailBean.cmtsId}" required="true" valueChangeListener="#{upstreamChannelDetailBean.onChangeCmts}">
+							<f:selectItems value="#{cmtsBean.selectItems}"/>
+							<p:ajax update="upstream" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="upstream" value="Upstream channel"/>
+						<p:selectOneMenu id="upstream" value="#{upstreamChannelDetailBean.ifIndex}" required="true" valueChangeListener="#{upstreamChannelDetailBean.onChangeUpstream}">
+							<f:selectItems value="#{upstreamChannelDetailBean.upstreamSelectItems}" />
+							<p:ajax update="@form" />
+						</p:selectOneMenu>
+						
+						<p:commandButton id="refreshBtn" icon="ui-icon-refresh" value="Refresh" actionListener="#{upstreamChannelDetailBean.refresh}" update="@form"/>
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			
+			<p:panelGrid id="gridTable" style="width: 100%; margin-top: 30px">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="15">Node Detail</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Description</p:column>
+						<p:column>Alias</p:column>
+						<p:column>SNR</p:column>
+						<p:column>FRE</p:column>
+						<p:column>WTH</p:column>
+						<p:column>Fec</p:column>
+						<p:column>FecUn</p:column>
+						<p:column>Act</p:column>
+						<p:column>Reg</p:column>
+						<p:column>Total</p:column>
+						<p:column>TxPw</p:column>
+						<p:column>RxPw</p:column>
+						<p:column>Mer</p:column>
+						<p:column>Qam</p:column>
+						<p:column>Time</p:column>
+					</p:row>
+				</f:facet>
+				
+				<p:row>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.ifDesc}"/>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.ifAlias}"/>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.ifSigQSNR / 10}" style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannelDetailBean.upstream.ifSigQSNR, 'ifSigQSNR')}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelFrequency / 1000000}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelWidth / 1000000}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.fecCorrected}"
+							style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannelDetailBean.upstream.fecCorrected, 'fecCorrected')}">
+							<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.fecUncorrectable}"
+							style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannelDetailBean.upstream.fecUncorrectable, 'fecUncorrectable')}">
+							<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelCmActive}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelCmRegistered}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelCmTotal}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.avgOnlineCmTxPower / 10}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.avgOnlineCmRxPower / 10}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.avgOnlineCmDsSNR / 10}"
+							style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannelDetailBean.upstream.avgOnlineCmDsSNR, 'avgOnlineCmDsSNR')}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.qam}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.modifiedDate}">
+							<f:convertDateTime pattern="dd/MM/yy hh:mm" />
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			<p:blockUI block="selectPanel" trigger="refreshBtn">
+				Loading ...<br/>
+				<p:graphicImage library="images" name="ajax-loader.gif"/>
+			</p:blockUI>
+		</h:form>
+	</ui:define>
+</ui:composition>

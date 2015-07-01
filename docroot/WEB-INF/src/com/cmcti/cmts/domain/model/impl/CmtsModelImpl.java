@@ -72,13 +72,13 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "enable", Types.BOOLEAN },
 			{ "title", Types.VARCHAR },
 			{ "host", Types.VARCHAR },
 			{ "community", Types.VARCHAR },
-			{ "description", Types.VARCHAR }
+			{ "description", Types.VARCHAR },
+			{ "enable", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table CMTS_Cmts (cmtsId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,enable BOOLEAN,title VARCHAR(75) null,host VARCHAR(75) null,community VARCHAR(75) null,description VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table CMTS_Cmts (cmtsId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,host VARCHAR(75) null,community VARCHAR(75) null,description VARCHAR(75) null,enable BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table CMTS_Cmts";
 	public static final String ORDER_BY_JPQL = " ORDER BY cmts.cmtsId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CMTS_Cmts.cmtsId ASC";
@@ -117,11 +117,11 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setEnable(soapModel.getEnable());
 		model.setTitle(soapModel.getTitle());
 		model.setHost(soapModel.getHost());
 		model.setCommunity(soapModel.getCommunity());
 		model.setDescription(soapModel.getDescription());
+		model.setEnable(soapModel.getEnable());
 
 		return model;
 	}
@@ -193,11 +193,11 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("enable", getEnable());
 		attributes.put("title", getTitle());
 		attributes.put("host", getHost());
 		attributes.put("community", getCommunity());
 		attributes.put("description", getDescription());
+		attributes.put("enable", getEnable());
 
 		return attributes;
 	}
@@ -246,12 +246,6 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 			setModifiedDate(modifiedDate);
 		}
 
-		Boolean enable = (Boolean)attributes.get("enable");
-
-		if (enable != null) {
-			setEnable(enable);
-		}
-
 		String title = (String)attributes.get("title");
 
 		if (title != null) {
@@ -274,6 +268,12 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		Boolean enable = (Boolean)attributes.get("enable");
+
+		if (enable != null) {
+			setEnable(enable);
 		}
 	}
 
@@ -383,22 +383,6 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 
 	@JSON
 	@Override
-	public boolean getEnable() {
-		return _enable;
-	}
-
-	@Override
-	public boolean isEnable() {
-		return _enable;
-	}
-
-	@Override
-	public void setEnable(boolean enable) {
-		_enable = enable;
-	}
-
-	@JSON
-	@Override
 	public String getTitle() {
 		if (_title == null) {
 			return StringPool.BLANK;
@@ -461,6 +445,22 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		_description = description;
 	}
 
+	@JSON
+	@Override
+	public boolean getEnable() {
+		return _enable;
+	}
+
+	@Override
+	public boolean isEnable() {
+		return _enable;
+	}
+
+	@Override
+	public void setEnable(boolean enable) {
+		_enable = enable;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -499,11 +499,11 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		cmtsImpl.setUserName(getUserName());
 		cmtsImpl.setCreateDate(getCreateDate());
 		cmtsImpl.setModifiedDate(getModifiedDate());
-		cmtsImpl.setEnable(getEnable());
 		cmtsImpl.setTitle(getTitle());
 		cmtsImpl.setHost(getHost());
 		cmtsImpl.setCommunity(getCommunity());
 		cmtsImpl.setDescription(getDescription());
+		cmtsImpl.setEnable(getEnable());
 
 		cmtsImpl.resetOriginalValues();
 
@@ -601,8 +601,6 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 			cmtsCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		cmtsCacheModel.enable = getEnable();
-
 		cmtsCacheModel.title = getTitle();
 
 		String title = cmtsCacheModel.title;
@@ -635,6 +633,8 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 			cmtsCacheModel.description = null;
 		}
 
+		cmtsCacheModel.enable = getEnable();
+
 		return cmtsCacheModel;
 	}
 
@@ -656,8 +656,6 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", enable=");
-		sb.append(getEnable());
 		sb.append(", title=");
 		sb.append(getTitle());
 		sb.append(", host=");
@@ -666,6 +664,8 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		sb.append(getCommunity());
 		sb.append(", description=");
 		sb.append(getDescription());
+		sb.append(", enable=");
+		sb.append(getEnable());
 		sb.append("}");
 
 		return sb.toString();
@@ -708,10 +708,6 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>enable</column-name><column-value><![CDATA[");
-		sb.append(getEnable());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
 		sb.append(getTitle());
 		sb.append("]]></column-value></column>");
@@ -726,6 +722,10 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>enable</column-name><column-value><![CDATA[");
+		sb.append(getEnable());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -745,11 +745,11 @@ public class CmtsModelImpl extends BaseModelImpl<Cmts> implements CmtsModel {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private boolean _enable;
 	private String _title;
 	private String _host;
 	private String _community;
 	private String _description;
+	private boolean _enable;
 	private long _columnBitmask;
 	private Cmts _escapedModel;
 }

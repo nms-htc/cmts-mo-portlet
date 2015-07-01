@@ -41,3 +41,10 @@
   text-align: right;
   padding-right: 20px !important; }
 
+.ui-paginator .ui-paginator-current, .ui-paginator .ui-paginator-rpp-options {
+  width: auto;
+  margin-bottom: 0; }
+
+.ui-panelgrid-blank .ui-widget-content {
+  border: none; }
+

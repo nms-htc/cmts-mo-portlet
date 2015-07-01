@@ -13,6 +13,12 @@
 	<bean id="com.cmcti.cmts.domain.service.CustomerMacMappingLocalService" class="com.cmcti.cmts.domain.service.impl.CustomerMacMappingLocalServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.CustomerMacMappingService" class="com.cmcti.cmts.domain.service.impl.CustomerMacMappingServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistence" class="com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.MerchantLocalService" class="com.cmcti.cmts.domain.service.impl.MerchantLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.MerchantService" class="com.cmcti.cmts.domain.service.impl.MerchantServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.MerchantPersistence" class="com.cmcti.cmts.domain.service.persistence.MerchantPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.OptionLocalService" class="com.cmcti.cmts.domain.service.impl.OptionLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.OptionService" class="com.cmcti.cmts.domain.service.impl.OptionServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.OptionPersistence" class="com.cmcti.cmts.domain.service.persistence.OptionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelLocalService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelLocalServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistenceImpl" parent="basePersistence" />

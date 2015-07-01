@@ -287,6 +287,20 @@ public class CableModemLocalServiceWrapper implements CableModemLocalService,
 			arguments);
 	}
 
+	@Override
+	public java.util.List getAvgValueForUpstream(long cmtsId, int ifIndex,
+		int status) throws com.liferay.portal.kernel.exception.SystemException {
+		return _cableModemLocalService.getAvgValueForUpstream(cmtsId, ifIndex,
+			status);
+	}
+
+	@Override
+	public java.util.List<com.cmcti.cmts.domain.model.CableModem> findByMacAddress(
+		java.lang.String macAddress, int maxResults)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _cableModemLocalService.findByMacAddress(macAddress, maxResults);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

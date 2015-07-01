@@ -190,27 +190,6 @@ public interface CmtsModel extends BaseModel<Cmts>, GroupedModel {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the enable of this cmts.
-	 *
-	 * @return the enable of this cmts
-	 */
-	public boolean getEnable();
-
-	/**
-	 * Returns <code>true</code> if this cmts is enable.
-	 *
-	 * @return <code>true</code> if this cmts is enable; <code>false</code> otherwise
-	 */
-	public boolean isEnable();
-
-	/**
-	 * Sets whether this cmts is enable.
-	 *
-	 * @param enable the enable of this cmts
-	 */
-	public void setEnable(boolean enable);
-
-	/**
 	 * Returns the title of this cmts.
 	 *
 	 * @return the title of this cmts
@@ -269,6 +248,27 @@ public interface CmtsModel extends BaseModel<Cmts>, GroupedModel {
 	 * @param description the description of this cmts
 	 */
 	public void setDescription(String description);
+
+	/**
+	 * Returns the enable of this cmts.
+	 *
+	 * @return the enable of this cmts
+	 */
+	public boolean getEnable();
+
+	/**
+	 * Returns <code>true</code> if this cmts is enable.
+	 *
+	 * @return <code>true</code> if this cmts is enable; <code>false</code> otherwise
+	 */
+	public boolean isEnable();
+
+	/**
+	 * Sets whether this cmts is enable.
+	 *
+	 * @param enable the enable of this cmts
+	 */
+	public void setEnable(boolean enable);
 
 	@Override
 	public boolean isNew();

@@ -275,6 +275,11 @@ public class UpstreamChannelLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> fetchByCmtsId(
+		long cmtsId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchByCmtsId(cmtsId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -823,11 +823,11 @@ public class CmtsPersistenceImpl extends BasePersistenceImpl<Cmts>
 		cmtsImpl.setUserName(cmts.getUserName());
 		cmtsImpl.setCreateDate(cmts.getCreateDate());
 		cmtsImpl.setModifiedDate(cmts.getModifiedDate());
-		cmtsImpl.setEnable(cmts.isEnable());
 		cmtsImpl.setTitle(cmts.getTitle());
 		cmtsImpl.setHost(cmts.getHost());
 		cmtsImpl.setCommunity(cmts.getCommunity());
 		cmtsImpl.setDescription(cmts.getDescription());
+		cmtsImpl.setEnable(cmts.isEnable());
 
 		return cmtsImpl;
 	}

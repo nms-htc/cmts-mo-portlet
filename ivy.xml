@@ -7,6 +7,7 @@
 >
 	<info module="portlet_primefaces_tmpl" organisation="com.liferay" />
 
+
 	<dependencies defaultconf="default">
 		<dependency name="jboss-el" org="org.jboss.el" rev="2.0.1.GA"/>
 		<dependency name="jsf-api" org="com.sun.faces" rev="2.1.21" />
@@ -16,8 +17,14 @@
 		<dependency name="liferay-faces-bridge-impl" org="com.liferay.faces" rev="3.2.4-ga5" />
 		<dependency name="liferay-faces-portal" org="com.liferay.faces" rev="3.2.4-ga5" />
 		<dependency name="liferay-faces-util" org="com.liferay.faces" rev="3.2.4-ga5" />
+		<dependency name="liferay-faces-1513-patch" org="com.liferay.faces.patches" rev="3.2.4-ga5" />
 		<dependency name="primefaces" org="org.primefaces" rev="5.2.RC2"/> 
 		<dependency name="bootstrap" org="org.primefaces.themes" rev="1.0.10"/>
-		
+		<dependency name="poi" org="org.apache.poi" rev="3.12" />
+		<dependency org="com.lowagie" name="itext" rev="4.2.1" />
+		<dependency org="commons-net" name="commons-net" rev="3.3"/>
+		<dependency org="org.snmp4j" name="snmp4j" rev="1.10.1">
+			<exclude module="log4j"/>
+		</dependency>
 	</dependencies>
 </ivy-module>

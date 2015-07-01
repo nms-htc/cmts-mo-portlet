@@ -20,6 +20,8 @@ import com.cmcti.cmts.domain.service.persistence.CableModemHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.CableModemPersistence;
 import com.cmcti.cmts.domain.service.persistence.CmtsPersistence;
 import com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistence;
+import com.cmcti.cmts.domain.service.persistence.MerchantPersistence;
+import com.cmcti.cmts.domain.service.persistence.OptionPersistence;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence;
@@ -517,6 +519,118 @@ public abstract class UpstreamChannelLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the merchant local service.
+	 *
+	 * @return the merchant local service
+	 */
+	public com.cmcti.cmts.domain.service.MerchantLocalService getMerchantLocalService() {
+		return merchantLocalService;
+	}
+
+	/**
+	 * Sets the merchant local service.
+	 *
+	 * @param merchantLocalService the merchant local service
+	 */
+	public void setMerchantLocalService(
+		com.cmcti.cmts.domain.service.MerchantLocalService merchantLocalService) {
+		this.merchantLocalService = merchantLocalService;
+	}
+
+	/**
+	 * Returns the merchant remote service.
+	 *
+	 * @return the merchant remote service
+	 */
+	public com.cmcti.cmts.domain.service.MerchantService getMerchantService() {
+		return merchantService;
+	}
+
+	/**
+	 * Sets the merchant remote service.
+	 *
+	 * @param merchantService the merchant remote service
+	 */
+	public void setMerchantService(
+		com.cmcti.cmts.domain.service.MerchantService merchantService) {
+		this.merchantService = merchantService;
+	}
+
+	/**
+	 * Returns the merchant persistence.
+	 *
+	 * @return the merchant persistence
+	 */
+	public MerchantPersistence getMerchantPersistence() {
+		return merchantPersistence;
+	}
+
+	/**
+	 * Sets the merchant persistence.
+	 *
+	 * @param merchantPersistence the merchant persistence
+	 */
+	public void setMerchantPersistence(MerchantPersistence merchantPersistence) {
+		this.merchantPersistence = merchantPersistence;
+	}
+
+	/**
+	 * Returns the option local service.
+	 *
+	 * @return the option local service
+	 */
+	public com.cmcti.cmts.domain.service.OptionLocalService getOptionLocalService() {
+		return optionLocalService;
+	}
+
+	/**
+	 * Sets the option local service.
+	 *
+	 * @param optionLocalService the option local service
+	 */
+	public void setOptionLocalService(
+		com.cmcti.cmts.domain.service.OptionLocalService optionLocalService) {
+		this.optionLocalService = optionLocalService;
+	}
+
+	/**
+	 * Returns the option remote service.
+	 *
+	 * @return the option remote service
+	 */
+	public com.cmcti.cmts.domain.service.OptionService getOptionService() {
+		return optionService;
+	}
+
+	/**
+	 * Sets the option remote service.
+	 *
+	 * @param optionService the option remote service
+	 */
+	public void setOptionService(
+		com.cmcti.cmts.domain.service.OptionService optionService) {
+		this.optionService = optionService;
+	}
+
+	/**
+	 * Returns the option persistence.
+	 *
+	 * @return the option persistence
+	 */
+	public OptionPersistence getOptionPersistence() {
+		return optionPersistence;
+	}
+
+	/**
+	 * Sets the option persistence.
+	 *
+	 * @param optionPersistence the option persistence
+	 */
+	public void setOptionPersistence(OptionPersistence optionPersistence) {
+		this.optionPersistence = optionPersistence;
+	}
+
+	/**
 	 * Returns the upstream channel local service.
 	 *
 	 * @return the upstream channel local service
@@ -830,6 +944,18 @@ public abstract class UpstreamChannelLocalServiceBaseImpl
 	protected com.cmcti.cmts.domain.service.CustomerMacMappingService customerMacMappingService;
 	@BeanReference(type = CustomerMacMappingPersistence.class)
 	protected CustomerMacMappingPersistence customerMacMappingPersistence;
+	@BeanReference(type = com.cmcti.cmts.domain.service.MerchantLocalService.class)
+	protected com.cmcti.cmts.domain.service.MerchantLocalService merchantLocalService;
+	@BeanReference(type = com.cmcti.cmts.domain.service.MerchantService.class)
+	protected com.cmcti.cmts.domain.service.MerchantService merchantService;
+	@BeanReference(type = MerchantPersistence.class)
+	protected MerchantPersistence merchantPersistence;
+	@BeanReference(type = com.cmcti.cmts.domain.service.OptionLocalService.class)
+	protected com.cmcti.cmts.domain.service.OptionLocalService optionLocalService;
+	@BeanReference(type = com.cmcti.cmts.domain.service.OptionService.class)
+	protected com.cmcti.cmts.domain.service.OptionService optionService;
+	@BeanReference(type = OptionPersistence.class)
+	protected OptionPersistence optionPersistence;
 	@BeanReference(type = com.cmcti.cmts.domain.service.UpstreamChannelLocalService.class)
 	protected com.cmcti.cmts.domain.service.UpstreamChannelLocalService upstreamChannelLocalService;
 	@BeanReference(type = com.cmcti.cmts.domain.service.UpstreamChannelService.class)

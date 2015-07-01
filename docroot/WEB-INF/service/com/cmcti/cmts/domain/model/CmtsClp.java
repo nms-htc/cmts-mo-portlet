@@ -81,11 +81,11 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("enable", getEnable());
 		attributes.put("title", getTitle());
 		attributes.put("host", getHost());
 		attributes.put("community", getCommunity());
 		attributes.put("description", getDescription());
+		attributes.put("enable", getEnable());
 
 		return attributes;
 	}
@@ -134,12 +134,6 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 			setModifiedDate(modifiedDate);
 		}
 
-		Boolean enable = (Boolean)attributes.get("enable");
-
-		if (enable != null) {
-			setEnable(enable);
-		}
-
 		String title = (String)attributes.get("title");
 
 		if (title != null) {
@@ -162,6 +156,12 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		Boolean enable = (Boolean)attributes.get("enable");
+
+		if (enable != null) {
+			setEnable(enable);
 		}
 	}
 
@@ -337,34 +337,6 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 	}
 
 	@Override
-	public boolean getEnable() {
-		return _enable;
-	}
-
-	@Override
-	public boolean isEnable() {
-		return _enable;
-	}
-
-	@Override
-	public void setEnable(boolean enable) {
-		_enable = enable;
-
-		if (_cmtsRemoteModel != null) {
-			try {
-				Class<?> clazz = _cmtsRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setEnable", boolean.class);
-
-				method.invoke(_cmtsRemoteModel, enable);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public String getTitle() {
 		return _title;
 	}
@@ -456,6 +428,34 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		}
 	}
 
+	@Override
+	public boolean getEnable() {
+		return _enable;
+	}
+
+	@Override
+	public boolean isEnable() {
+		return _enable;
+	}
+
+	@Override
+	public void setEnable(boolean enable) {
+		_enable = enable;
+
+		if (_cmtsRemoteModel != null) {
+			try {
+				Class<?> clazz = _cmtsRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEnable", boolean.class);
+
+				method.invoke(_cmtsRemoteModel, enable);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getCmtsRemoteModel() {
 		return _cmtsRemoteModel;
 	}
@@ -532,11 +532,11 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setEnable(getEnable());
 		clone.setTitle(getTitle());
 		clone.setHost(getHost());
 		clone.setCommunity(getCommunity());
 		clone.setDescription(getDescription());
+		clone.setEnable(getEnable());
 
 		return clone;
 	}
@@ -605,8 +605,6 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", enable=");
-		sb.append(getEnable());
 		sb.append(", title=");
 		sb.append(getTitle());
 		sb.append(", host=");
@@ -615,6 +613,8 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		sb.append(getCommunity());
 		sb.append(", description=");
 		sb.append(getDescription());
+		sb.append(", enable=");
+		sb.append(getEnable());
 		sb.append("}");
 
 		return sb.toString();
@@ -657,10 +657,6 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>enable</column-name><column-value><![CDATA[");
-		sb.append(getEnable());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
 		sb.append(getTitle());
 		sb.append("]]></column-value></column>");
@@ -676,6 +672,10 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>enable</column-name><column-value><![CDATA[");
+		sb.append(getEnable());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -690,11 +690,11 @@ public class CmtsClp extends BaseModelImpl<Cmts> implements Cmts {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private boolean _enable;
 	private String _title;
 	private String _host;
 	private String _community;
 	private String _description;
+	private boolean _enable;
 	private BaseModel<?> _cmtsRemoteModel;
 	private Class<?> _clpSerializerClass = com.cmcti.cmts.domain.service.ClpSerializer.class;
 }

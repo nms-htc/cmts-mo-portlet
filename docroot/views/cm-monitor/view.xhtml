@@ -36,56 +36,56 @@
 					</p:row>
 				</p:columnGroup>
 				
-				<p:column>
+				<p:column exportable="false">
 					<p:button icon="ui-icon-signal-diag" outcome="history">
 						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
 					</p:button>
 				</p:column>
 
-				<p:column>
+				<p:column headerText="Mac Address">
 					<h:outputText value="#{cableModem.macAddress}" />
 				</p:column>
 
-				<p:column>
+				<p:column headerText="Subscriber Address">
 					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
 				</p:column>
 
-				<p:column>
+				<p:column headerText="Status">
 					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false" />
 				</p:column>
 
-				<p:column>
+				<p:column headerText="DnSNR">
 					<h:outputText value="#{cableModem.dsSNR / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.dsSNR, 'dsSNR')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="UpSNR">
 					<h:outputText value="#{cableModem.usSNR /10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.usSNR, 'usSNR')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="Fec %">
 					<h:outputText value="#{cableModem.fecCorrected}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.fecCorrected, 'fecCorrected')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="Fec-Un %">
 					<h:outputText value="#{cableModem.fecUncorrectable}"
 						style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.fecUncorrectable, 'fecUncorrectable')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="DnPower">
 					<h:outputText value="#{cableModem.dsPower / 10}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="UpPower">
 					<h:outputText value="#{cableModem.usPower / 10}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
+				<p:column headerText="Time">
 					<h:outputText value="#{cableModem.modifiedDate}">
 						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
 					</h:outputText>

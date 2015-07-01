@@ -14,7 +14,12 @@
 
 package com.cmcti.cmts.domain.service.impl;
 
+import java.util.List;
+
+import com.cmcti.cmts.domain.model.UpstreamChannel;
 import com.cmcti.cmts.domain.service.base.UpstreamChannelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the upstream channel local service.
@@ -37,4 +42,8 @@ public class UpstreamChannelLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil} to access the upstream channel local service.
 	 */
+	
+	public List<UpstreamChannel> fetchByCmtsId(long cmtsId) throws SystemException {
+		return upstreamChannelPersistence.findByCmts(cmtsId);
+	}
 }

@@ -22,7 +22,7 @@
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-		<column name="enable" type="boolean" />
+		
 
 		<!-- Other fields -->
 
@@ -30,6 +30,7 @@
 		<column name="host" type="String" />
 		<column name="community" type="String" />
 		<column name="description" type="String" />
+		<column name="enable" type="boolean" />
 
 		<!-- Order -->
 
@@ -40,6 +41,89 @@
 		</finder>
 
 
+	</entity>
+	
+	<entity name="Merchant" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="merchantId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="title" type="String" />
+		<column name="code" type="String" />
+		<column name="parentId" type="long"/>
+		<column name="parentCode" type="String"/>
+		<column name="description" type="String" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+
+		<finder name="User" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		
+		<finder name="Code" return-type="Merchant">
+			<finder-column name="code"/>
+		</finder>
+	</entity>
+	
+	<entity name="Option" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="optionId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="optionType" type="String"/>
+		<column name="optionKey" type="String" />
+		<column name="optionValue" type="String" />
+		<column name="description" type="String" />
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+
+		<finder name="User" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		
+		<finder name="Type" return-type="Collection">
+			<finder-column name="optionType"/>
+		</finder>
+		
+		<finder name="T_K" return-type="Option">
+			<finder-column name="optionType"/>
+			<finder-column name="optionKey"/>
+		</finder>
+		
 	</entity>
 
 	<entity name="CableModem" local-service="true" remote-service="true">

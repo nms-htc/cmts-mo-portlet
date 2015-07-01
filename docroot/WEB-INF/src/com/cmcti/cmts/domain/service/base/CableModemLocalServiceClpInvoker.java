@@ -106,13 +106,21 @@ public class CableModemLocalServiceClpInvoker {
 				"com.cmcti.cmts.domain.model.CableModem"
 			};
 
-		_methodName64 = "getBeanIdentifier";
+		_methodName76 = "getBeanIdentifier";
 
-		_methodParameterTypes64 = new String[] {  };
+		_methodParameterTypes76 = new String[] {  };
 
-		_methodName65 = "setBeanIdentifier";
+		_methodName77 = "setBeanIdentifier";
 
-		_methodParameterTypes65 = new String[] { "java.lang.String" };
+		_methodParameterTypes77 = new String[] { "java.lang.String" };
+
+		_methodName82 = "getAvgValueForUpstream";
+
+		_methodParameterTypes82 = new String[] { "long", "int", "int" };
+
+		_methodName83 = "findByMacAddress";
+
+		_methodParameterTypes83 = new String[] { "java.lang.String", "int" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,16 +212,29 @@ public class CableModemLocalServiceClpInvoker {
 			return CableModemLocalServiceUtil.updateCableModem((com.cmcti.cmts.domain.model.CableModem)arguments[0]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
 			return CableModemLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
 			CableModemLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
+		}
+
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+			return CableModemLocalServiceUtil.getAvgValueForUpstream(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+			return CableModemLocalServiceUtil.findByMacAddress((java.lang.String)arguments[0],
+				((Integer)arguments[1]).intValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -251,8 +272,12 @@ public class CableModemLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
+	private String _methodName76;
+	private String[] _methodParameterTypes76;
+	private String _methodName77;
+	private String[] _methodParameterTypes77;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
 }

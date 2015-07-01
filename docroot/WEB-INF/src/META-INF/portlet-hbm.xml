@@ -6,6 +6,8 @@
 	<import class="com.cmcti.cmts.domain.model.CableModemHistory" />
 	<import class="com.cmcti.cmts.domain.model.Cmts" />
 	<import class="com.cmcti.cmts.domain.model.CustomerMacMapping" />
+	<import class="com.cmcti.cmts.domain.model.Merchant" />
+	<import class="com.cmcti.cmts.domain.model.Option" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannel" />
 	<import class="com.cmcti.cmts.domain.model.UpstreamChannelHistory" />
 	<class name="com.cmcti.cmts.domain.model.impl.CableModemImpl" table="CMTS_CableModem">
@@ -71,11 +73,11 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="enable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="host" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="community" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="enable" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.CustomerMacMappingImpl" table="CMTS_CusMacMap">
 		<cache usage="read-write" />
@@ -89,6 +91,39 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="macAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.MerchantImpl" table="CMTS_Merchant">
+		<cache usage="read-write" />
+		<id name="merchantId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="code" type="com.liferay.portal.dao.orm.hibernate.StringType" column="code_" />
+		<property name="parentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="parentCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.cmcti.cmts.domain.model.impl.OptionImpl" table="CMTS_Option">
+		<cache usage="read-write" />
+		<id name="optionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="optionType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="optionKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="optionValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" table="CMTS_UpstreamChannel">
 		<cache usage="read-write" />

@@ -297,6 +297,15 @@ public class CustomerMacMappingLocalServiceWrapper
 		return _customerMacMappingLocalService.getByMacAddress(macAddress);
 	}
 
+	@Override
+	public void importAddressFromXls(java.io.InputStream is, int sheetIdx,
+		int startRow, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_customerMacMappingLocalService.importAddressFromXls(is, sheetIdx,
+			startRow, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

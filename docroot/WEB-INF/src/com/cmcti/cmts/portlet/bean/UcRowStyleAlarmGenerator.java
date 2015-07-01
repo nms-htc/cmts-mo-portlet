@@ -111,6 +111,7 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 	@Override
 	public String getRowDataCss(Object value, String dataType) {
 		String cssStyle = "";
+		if (value == null) return null;
 
 		switch (dataType) {
 

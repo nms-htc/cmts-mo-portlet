@@ -55,11 +55,11 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="enable" type="boolean" />
 		<field name="title" type="String" />
 		<field name="host" type="String" />
 		<field name="community" type="String" />
 		<field name="description" type="String" />
+		<field name="enable" type="boolean" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.CustomerMacMapping">
 		<field name="customerMacId" type="long" />
@@ -70,6 +70,33 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="title" type="String" />
 		<field name="macAddress" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.Merchant">
+		<field name="merchantId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="title" type="String" />
+		<field name="code" type="String" />
+		<field name="parentId" type="long" />
+		<field name="parentCode" type="String" />
+		<field name="description" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.Option">
+		<field name="optionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="optionType" type="String" />
+		<field name="optionKey" type="String" />
+		<field name="optionValue" type="String" />
+		<field name="description" type="String" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.UpstreamChannel">
 		<field name="ifIndex" type="int" />

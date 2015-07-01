@@ -58,6 +58,18 @@
 
 		<f:facet name="footer">
 			<p:commandButton value="Search" update="@form" icon="ui-icon-search"/>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export Page" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="true" />
+			</p:commandButton>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export All" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="false" />
+			</p:commandButton>
 		</f:facet>
 	</p:panel>
 </ui:component>

@@ -56,11 +56,11 @@ public class CmtsWrapper implements Cmts, ModelWrapper<Cmts> {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("enable", getEnable());
 		attributes.put("title", getTitle());
 		attributes.put("host", getHost());
 		attributes.put("community", getCommunity());
 		attributes.put("description", getDescription());
+		attributes.put("enable", getEnable());
 
 		return attributes;
 	}
@@ -109,12 +109,6 @@ public class CmtsWrapper implements Cmts, ModelWrapper<Cmts> {
 			setModifiedDate(modifiedDate);
 		}
 
-		Boolean enable = (Boolean)attributes.get("enable");
-
-		if (enable != null) {
-			setEnable(enable);
-		}
-
 		String title = (String)attributes.get("title");
 
 		if (title != null) {
@@ -137,6 +131,12 @@ public class CmtsWrapper implements Cmts, ModelWrapper<Cmts> {
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		Boolean enable = (Boolean)attributes.get("enable");
+
+		if (enable != null) {
+			setEnable(enable);
 		}
 	}
 
@@ -323,36 +323,6 @@ public class CmtsWrapper implements Cmts, ModelWrapper<Cmts> {
 	}
 
 	/**
-	* Returns the enable of this cmts.
-	*
-	* @return the enable of this cmts
-	*/
-	@Override
-	public boolean getEnable() {
-		return _cmts.getEnable();
-	}
-
-	/**
-	* Returns <code>true</code> if this cmts is enable.
-	*
-	* @return <code>true</code> if this cmts is enable; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isEnable() {
-		return _cmts.isEnable();
-	}
-
-	/**
-	* Sets whether this cmts is enable.
-	*
-	* @param enable the enable of this cmts
-	*/
-	@Override
-	public void setEnable(boolean enable) {
-		_cmts.setEnable(enable);
-	}
-
-	/**
 	* Returns the title of this cmts.
 	*
 	* @return the title of this cmts
@@ -430,6 +400,36 @@ public class CmtsWrapper implements Cmts, ModelWrapper<Cmts> {
 	@Override
 	public void setDescription(java.lang.String description) {
 		_cmts.setDescription(description);
+	}
+
+	/**
+	* Returns the enable of this cmts.
+	*
+	* @return the enable of this cmts
+	*/
+	@Override
+	public boolean getEnable() {
+		return _cmts.getEnable();
+	}
+
+	/**
+	* Returns <code>true</code> if this cmts is enable.
+	*
+	* @return <code>true</code> if this cmts is enable; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isEnable() {
+		return _cmts.isEnable();
+	}
+
+	/**
+	* Sets whether this cmts is enable.
+	*
+	* @param enable the enable of this cmts
+	*/
+	@Override
+	public void setEnable(boolean enable) {
+		_cmts.setEnable(enable);
 	}
 
 	@Override

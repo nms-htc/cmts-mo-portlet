@@ -38,11 +38,11 @@ public class CmtsSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setEnable(model.getEnable());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setHost(model.getHost());
 		soapModel.setCommunity(model.getCommunity());
 		soapModel.setDescription(model.getDescription());
+		soapModel.setEnable(model.getEnable());
 
 		return soapModel;
 	}
@@ -151,18 +151,6 @@ public class CmtsSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public boolean getEnable() {
-		return _enable;
-	}
-
-	public boolean isEnable() {
-		return _enable;
-	}
-
-	public void setEnable(boolean enable) {
-		_enable = enable;
-	}
-
 	public String getTitle() {
 		return _title;
 	}
@@ -195,6 +183,18 @@ public class CmtsSoap implements Serializable {
 		_description = description;
 	}
 
+	public boolean getEnable() {
+		return _enable;
+	}
+
+	public boolean isEnable() {
+		return _enable;
+	}
+
+	public void setEnable(boolean enable) {
+		_enable = enable;
+	}
+
 	private long _cmtsId;
 	private long _groupId;
 	private long _companyId;
@@ -202,9 +202,9 @@ public class CmtsSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private boolean _enable;
 	private String _title;
 	private String _host;
 	private String _community;
 	private String _description;
+	private boolean _enable;
 }

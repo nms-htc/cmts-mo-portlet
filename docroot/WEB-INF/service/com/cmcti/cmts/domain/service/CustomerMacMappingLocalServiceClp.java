@@ -119,6 +119,13 @@ public class CustomerMacMappingLocalServiceClp
 		_methodName19 = "getByMacAddress";
 
 		_methodParameterTypes19 = new String[] { "java.lang.String" };
+
+		_methodName20 = "importAddressFromXls";
+
+		_methodParameterTypes20 = new String[] {
+				"java.io.InputStream", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	@Override
@@ -712,6 +719,45 @@ public class CustomerMacMappingLocalServiceClp
 		return (com.cmcti.cmts.domain.model.CustomerMacMapping)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public void importAddressFromXls(java.io.InputStream is, int sheetIdx,
+		int startRow, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName20,
+				_methodParameterTypes20,
+				new Object[] {
+					ClpSerializer.translateInput(is),
+					
+				sheetIdx,
+					
+				startRow,
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -751,4 +797,6 @@ public class CustomerMacMappingLocalServiceClp
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
 }

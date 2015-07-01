@@ -275,6 +275,18 @@ public class CableModemLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List getAvgValueForUpstream(long cmtsId,
+		int ifIndex, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAvgValueForUpstream(cmtsId, ifIndex, status);
+	}
+
+	public static java.util.List<com.cmcti.cmts.domain.model.CableModem> findByMacAddress(
+		java.lang.String macAddress, int maxResults)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByMacAddress(macAddress, maxResults);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

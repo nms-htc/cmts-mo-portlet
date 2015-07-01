@@ -234,6 +234,11 @@
 			<portlet-mode>view</portlet-mode>
 			<portlet-mode>edit</portlet-mode>
 		</supports>
+		<supports>
+			<mime-type>application/vnd.ms-excel</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+		</supports>
 		<portlet-info>
 			<title>Upstream Channel Monitor</title>
 			<short-title>Upstream Monitor</short-title>
