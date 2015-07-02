@@ -19,7 +19,7 @@
 
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column width="30" resizable="false" rowspan="2" />
+						<p:column width="80" resizable="false" rowspan="2" />
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
 						<p:column headerText="Subscriber Address" rowspan="2" />
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="130"/>
@@ -38,6 +38,9 @@
 				
 				<p:column exportable="false">
 					<p:button icon="ui-icon-signal-diag" outcome="history">
+						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
+					</p:button>
+					<p:button icon="ui-icon-refresh" outcome="cm">
 						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
 					</p:button>
 				</p:column>
@@ -87,7 +90,7 @@
 				</p:column>
 				<p:column headerText="Time">
 					<h:outputText value="#{cableModem.modifiedDate}">
-						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
+						<f:convertDateTime pattern="dd/MM/yy HH:mm" />
 					</h:outputText>
 				</p:column>
 

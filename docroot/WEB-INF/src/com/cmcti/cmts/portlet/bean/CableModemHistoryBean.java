@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
@@ -16,6 +17,7 @@ import com.cmcti.cmts.domain.service.CableModemLocalServiceUtil;
 import com.cmcti.cmts.domain.service.CustomerMacMappingLocalServiceUtil;
 import com.cmcti.cmts.domain.service.persistence.CableModemHistoryUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
+import com.cmcti.cmts.portlet.search.Searcher;
 import com.cmcti.cmts.portlet.util.CableModemConstants;
 import com.cmcti.cmts.portlet.util.JsfUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -36,12 +38,12 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 	
 	private String macAddress;
 	
+	@ManagedProperty("#{cableModemHistorySearcher}")
+	private Searcher searcher;
+	
 	@PostConstruct
 	public void init() {
 		macAddress = JsfUtil.getRequestParameter(PARAM_MAC_ADDRESS);
-		if (macAddress != null && !macAddress.trim().isEmpty()) {
-			
-		}
 	}
 	
 	protected DynamicQuery updateQuery(DynamicQuery query) {
@@ -65,7 +67,7 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 
 	@Override
 	protected LazyDataModel<CableModemHistory> initDataModel() {
-		return new AbstractLazyDataModel<CableModemHistory>() {
+		AbstractLazyDataModel<CableModemHistory> model =  new AbstractLazyDataModel<CableModemHistory>() {
 
 			private static final long serialVersionUID = -7865865696816533980L;
 
@@ -82,9 +84,6 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 			@SuppressWarnings("unchecked")
 			@Override
 			protected List<CableModemHistory> query(DynamicQuery query, int start, int end) throws SystemException, PortalException {
-				// update query - filter by mac
-				query = updateQuery(query);
-				
 				if (start >= 0 && end >= start) {
 					return CableModemHistoryLocalServiceUtil.dynamicQuery(query, start, end);
 				} else {
@@ -94,9 +93,6 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 
 			@Override
 			protected int count(DynamicQuery query) throws SystemException, PortalException {
-				// update query - filter by mac
-				query = updateQuery(query);
-				
 				return Long.valueOf(CableModemHistoryLocalServiceUtil.dynamicQueryCount(query)).intValue();
 			}
 
@@ -105,6 +101,10 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 				return CableModemHistoryLocalServiceUtil.getCableModemHistory(id);
 			}
 		};
+		
+		model.setSearcher(searcher);
+		
+		return model;
 	}
 
 	@Override
@@ -192,4 +192,18 @@ public class CableModemHistoryBean extends AbstractCRUDBean<CableModemHistory> i
 		this.macAddress = macAddress;
 	}
 
+	/**
+	 * @return the searcher
+	 */
+	public Searcher getSearcher() {
+		return searcher;
+	}
+
+	/**
+	 * @param searcher the searcher to set
+	 */
+	public void setSearcher(Searcher searcher) {
+		this.searcher = searcher;
+	}
+	
 }

@@ -5,8 +5,98 @@
 	template="/views/inc/common_temp.xhtml">
 
 	<ui:define name="main">
-		
+		<h:form>
+			<p:messages globalOnly="false" closable="true"/>
 			
-		
+			<p:panel header="Select Mac">
+			
+				<p:autoComplete 
+					id="dd"
+					placeholder="Enter MAC Address" 
+					value="#{cableModemDetailBean.macAddress}" 
+					required="true"
+					completeMethod="#{cableModemDetailBean.complateMac}"
+					forceSelection="true"
+				/>
+					
+				<f:facet name="footer">
+					<p:commandButton 
+						value="Refresh"
+						actionListener="#{cableModemDetailBean.refresh}"
+						icon="ui-icon-refresh"
+						update="@form"
+					/>
+				</f:facet>
+			</p:panel>		
+			
+			<p:panelGrid style="width:100%; margin-top: 30px">
+				<f:facet name="header">
+					<p:row>
+						<p:column width="130" rowspan="2">Mac Address</p:column>
+						<p:column rowspan="2">Subscriber Address</p:column>
+						<p:column rowspan="2" width="130">Status</p:column>
+						<p:column colspan="6">Modem Parameters</p:column>
+						<p:column rowspan="2">Time</p:column>
+					</p:row>
+					<p:row>
+						<p:column width="40">DnSNR</p:column>
+						<p:column width="40">UpSNR</p:column>
+						<p:column width="40">Fec %</p:column>
+						<p:column width="40">Fec-Un %</p:column>
+						<p:column width="40">DnPower</p:column>
+						<p:column width="40">UpPower</p:column>
+					</p:row>
+				</f:facet>
+				
+				<p:column headerText="Mac Address">
+					<h:outputText value="#{cableModemDetailBean.cableModem.macAddress}" />
+				</p:column>
+
+				<p:column headerText="Subscriber Address">
+					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModemDetailBean.cableModem.macAddress)}" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModemDetailBean.cableModem.status)]}" escape="false" />
+				</p:column>
+
+				<p:column headerText="DnSNR">
+					<h:outputText value="#{cableModemDetailBean.cableModem.dsSNR / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModemDetailBean.cableModem.dsSNR, 'dsSNR')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="UpSNR">
+					<h:outputText value="#{cableModemDetailBean.cableModem.usSNR /10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModemDetailBean.cableModem.usSNR, 'usSNR')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fec %">
+					<h:outputText value="#{cableModemDetailBean.cableModem.fecCorrected}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModemDetailBean.cableModem.fecCorrected, 'fecCorrected')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fec-Un %">
+					<h:outputText value="#{cableModemDetailBean.cableModem.fecUncorrectable}"
+						style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModemDetailBean.cableModem.fecUncorrectable, 'fecUncorrectable')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="DnPower">
+					<h:outputText value="#{cableModemDetailBean.cableModem.dsPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="UpPower">
+					<h:outputText value="#{cableModemDetailBean.cableModem.usPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Time">
+					<h:outputText value="#{cableModemDetailBean.cableModem.modifiedDate}">
+						<f:convertDateTime pattern="dd/MM/yy HH:mm"/>
+					</h:outputText>
+				</p:column>
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

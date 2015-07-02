@@ -45,14 +45,14 @@ public class CableModemDetailBean implements Serializable {
 				MessageUtil.addGlobalErrorMessage(e);
 			}
 			
-			refresh();			
+			//refresh();			
 		}
 	}
 
 	public List<String> complateMac(String text) {
 		List<String> result = new ArrayList<String>();
 		try {
-			List<CableModem> cms = CableModemLocalServiceUtil.findByMacAddress(macAddress, FILTER_MAX_RESUTL); 
+			List<CableModem> cms = CableModemLocalServiceUtil.findByMacAddress(text, FILTER_MAX_RESUTL); 
 			
 			for (CableModem cm : cms) {
 				result.add(cm.getMacAddress());
@@ -68,7 +68,7 @@ public class CableModemDetailBean implements Serializable {
 	public void refresh() {
 		try {
 			if (macAddress != null && !macAddress.trim().isEmpty())
-				this.cableModem = snmpCableModemService.getCableModem(macAddress.trim());
+			this.cableModem = snmpCableModemService.getCableModem(macAddress.trim());
 		} catch (Exception e) {
 			logger.error(e);
 			MessageUtil.addGlobalErrorMessage(e);

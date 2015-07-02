@@ -9,6 +9,8 @@
 			<p:messages globalOnly="false" closable="true" />
 			
 			<h3>Cable Modem History <small>${cableModemHistoryBean.macAddress}</small> </h3>
+			
+			<ui:include src="historySearch.xhtml"/>
 
 			<p:spacer />
 
@@ -80,7 +82,7 @@
 				</p:column>
 				<p:column>
 					<h:outputText value="#{cableModem.createDate}">
-						<f:convertDateTime pattern="dd/MM/yy hh:mm" />
+						<f:convertDateTime pattern="dd/MM/yy HH:mm" />
 					</h:outputText>
 				</p:column>
 
