@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ui:component 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<p:panel toggleable="true" toggleSpeed="100" header="Upstream channel monitor search form" collapsed="false">
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="Fec Corrected" for="minFecCorrected" />
+					<p:inputText placeholder="Min" id="minFecCorrected" value="#{upstreamChannelHistorySearcher.minFecCorrected}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxFecCorrected" label="Fec Corrected Max" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxFecCorrected}" />
+
+					<p:outputLabel value="Fec Uncorrected" />
+					<p:inputText placeholder="Min" id="minFecUncorrected" value="#{upstreamChannelHistorySearcher.minFecUncorrectable}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxFecUncorrected" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxFecUncorrectable}" />
+
+					<p:outputLabel value="SNR" />
+					<p:inputText placeholder="Min" id="minSNR" value="#{upstreamChannelHistorySearcher.minSigQSNR}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxSNR" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxSigQSNR}" />
+					
+					<p:outputLabel value="Datetime"/>
+					<p:calendar id="startDate" value="#{upstreamChannelHistorySearcher.startDate}" placeholder="Start time" pattern="dd/MM/yyyy HH:mm"/>
+					<p:spacer width="10" />
+					<p:calendar id="endDate" value="#{upstreamChannelHistorySearcher.endDate}" placeholder="Start time" pattern="dd/MM/yyyy HH:mm"/>
+				</div>
+
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="Alarm Only" for="alarmOnly" />
+					<p:selectBooleanCheckbox id="alarmOnly" value="#{upstreamChannelHistorySearcher.alarmOnly}" />
+
+					<p:outputLabel value="TxPower" />
+					<p:inputText placeholder="Min" id="minTxPower" value="#{upstreamChannelHistorySearcher.minTxPower}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxTxPower" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxTxPower}" />
+
+					<p:outputLabel value="RxPower" />
+					<p:inputText placeholder="Min" id="minRxPower" value="#{upstreamChannelHistorySearcher.minRxPower}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxRxPower" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxRxPower}" />
+
+					<p:outputLabel value="Mer" />
+					<p:inputText placeholder="Min" id="minMer" value="#{upstreamChannelHistorySearcher.minMer}" />
+					<p:spacer width="10" />
+					<p:inputText id="maxMer" placeholder="Max" value="#{upstreamChannelHistorySearcher.maxMer}" />
+					<p:spacer width="10" />
+				</div>
+			</div>
+		</div>
+
+		<f:facet name="footer">
+			<p:commandButton value="Search" update="@form" icon="ui-icon-search"/>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export Page" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="true" />
+			</p:commandButton>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export All" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="false" />
+			</p:commandButton>
+		</f:facet>
+	</p:panel>
+</ui:component>

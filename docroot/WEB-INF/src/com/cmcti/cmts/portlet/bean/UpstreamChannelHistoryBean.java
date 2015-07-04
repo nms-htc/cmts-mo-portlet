@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
@@ -18,6 +19,7 @@ import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryUtil;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
+import com.cmcti.cmts.portlet.search.Searcher;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -39,6 +41,9 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 	
 	private UpstreamChannel channel;
 	private Cmts cmts;
+	
+	@ManagedProperty("#{upstreamChannelHistorySearcher}")
+	private Searcher searcher;
 	
 	/* Param requets */
 	private int ifIndex;
@@ -78,7 +83,7 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 
 	@Override
 	protected LazyDataModel<UpstreamChannelHistory> initDataModel() {
-		return new AbstractLazyDataModel<UpstreamChannelHistory>() {
+		AbstractLazyDataModel<UpstreamChannelHistory> model =  new AbstractLazyDataModel<UpstreamChannelHistory>() {
 
 			private static final long serialVersionUID = 7196907692291004915L;
 
@@ -95,8 +100,6 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 			@SuppressWarnings("unchecked")
 			@Override
 			protected List<UpstreamChannelHistory> query(DynamicQuery query, int start, int end) throws SystemException, PortalException {
-				// update query
-				query = updateQuery(query);
 				if (start > 0 && end > start) {
 					return UpstreamChannelHistoryLocalServiceUtil.dynamicQuery(query, start, end);
 				}
@@ -105,8 +108,6 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 
 			@Override
 			protected int count(DynamicQuery query) throws SystemException, PortalException {
-				// update query
-				query = updateQuery(query);
 				return Long.valueOf(UpstreamChannelHistoryLocalServiceUtil.dynamicQueryCount(query)).intValue();
 			}
 
@@ -115,6 +116,10 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 				return UpstreamChannelHistoryLocalServiceUtil.getUpstreamChannelHistory(id);
 			}
 		};
+		
+		model.setSearcher(searcher);
+		
+		return model;
 	}
 
 	@Override
@@ -165,6 +170,14 @@ public class UpstreamChannelHistoryBean extends AbstractCRUDBean<UpstreamChannel
 
 	public void setCmtsId(Long cmtsId) {
 		this.cmtsId = cmtsId;
+	}
+	
+	public Searcher getSearcher() {
+		return searcher;
+	}
+
+	public void setSearcher(Searcher searcher) {
+		this.searcher = searcher;
 	}
 	
 }

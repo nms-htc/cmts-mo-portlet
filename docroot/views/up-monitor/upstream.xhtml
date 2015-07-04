@@ -31,9 +31,10 @@
 			<p:panelGrid id="gridTable" style="width: 100%; margin-top: 30px">
 				<f:facet name="header">
 					<p:row>
-						<p:column colspan="15">Node Detail</p:column>
+						<p:column colspan="16">Node Detail</p:column>
 					</p:row>
 					<p:row>
+						<p:column width="30"></p:column>
 						<p:column>Description</p:column>
 						<p:column>Alias</p:column>
 						<p:column>SNR</p:column>
@@ -53,8 +54,17 @@
 				</f:facet>
 				
 				<p:row>
+					<p:column width="30">
+						<p:button outcome="history" icon="ui-icon-signal">
+							<f:param name="ifIndex" value="#{upstreamChannelDetailBean.upstream.ifIndex}" />
+							<f:param name="cmtsId" value="#{upstreamChannelDetailBean.upstream.cmtsId}" />
+						</p:button>
+					</p:column>
 					<p:column>
-						<h:outputText value="#{upstreamChannelDetailBean.upstream.ifDesc}"/>
+						<h:link value="#{upstreamChannelDetailBean.upstream.ifDesc}" outcome="/views/cm-monitor/view.xhtml">
+							<f:param name="ifIndex" value="#{upstreamChannelDetailBean.upstream.ifIndex}" />
+							<f:param name="cmtsId" value="#{upstreamChannelDetailBean.upstream.cmtsId}" />
+						</h:link>
 					</p:column>
 					<p:column>
 						<h:outputText value="#{upstreamChannelDetailBean.upstream.ifAlias}"/>
