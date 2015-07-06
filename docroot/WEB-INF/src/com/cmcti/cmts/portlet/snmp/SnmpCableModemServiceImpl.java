@@ -30,6 +30,7 @@ public class SnmpCableModemServiceImpl implements SnmpCableModemService, Seriali
 	public CableModem getCableModem(String macAddress) {
 		
 		CableModem cableModem = null;
+		logger.info("Mac to refesh from CMTS: " + macAddress);
 		
 		// Load CM from database
 		try {
@@ -67,21 +68,23 @@ public class SnmpCableModemServiceImpl implements SnmpCableModemService, Seriali
 			try {
 				Cmts cmts = CmtsLocalServiceUtil.getCmts(cmtsId);
 				ResponseEvent resEvent = SnmpUtils.get("udp:" + cmts.getHost() + "/161", cmts.getCommunity(), oids);
-				cableModem.setModifiedDate(modifiedDate);
-				cableModem.setMacAddress(resEvent.getResponse().get(0).getVariable().toString());
-				cableModem.setDcIfIndex(resEvent.getResponse().get(1).getVariable().toInt());
-				cableModem.setUcIfIndex(resEvent.getResponse().get(2).getVariable().toInt());
-				cableModem.setUsSNR(resEvent.getResponse().get(3).getVariable().toInt());
-				cableModem.setUnerroreds(resEvent.getResponse().get(4).getVariable().toInt());
-				cableModem.setCorrecteds(resEvent.getResponse().get(5).getVariable().toInt());
-				cableModem.setUncorrectables(resEvent.getResponse().get(6).getVariable().toInt());
-				//cableModem.setIpAddress(resEvent.getResponse().get(7).getVariable().toString()); // ignore ip address
-				cableModem.setStatus(resEvent.getResponse().get(8).getVariable().toInt());
-				cableModem.setRxPower(resEvent.getResponse().get(9).getVariable().toInt());
-				cableModem.setDsPower(resEvent.getResponse().get(10).getVariable().toInt());
-				cableModem.setUsPower(resEvent.getResponse().get(11).getVariable().toInt());
-				cableModem.setDsSNR(resEvent.getResponse().get(12).getVariable().toInt());
-				cableModem.setMicroRef(resEvent.getResponse().get(13).getVariable().toLong());
+				if (resEvent.getResponse().size() == 13) {
+					cableModem.setModifiedDate(modifiedDate);
+					cableModem.setMacAddress(resEvent.getResponse().get(0).getVariable().toString());
+					cableModem.setDcIfIndex(resEvent.getResponse().get(1).getVariable().toInt());
+					cableModem.setUcIfIndex(resEvent.getResponse().get(2).getVariable().toInt());
+					cableModem.setUsSNR(resEvent.getResponse().get(3).getVariable().toInt());
+					cableModem.setUnerroreds(resEvent.getResponse().get(4).getVariable().toInt());
+					cableModem.setCorrecteds(resEvent.getResponse().get(5).getVariable().toInt());
+					cableModem.setUncorrectables(resEvent.getResponse().get(6).getVariable().toInt());
+					//cableModem.setIpAddress(resEvent.getResponse().get(7).getVariable().toString()); // ignore ip address
+					cableModem.setStatus(resEvent.getResponse().get(8).getVariable().toInt());
+					cableModem.setRxPower(resEvent.getResponse().get(9).getVariable().toInt());
+					cableModem.setDsPower(resEvent.getResponse().get(10).getVariable().toInt());
+					cableModem.setUsPower(resEvent.getResponse().get(11).getVariable().toInt());
+					cableModem.setDsSNR(resEvent.getResponse().get(12).getVariable().toInt());
+					cableModem.setMicroRef(resEvent.getResponse().get(13).getVariable().toLong());
+				}
 				
 				// Caculate FECs
 				double total = cableModem.getCorrecteds() + cableModem.getUncorrectables() + cableModem.getUnerroreds();

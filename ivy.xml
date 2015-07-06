@@ -19,7 +19,7 @@
 		<dependency name="liferay-faces-util" org="com.liferay.faces" rev="3.2.4-ga5" />
 		<dependency name="liferay-faces-1513-patch" org="com.liferay.faces.patches" rev="3.2.4-ga5" />
 		<dependency name="primefaces" org="org.primefaces" rev="5.2.RC3"/> 
-		<dependency name="bootstrap" org="org.primefaces.themes" rev="1.0.10"/>
+		<!--dependency name="bootstrap" org="org.primefaces.themes" rev="1.0.10"/-->
 		<dependency name="poi" org="org.apache.poi" rev="3.12" />
 		<dependency org="com.lowagie" name="itext" rev="4.2.1" />
 		<dependency org="commons-net" name="commons-net" rev="3.3"/>

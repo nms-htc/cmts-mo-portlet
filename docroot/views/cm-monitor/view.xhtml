@@ -23,6 +23,7 @@
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
 						<p:column headerText="Subscriber Address" rowspan="2" />
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="130"/>
+						<p:column headerText="Up-Cmts" rowspan="2" width="200"/>
 						<p:column headerText="Modem Parameters" colspan="6" />
 						<p:column headerText="Time" rowspan="2" />
 					</p:row>
@@ -55,6 +56,13 @@
 
 				<p:column headerText="Status">
 					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false" />
+				</p:column>
+				
+				<p:column headerText="Up-CMTS" value="#{upstreamChannelBean.getTitle(''.concat(cableModemBean.cmtsId).concat('-').concat(cableModemBean.ucIfIndex))}">
+					<p:link outcome="/views/up-monitor/view.xhtml">
+						<f:param name="ifIndex" value="#{cableModemBean.ucIfIndex}"/>
+						<f:param name="cmtsId" value="#{cableModemBean.cmtsId}"/>
+					</p:link>
 				</p:column>
 
 				<p:column headerText="DnSNR">

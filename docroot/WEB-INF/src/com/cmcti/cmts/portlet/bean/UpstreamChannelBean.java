@@ -9,15 +9,20 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 
+import com.cmcti.cmts.domain.model.Cmts;
 import com.cmcti.cmts.domain.model.UpstreamChannel;
+import com.cmcti.cmts.domain.service.CmtsLocalServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
 import com.cmcti.cmts.portlet.search.Searcher;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 @ManagedBean
 @ViewScoped
@@ -25,6 +30,7 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 
 	// serialVersionUID
 	private static final long serialVersionUID = -1060741011405634774L;
+	private static final Logger logger = LoggerFactory.getLogger(UpstreamChannelBean.class);
 
 	@ManagedProperty("#{upstreamChannelSearcher}")
 	private Searcher searcher;
@@ -103,6 +109,31 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 
 	public String calculate(String name) {
 		return "Fuck you :" + name;
+	}
+	
+	public String getTitle(String cmtsIfindex) {
+		StringBuilder sb = new StringBuilder();
+		if (cmtsIfindex != null && ! cmtsIfindex.trim().isEmpty()) {
+			String[] ids = cmtsIfindex.split("-");
+			try {
+				long cmtsId = GetterUtil.getLong(ids[0], 0);
+				int ifIndex = GetterUtil.getInteger(ids[1], 0);
+				
+				if (cmtsId > 0 && ifIndex > 0) {
+					Cmts cmts = CmtsLocalServiceUtil.fetchCmts(cmtsId);
+					if (cmts != null) sb.append(cmts.getTitle());
+					
+					UpstreamChannel up = UpstreamChannelLocalServiceUtil.fetchUpstreamChannel(new UpstreamChannelPK(ifIndex, cmtsId));
+					if (up != null) {
+						sb.append("-").append(up.getIfAlias());
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.error(e);
+			}
+		}
+		return sb.toString();
 	}
 
 }

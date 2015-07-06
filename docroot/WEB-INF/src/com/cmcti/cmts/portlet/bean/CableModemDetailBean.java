@@ -86,14 +86,15 @@ public class CableModemDetailBean implements Serializable {
 	public void refresh() {
 		try {
 			if (macAddress != null && !macAddress.trim().isEmpty())
-				this.cableModem = snmpCableModemService.getCableModem(macAddress.trim());
+				this.cableModem = snmpCableModemService.getCableModem(macAddress);
 
 			// Disconnect and open new telnet connection
 			disconnectTelnet();
 			intTelnet();
+			checkCmAndCpe();
 		} catch (Exception e) {
 			logger.error(e);
-			MessageUtil.addGlobalErrorMessage(e);
+			MessageUtil.addGlobalErrorMessage("error-when-refresh-status-of-this-cm");
 		}
 	}
 
@@ -115,6 +116,7 @@ public class CableModemDetailBean implements Serializable {
 		if (telnet != null) {
 			try {
 				telnet.disconnect();
+				telnet = null;
 			} catch (Exception e) {
 				logger.warn("Error when disconect telnet client. Error: {0}", e.getMessage());
 			}
@@ -150,7 +152,7 @@ public class CableModemDetailBean implements Serializable {
 							String line = scanner.nextLine();
 							rowNum++;
 
-							if (rowNum == 4) {
+							if (rowNum >= 4) {
 								String[] params = line.trim().split("\\s+");
 								if (params.length == 9) {
 									this.cmIpAddress = params[1];
@@ -160,6 +162,7 @@ public class CableModemDetailBean implements Serializable {
 						}
 					}
 				}
+				logger.info(commandRet);
 				
 				// show cable modem {mac} cpe
 				commandRet = telnet.sendCommand("show cable modem " + mac + " cpe");
@@ -170,15 +173,17 @@ public class CableModemDetailBean implements Serializable {
 							String line = scanner.nextLine();
 							rowNum++;
 
-							if (rowNum >= 2 && ! line.trim().isEmpty()) {
+							if (rowNum >= 3 && ! line.trim().isEmpty()) {
 								String[] params = line.trim().split("\\s+");
-								if (params.length == 2) {
+								if (params.length >= 2) {
 									cpeInfo.add(params);
 								}
 							}
 						}
 					}
 				}
+				
+				logger.info(commandRet);
 
 			} catch (Exception e) {
 				logger.error(e);
@@ -188,17 +193,17 @@ public class CableModemDetailBean implements Serializable {
 	}
 
 	private String convertMacToTelnet(String macAddress) {
-		String ret = null;
+		StringBuffer ret = new StringBuffer();
 		String[] blocks = macAddress.split(":");
 
 		for (int i = 0; i < blocks.length; i++) {
-			ret += blocks[i];
+			ret.append(blocks[i]);
 			if (i % 2 == 1 && i < blocks.length - 1) {
-				ret += ".";
+				ret.append(".");
 			}
 		}
 
-		return ret;
+		return ret.toString();
 	}
 
 	/* Getters & Setters */

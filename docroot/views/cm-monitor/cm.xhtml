@@ -8,7 +8,7 @@
 		<h:form>
 			<p:messages globalOnly="false" closable="true"/>
 			
-			<p:panel header="Select Mac">
+			<p:panel header="Select Mac" id="selectPanel">
 			
 				<p:autoComplete 
 					id="dd"
@@ -21,13 +21,39 @@
 					
 				<f:facet name="footer">
 					<p:commandButton 
+						id="refreshBtn"
 						value="Refresh"
 						actionListener="#{cableModemDetailBean.refresh}"
 						icon="ui-icon-refresh"
 						update="@form"
 					/>
+					
+					<p:spacer/>
+					
+					<p:commandButton
+						id="clearBtn" 
+						icon="ui-icon-power"
+						value="Clear this cable modem"
+						disabled="#{cableModemDetailBean.cableModem == null}"
+						update="@form"
+						actionListener="#{cableModemDetailBean.clear}">
+						<p:confirm header="Confirmation" message="Do you want clear this CM?" icon="ui-icon-alert" />
+					</p:commandButton>
+					
+					<p:spacer/>
+					
+					<p:button
+						value="Back"
+						outcome="view"
+						icon="ui-icon-arrowreturn-1-w"
+					/>
 				</f:facet>
 			</p:panel>		
+			
+			<p:blockUI block="selectPanel" trigger="refreshBtn clearBtn">
+				Loading ...<br/>
+				<p:graphicImage library="images" name="ajax-loader.gif"/>
+			</p:blockUI>
 			
 			<p:panelGrid style="width:100%; margin-top: 30px">
 				<f:facet name="header">
@@ -97,6 +123,36 @@
 					</h:outputText>
 				</p:column>
 			</p:panelGrid>
+			
+			<p:spacer />
+			
+			<h3>CM and CPE Information</h3>
+			
+			<p:panelGrid columns="2">
+				<h:outputText value="CM IpAddress"/>
+				<h:outputText value="#{cableModemDetailBean.cmIpAddress}"/>
+				<h:outputText value="Number of CPE"/>
+				<h:outputText value="#{cableModemDetailBean.numberCpe}"/>
+			</p:panelGrid>
+			
+			<p:spacer/>
+			
+			<p:panelGrid>
+				<f:facet name="header">
+					<p:row>
+						<p:column>CPE IP</p:column>
+						<p:column>CPE Address</p:column>
+					</p:row>
+				</f:facet>
+				
+				<ui:repeat var="cpeInfo" value="#{cableModemDetailBean.cpeInfo}">
+					<p:row>
+					<p:column>#{cpeInfo[0]}</p:column>
+					<p:column>#{cpeInfo[1]}</p:column>
+					</p:row>
+				</ui:repeat>
+			</p:panelGrid>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
