@@ -51,7 +51,6 @@
 				</p:column>
 
 				<p:column headerText="Subscriber Address">
-					So nha 33 - Thon Gia Luong - Xa Viet Hung - Huyen Dong ANh - TP.Ha Noi
 					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
 				</p:column>
 
@@ -66,7 +65,7 @@
 					</p:link>
 				</p:column>
 
-				<p:column headerText="DnSNR" width="40">
+				<p:column headerText="DnSNR">
 					<h:outputText value="#{cableModem.dsSNR / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.dsSNR, 'dsSNR')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
