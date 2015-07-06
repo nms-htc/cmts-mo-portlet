@@ -21,19 +21,19 @@
 					<p:row>
 						<p:column width="80" resizable="false" rowspan="2" />
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
-						<p:column headerText="Subscriber Address" rowspan="2" />
-						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="130"/>
-						<p:column headerText="Up-Cmts" rowspan="2" width="200"/>
+						<p:column headerText="Subscriber Address" rowspan="2" style="min-width:200px"/>
+						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="40"/>
+						<p:column headerText="Up-Cmts" rowspan="2"/>
 						<p:column headerText="Modem Parameters" colspan="6" />
 						<p:column headerText="Time" rowspan="2" />
 					</p:row>
 					<p:row>
-						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="40"/>
-						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="40"/>
-						<p:column headerText="Fec %" sortBy="#{cableModem.fecCorrected}" width="40"/>
-						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="40"/>
-						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="40"/>
-						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="40"/>
+						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="30"/>
+						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="30"/>
+						<p:column headerText="Fec %" sortBy="#{cableModem.fecCorrected}" width="30"/>
+						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="30"/>
+						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="30"/>
+						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="30"/>
 					</p:row>
 				</p:columnGroup>
 				
@@ -51,6 +51,7 @@
 				</p:column>
 
 				<p:column headerText="Subscriber Address">
+					So nha 33 - Thon Gia Luong - Xa Viet Hung - Huyen Dong ANh - TP.Ha Noi
 					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
 				</p:column>
 
@@ -58,14 +59,14 @@
 					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false" />
 				</p:column>
 				
-				<p:column headerText="Up-CMTS" value="#{upstreamChannelBean.getTitle(''.concat(cableModemBean.cmtsId).concat('-').concat(cableModemBean.ucIfIndex))}">
-					<p:link outcome="/views/up-monitor/view.xhtml">
+				<p:column headerText="Up-CMTS">
+					<p:link outcome="/views/up-monitor/upstream.xhtml" value="#{upstreamChannelBean.getTitle(''.concat(cableModem.cmtsId).concat('-').concat(cableModem.ucIfIndex))}">
 						<f:param name="ifIndex" value="#{cableModem.ucIfIndex}"/>
 						<f:param name="cmtsId" value="#{cableModem.cmtsId}"/>
 					</p:link>
 				</p:column>
 
-				<p:column headerText="DnSNR">
+				<p:column headerText="DnSNR" width="40">
 					<h:outputText value="#{cableModem.dsSNR / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.dsSNR, 'dsSNR')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
