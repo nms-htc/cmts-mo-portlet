@@ -114,17 +114,35 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "updateMerchant";
+		_methodName19 = "fetchByCode";
 
-		_methodParameterTypes19 = new String[] {
+		_methodParameterTypes19 = new String[] { "java.lang.String" };
+
+		_methodName20 = "updateMerchant";
+
+		_methodParameterTypes20 = new String[] {
 				"com.cmcti.cmts.domain.model.Merchant",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName20 = "importMerchant";
+		_methodName21 = "importMerchant";
 
-		_methodParameterTypes20 = new String[] {
+		_methodParameterTypes21 = new String[] {
 				"java.io.InputStream", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName22 = "addUpstreamToMerchant";
+
+		_methodParameterTypes22 = new String[] {
+				"long", "java.util.List",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName23 = "removeUpstreamFromMerchant";
+
+		_methodParameterTypes23 = new String[] {
+				"long", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -676,6 +694,36 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 	}
 
 	@Override
+	public com.cmcti.cmts.domain.model.Merchant fetchByCode(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] { ClpSerializer.translateInput(code) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.cmcti.cmts.domain.model.Merchant)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.cmcti.cmts.domain.model.Merchant updateMerchant(
 		com.cmcti.cmts.domain.model.Merchant merchant,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -684,8 +732,8 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						ClpSerializer.translateInput(merchant),
 						
@@ -722,14 +770,90 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName20,
-				_methodParameterTypes20,
+			_invokableLocalService.invokeMethod(_methodName21,
+				_methodParameterTypes21,
 				new Object[] {
 					ClpSerializer.translateInput(is),
 					
 				sheetIdx,
 					
 				startRowIdx,
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public void addUpstreamToMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName22,
+				_methodParameterTypes22,
+				new Object[] {
+					merchantId,
+					
+				ClpSerializer.translateInput(upstreams),
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public void removeUpstreamFromMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName23,
+				_methodParameterTypes23,
+				new Object[] {
+					merchantId,
+					
+				ClpSerializer.translateInput(upstreams),
 					
 				ClpSerializer.translateInput(serviceContext)
 				});
@@ -796,4 +920,10 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

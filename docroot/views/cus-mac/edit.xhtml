@@ -29,7 +29,7 @@
 					<p:commandButton value="Save" icon="ui-icon-disk" update="@form :listForm" actionListener="#{customerMacBean.persist}" rendered="#{mode == 'add'}"/>
 					<p:commandButton value="Save" icon="ui-icon-disk" update="@form :listForm" actionListener="#{customerMacBean.update}" rendered="#{mode == 'edit'}"/>
 					<p:spacer width="5"/>
-					<p:commandButton type="button" onclick="${namespace}${mode}Dl.hide();" icon="ui-icon-close" value="Cancel"/>
+					<p:commandButton type="button" onclick="PF('${namespace}${mode}Dl').hide();" icon="ui-icon-close" value="Cancel"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 		</h:form>

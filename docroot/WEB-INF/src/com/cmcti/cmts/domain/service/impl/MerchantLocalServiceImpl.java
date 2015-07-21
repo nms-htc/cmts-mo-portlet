@@ -24,12 +24,16 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.cmcti.cmts.domain.NoSuchMerchantException;
 import com.cmcti.cmts.domain.model.Merchant;
+import com.cmcti.cmts.domain.model.MerchantScope;
+import com.cmcti.cmts.domain.model.UpstreamChannel;
 import com.cmcti.cmts.domain.service.base.MerchantLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 
 /**
@@ -55,14 +59,50 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 	
 	private static final Log logger = LogFactoryUtil.getLog(MerchantLocalServiceImpl.class.getName());
 	
+	public Merchant fetchByCode(String code) throws SystemException {
+		return merchantPersistence.fetchByCode(code);
+	}
+	
 	public Merchant updateMerchant(Merchant merchant, ServiceContext serviceContext) throws PortalException, SystemException {
-		return null;
+		
+		if (merchant.getMerchantId() == 0) {
+			long merchantId = counterLocalService.increment(Merchant.class.getName());
+			merchant.setMerchantId(merchantId);
+			merchant.setUserId(serviceContext.getUserId());
+			merchant.setCompanyId(serviceContext.getCompanyId());
+			merchant.setGroupId(serviceContext.getScopeGroupId());
+			merchant.setCreateDate(serviceContext.getCreateDate());
+			merchant.setModifiedDate(serviceContext.getModifiedDate());
+		} else {
+			merchant.setModifiedDate(serviceContext.getModifiedDate());
+		}
+		
+		if (Validator.isNull(merchant.getCode())) {
+			throw new PortalException("merchant-code-is-required");
+		}
+		
+		if (Validator.isNull(merchant.getTitle())) {
+			throw new PortalException("title-is-required");
+		}
+		
+		try {
+			Merchant temp = merchantPersistence.findByCode(merchant.getCode());
+			if (temp.getMerchantId() != merchant.getMerchantId()) {
+				throw new PortalException("dupplicate-merchant-code");
+			}
+		} catch (NoSuchMerchantException e) {
+			// Good for all
+		}
+		
+		return merchantPersistence.update(merchant);
 	}
 	
 	public void importMerchant(InputStream is, int sheetIdx, int startRowIdx, ServiceContext serviceContext) throws PortalException, SystemException {
 		
 		merchantPersistence.removeAll();
+		merchantScopePersistence.removeAll();
 		counterLocalService.reset(Merchant.class.getName());
+		counterLocalService.reset(MerchantScope.class.getName());
 		
 		Iterator<Row> rowIterator = null;
 		try (HSSFWorkbook workbook = new HSSFWorkbook(is)) {
@@ -110,16 +150,54 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 			merchant.setCode(codeCell.getStringCellValue());
 			
 			// Parent Code
-			Cell parentCodeCell = row.getCell(2);
-			merchant.setParentCode(parentCodeCell.getStringCellValue());
+			/*Cell parentCodeCell = row.getCell(2);
+			merchant.setParentCode(parentCodeCell.getStringCellValue());*/
 			
 			// Description
-			Cell descCell = row.getCell(3);
+			Cell descCell = row.getCell(2);
 			merchant.setDescription(descCell.getStringCellValue());
 			
 			merchants.add(merchant);
 		}
 		
 		return merchants;
+	}
+	
+	public void addUpstreamToMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext) throws PortalException, SystemException {
+		Merchant merchant = merchantPersistence.fetchByPrimaryKey(merchantId);
+		if (merchant == null) {
+			throw new PortalException("merchant-not-found");
+		}
+		
+		List<MerchantScope> merchantScopes = new ArrayList<MerchantScope>();
+		
+		for (UpstreamChannel upstream : upstreams) {
+			MerchantScope merchantScope = merchantScopePersistence.create(0);
+			merchantScope.setMerchantCode(merchant.getCode());
+			merchantScope.setCmtsId(upstream.getCmtsId());
+			merchantScope.setIfIndex(upstream.getIfIndex());
+			merchantScopes.add(merchantScope);
+		}
+		
+		merchantScopeLocalService.addMerchantScopes(merchantScopes, serviceContext);
+	}
+	
+	public void removeUpstreamFromMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext) throws PortalException, SystemException {
+		Merchant merchant = merchantPersistence.fetchByPrimaryKey(merchantId);
+		if (merchant == null) {
+			throw new PortalException("merchant-not-found");
+		}
+		
+		List<MerchantScope> merchantScopes = new ArrayList<MerchantScope>();
+		
+		for (UpstreamChannel upstream : upstreams) {
+			MerchantScope merchantScope = merchantScopePersistence.create(0);
+			merchantScope.setMerchantCode(merchant.getCode());
+			merchantScope.setCmtsId(upstream.getCmtsId());
+			merchantScope.setIfIndex(upstream.getIfIndex());
+			merchantScopes.add(merchantScope);
+		}
+		
+		merchantScopeLocalService.removeMerchantScopes(merchantScopes, serviceContext);
 	}
 }

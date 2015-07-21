@@ -275,6 +275,12 @@ public class MerchantLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.cmcti.cmts.domain.model.Merchant fetchByCode(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchByCode(code);
+	}
+
 	public static com.cmcti.cmts.domain.model.Merchant updateMerchant(
 		com.cmcti.cmts.domain.model.Merchant merchant,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -289,6 +295,23 @@ public class MerchantLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().importMerchant(is, sheetIdx, startRowIdx, serviceContext);
+	}
+
+	public static void addUpstreamToMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().addUpstreamToMerchant(merchantId, upstreams, serviceContext);
+	}
+
+	public static void removeUpstreamFromMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.removeUpstreamFromMerchant(merchantId, upstreams, serviceContext);
 	}
 
 	public static void clearService() {

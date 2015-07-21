@@ -87,6 +87,19 @@ create table CMTS_Merchant (
 	description VARCHAR(75) null
 );
 
+create table CMTS_MerchantScope (
+	merchantScopeId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	cmtsId LONG,
+	ifIndex INTEGER,
+	merchantCode VARCHAR(75) null
+);
+
 create table CMTS_Option (
 	optionId LONG not null primary key,
 	groupId LONG,
@@ -127,6 +140,14 @@ create table CMTS_UCHis (
 	ifSigQSNR DOUBLE,
 	ifAlias VARCHAR(75) null,
 	ifDesc VARCHAR(75) null
+);
+
+create table CMTS_UpChannelMetadata (
+	metaId LONG not null primary key,
+	cmtsId LONG,
+	ifIndex INTEGER,
+	dsFrequency VARCHAR(75) null,
+	dsQam VARCHAR(75) null
 );
 
 create table CMTS_UpstreamChannel (

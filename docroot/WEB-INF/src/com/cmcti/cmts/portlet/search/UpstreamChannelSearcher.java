@@ -1,17 +1,26 @@
 package com.cmcti.cmts.portlet.search;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.cmcti.cmts.domain.model.Merchant;
+import com.cmcti.cmts.domain.model.MerchantScope;
+import com.cmcti.cmts.domain.service.MerchantLocalServiceUtil;
+import com.cmcti.cmts.domain.service.MerchantScopeLocalServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
+import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPK;
 import com.cmcti.cmts.portlet.bean.UcRowStyleAlarmGenerator;
+import com.cmcti.cmts.portlet.util.MessageUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Junction;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 
 @ManagedBean
 @ViewScoped
@@ -34,7 +43,9 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 	protected Double maxRxPower;
 	protected Double minMer;
 	protected Double maxMer;
-	
+
+	protected String merchantCode;
+
 	@ManagedProperty("#{ucRowStyleAlarmGenerator}")
 	private UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator;
 
@@ -49,85 +60,112 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 		if (cmtsId != null && cmtsId != 0) {
 			query.add(PropertyFactoryUtil.forName("primaryKey.cmtsId").eq(cmtsId));
 		}
-		
+
 		if (minFecCorrected != null) {
 			query.add(RestrictionsFactoryUtil.ge("fecCorrected", minFecCorrected));
 		}
-			
+
 		if (maxFecCorrected != null) {
 			query.add(RestrictionsFactoryUtil.le("fecCorrected", maxFecCorrected));
 		}
-		
+
 		if (minFecUncorrectable != null) {
 			query.add(RestrictionsFactoryUtil.ge("fecUncorrectable", minFecUncorrectable));
 		}
-		
+
 		if (maxFecUncorrectable != null) {
 			query.add(RestrictionsFactoryUtil.le("fecUncorrectable", maxFecUncorrectable));
 		}
-		
+
 		if (minSigQSNR != null) {
 			query.add(RestrictionsFactoryUtil.ge("ifSigQSNR", minSigQSNR * 10));
 		}
-		
+
 		if (maxSigQSNR != null) {
 			query.add(RestrictionsFactoryUtil.le("ifSigQSNR", maxSigQSNR * 10));
 		}
-		
+
 		if (minTxPower != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmTxPower", minTxPower * 10));
 		}
-		
+
 		if (maxTxPower != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmTxPower", maxTxPower * 10));
 		}
-		
+
 		if (minRxPower != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmRxPower", minRxPower * 10));
 		}
-		
+
 		if (maxRxPower != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmRxPower", maxRxPower * 10));
 		}
-		
+
 		if (minMer != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR", minMer * 10));
 		}
-		
+
 		if (maxMer != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR", maxMer * 10));
 		}
-		
+
 		if (alarmOnly) {
 			Junction mainDisjunction = RestrictionsFactoryUtil.disjunction();
-			
+
 			// avgOnlineCmDsSNR check
 			Junction avgOnlineCmDsSNRConjunction = RestrictionsFactoryUtil.conjunction();
-			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMinAvgOnlineCmDnSNRLv3()));
-			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMaxAvgOnlineCmDnSNRLv1()));
-			
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR",
+					ucRowStyleAlarmGenerator.getMinAvgOnlineCmDnSNRLv3()));
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR",
+					ucRowStyleAlarmGenerator.getMaxAvgOnlineCmDnSNRLv1()));
+
 			// fecCorrected check
 			Junction fecCorrectedConjunction = RestrictionsFactoryUtil.conjunction();
 			fecCorrectedConjunction.add(RestrictionsFactoryUtil.gt("fecCorrected", ucRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
-			//fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected", ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
-			
+			// fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected",
+			// ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
+
 			// fecUncorrectable check
 			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
-			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable", ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
-			//fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable", ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
-			
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable",
+					ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			// fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable",
+			// ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
+
 			// ifSigQSNR check
 			Junction ifSigQSNRConjunction = RestrictionsFactoryUtil.conjunction();
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.ge("ifSigQSNR", ucRowStyleAlarmGenerator.getMinIfSigQSNRLv3()));
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.le("ifSigQSNR", ucRowStyleAlarmGenerator.getMaxIfSigQSNRLv1()));
-			
+
 			// Build junction
 			mainDisjunction.add(avgOnlineCmDsSNRConjunction);
 			mainDisjunction.add(fecCorrectedConjunction);
 			mainDisjunction.add(fecUncorrectableConjunction);
 			mainDisjunction.add(ifSigQSNRConjunction);
-			
+
 			query.add(mainDisjunction);
+		}
+
+		if (merchantCode != null && !merchantCode.trim().isEmpty()) {
+			// fint merchant
+			try {
+				Merchant merchant = MerchantLocalServiceUtil.fetchByCode(merchantCode);
+				if (merchant != null) {
+					List<MerchantScope> merchantScopes = MerchantScopeLocalServiceUtil.findByMerchant(merchantCode);
+					List<UpstreamChannelPK> listPK = new ArrayList<UpstreamChannelPK>();
+					for (MerchantScope scope : merchantScopes) {
+						listPK.add(new UpstreamChannelPK(scope.getIfIndex(), scope.getCmtsId()));
+					}
+					// Query
+					if (!listPK.isEmpty())
+						query.add(PropertyFactoryUtil.forName("primaryKey").in(listPK));
+					else 
+						query.add(RestrictionsFactoryUtil.sqlRestriction("1=2"));
+				}
+			} catch (SystemException e) {
+				MessageUtil.addGlobalErrorMessage(MessageUtil.REQUEST_FAIL_MESSAGE);
+			}
+
 		}
 
 		return query;
@@ -252,5 +290,13 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 	public void setUcRowStyleAlarmGenerator(UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator) {
 		this.ucRowStyleAlarmGenerator = ucRowStyleAlarmGenerator;
 	}
-	
+
+	public String getMerchantCode() {
+		return merchantCode;
+	}
+
+	public void setMerchantCode(String merchantCode) {
+		this.merchantCode = merchantCode;
+	}
+
 }

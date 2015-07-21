@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:portlet="http://java.sun.com/portlet_2_0">
+	<portlet:namespace var="namespace"/>
+	
+	<p:dialog id="#{mode}Dl" widgetVar="${namespace}${mode}Dl" modal="true" closeOnEscape="true">
+		<f:facet name="header">
+			<h:outputLabel value="Add new Customer" rendered="#{mode == 'add'}"/>
+			<h:outputLabel value="Update Customer" rendered="#{mode == 'edit'}"/>
+		</f:facet>
+		
+		<h:form id="#{mode}Form">
+			<p:messages globalOnly="true" closable="true"/>
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Cmts " for="cmtsId"/>
+				<p:selectOneMenu id="cmtsId" value="#{upChannelMetadataBean.current.cmtsId}" required="true" 
+					valueChangeListener="#{upChannelMetadataBean.changeCmts}">
+					<f:selectItem itemLabel="-- All --" itemValue="#{null}" noSelectionOption="true"/>
+					<f:selectItems value="#{cmtsBean.selectItems}"/>
+					<p:ajax update="upstream"/>
+				</p:selectOneMenu>
+				<p:message for="cmtsId"/>
+				
+				<p:outputLabel for="upstream" value="Node"/>
+				<p:selectOneMenu id="upstream" value="#{upChannelMetadataBean.current.ifIndex}" required="true">
+					<f:selectItem itemLabel="-- All --" itemValue="#{null}" noSelectionOption="true"/>
+					<f:selectItems value="#{upChannelMetadataBean.upstreamItems}"/>
+				</p:selectOneMenu>
+				<p:message for="upstream"/>
+				
+				<p:outputLabel value="Ds Qam " for="dsQam"/>
+				<p:inputText id="dsQam" value="#{upChannelMetadataBean.current.dsQam}" required="true" size="80"/>
+				<p:message for="dsQam"/>
+				
+				<p:outputLabel for="dsFrequency" value="Ds Frequency"/>
+				<p:inputText id="dsFrequency" value="#{upChannelMetadataBean.current.dsFrequency}" required="true"/>
+				<p:message for="dsFrequency"/>
+			</h:panelGrid>
+			<p:spacer/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Save" icon="ui-icon-disk" update="@form :listForm" actionListener="#{upChannelMetadataBean.persist}" rendered="#{mode == 'add'}"/>
+					<p:commandButton value="Save" icon="ui-icon-disk" update="@form :listForm" actionListener="#{upChannelMetadataBean.update}" rendered="#{mode == 'edit'}"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+	</p:dialog>	
+</ui:component>

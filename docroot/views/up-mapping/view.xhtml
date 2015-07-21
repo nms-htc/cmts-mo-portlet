@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:portlet="http://java.sun.com/portlet_2_0"
+	template="/views/inc/common_temp.xhtml">
+	<ui:define name="main">
+		<h:form id="listForm">
+		
+			<p:messages globalOnly="true" closable="true"/>
+			<portlet:namespace var="namespace"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Add Upstream Metadata" update="" actionListener="#{upChannelMetadataBean.setCurrent(null)}" oncomplete="PF('${namespace}addDl').show();" icon="ui-icon-plus"/>
+					<p:commandButton value="Import from XLS" onclick="PF('#{namespace}importDl').show();" type="button"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:spacer />
+			<p:dataTable
+				id="listTable"
+				widgetVar="${namespace}listTable" 
+				value="#{upChannelMetadataBean.lazyDataModel}" 
+				var="upMeta"
+				rowIndexVar="index"
+				rows="10"
+				paginator="true"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+				rowsPerPageTemplate="10,15,20"
+				paginatorPosition="bottom"
+				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
+				lazy="true"
+			>
+				<p:column headerText="#" style="width: 30px;">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				
+				<p:column headerText="Upstream node">
+					<h:outputText value="#{upstreamChannelBean.getTitle(''.concat(upMeta.cmtsId).concat('-').concat(upMeta.ifIndex))}" />
+				</p:column>
+				
+				<p:column headerText="DsFrequency" filterBy="#{upMeta.dsFrequency}" sortBy="#{upMeta.dsFrequency}" filterStyle="width: 90%">
+					<h:outputText value="#{upMeta.dsFrequency}" />
+				</p:column>
+				
+				<p:column headerText="Ds Qam" filterBy="#{upMeta.ddsQam}" sortBy="#{upMeta.dsQam}" filterStyle="width: 90%">
+					<h:outputText value="#{upMeta.dsQam}" />
+				</p:column>
+
+				<p:column style="width: 90px" toggleable="false">
+					<p:commandButton icon="ui-icon-pencil" update=":editForm" immediate="true" actionListener="#{upChannelMetadataBean.setCurrent(upMeta)}"
+						oncomplete="PF('${namespace}editDl').show();" />
+					<p:spacer width="10"/>
+					<p:commandButton icon="ui-icon-trash" actionListener="#{upChannelMetadataBean.remove(upMeta)}" immediate="true" update="@form">
+						<p:confirm header="Confirmation" message="Do you want delete this Upstream Mapping?" icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+	
+	<ui:define name="popups">
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="add"/></ui:include>
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="edit"/></ui:include>
+		<ui:include src="import.xhtml"/>
+	</ui:define>
+</ui:composition>

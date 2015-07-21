@@ -27,6 +27,18 @@
 						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
 					</p:button>
 				</p:column>
+				
+				<p:column headerText="CmtsId" visible="false" exportable="true">
+					<h:outputText value="#{upstreamChannel.cmtsId}"/>
+				</p:column>
+				
+				<p:column headerText="IfIndex" visible="false" exportable="true">
+					<h:outputText value="#{upstreamChannel.ifIndex}"/>
+				</p:column>
+				
+				<p:column headerText="Cmts Title" visible="false" exportable="true">
+					<h:outputText value="#{cmtsBean.getCmtsTitle(upstreamChannel.cmtsId)}"/>
+				</p:column>
 
 				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%" width="90">
 					<p:link outcome="/views/cm-monitor/view.xhtml" value="#{upstreamChannel.ifDesc}">
@@ -100,7 +112,11 @@
 				</p:column>
 
 				<p:column headerText="Qam" width="40">
-					<h:outputText value="#{upstreamChannel.qam}" />
+					<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsQam}" />
+				</p:column>
+				
+				<p:column headerText="DsFre" width="60">
+					<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsFrequency}" />
 				</p:column>
 
 				<p:column headerText="Time" width="100">

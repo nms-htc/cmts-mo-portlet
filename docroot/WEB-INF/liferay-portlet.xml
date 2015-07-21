@@ -2,7 +2,6 @@
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
 <liferay-portlet-app>
-	
 	<portlet>
 		<portlet-name>cmts</portlet-name>
 		<icon>/icon.png</icon>
@@ -50,6 +49,42 @@
 			/js/main.js
 		</footer-portlet-javascript>
 		<css-class-wrapper>upstream-monitor-portlet</css-class-wrapper>
+	</portlet>
+	<portlet>
+		<portlet-name>upstream-metadata</portlet-name>
+		<icon>/icon.png</icon>
+		<requires-namespaced-parameters>
+			false
+		</requires-namespaced-parameters>
+		<header-portlet-css>/css/main.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/main.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>upstream-metadata-portlet</css-class-wrapper>
+	</portlet>
+	<portlet>
+		<portlet-name>merchant</portlet-name>
+		<icon>/icon.png</icon>
+		<requires-namespaced-parameters>
+			false
+		</requires-namespaced-parameters>
+		<header-portlet-css>/css/main.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/main.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>merchant-portlet</css-class-wrapper>
+	</portlet>
+	<portlet>
+		<portlet-name>cmts-setting</portlet-name>
+		<icon>/icon.png</icon>
+		<requires-namespaced-parameters>
+			false
+		</requires-namespaced-parameters>
+		<header-portlet-css>/css/main.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/main.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>cmts-setting-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

@@ -82,6 +82,58 @@
 		</finder>
 	</entity>
 	
+	<entity name="MerchantScope" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="merchantScopeId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="cmtsId" type="long" />
+		<column name="ifIndex" type="int" />
+		<column name="merchantCode" type="String"/>
+
+		<!-- Order -->
+
+		<!-- Finder methods -->
+
+		<finder name="User" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		
+		<finder name="CMTS" return-type="Collection">
+			<finder-column name="cmtsId"/>
+		</finder>
+		
+		<finder name="UpstreamChannel" return-type="Collection">
+			<finder-column name="cmtsId"/>
+			<finder-column name="ifIndex"/>
+		</finder>
+		
+		<finder name="Merchant" return-type="Collection">
+			<finder-column name="merchantCode"/>
+		</finder>
+		
+		<finder name="C_I_M" return-type="MerchantScope">
+			<finder-column name="merchantCode"/>
+			<finder-column name="cmtsId"/>
+			<finder-column name="ifIndex"/>
+		</finder>
+	</entity>
+	
 	<entity name="Option" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
@@ -298,8 +350,6 @@
 		<finder return-type="Collection" name="AvgOnlineDsSNR">
 			<finder-column name="avgOnlineCmDsSNR" />
 		</finder>
-
-
 	</entity>
 
 	<entity name="UpstreamChannelHistory" table="CMTS_UCHis" local-service="true"
@@ -347,8 +397,29 @@
 		<finder return-type="Collection" name="CmtsId">
 			<finder-column name="cmtsId" />
 		</finder>
+	</entity>
+	
+	<entity name="UpChannelMetadata" local-service="true" remote-service="true">
 
+		<!-- PK fields -->
 
+		<column name="metaId" type="long" primary="true" />
+
+		<!-- Other fields -->
+
+		<column name="cmtsId" type="long" />
+		<column name="ifIndex" type="int" />
+		<column name="dsFrequency" type="String"/>
+		<column name="dsQam" type="String"/>
+
+		<finder name="CMTS" return-type="Collection">
+			<finder-column name="cmtsId"/>
+		</finder>
+		
+		<finder name="UpstreamChannel" return-type="UpChannelMetadata">
+			<finder-column name="cmtsId"/>
+			<finder-column name="ifIndex"/>
+		</finder>
 	</entity>
 
 	<entity name="CustomerMacMapping" table="CMTS_CusMacMap" local-service="true"
@@ -390,7 +461,5 @@
 			unique="true">
 			<finder-column name="macAddress" />
 		</finder>
-
-
 	</entity>
 </service-builder>

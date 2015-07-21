@@ -4,17 +4,24 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.LazyDataModel;
 
 import com.cmcti.cmts.domain.model.CustomerMacMapping;
 import com.cmcti.cmts.domain.service.CustomerMacMappingLocalServiceUtil;
 import com.cmcti.cmts.domain.service.persistence.CustomerMacMappingUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
+import com.cmcti.cmts.portlet.util.JsfUtil;
+import com.cmcti.cmts.portlet.util.MessageUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -25,6 +32,7 @@ public class CustomerMacBean extends AbstractCRUDBean<CustomerMacMapping> implem
 
 	// serialVersionUID
 	private static final long serialVersionUID = 8049919349164930939L;
+	private static final Logger logger = LoggerFactory.getLogger(CustomerMacBean.class);
 
 	@Override
 	protected CustomerMacMapping initEntity() {
@@ -93,6 +101,25 @@ public class CustomerMacBean extends AbstractCRUDBean<CustomerMacMapping> implem
 	@Override
 	protected void removeEntity(CustomerMacMapping entity) throws PortalException, SystemException {
 		CustomerMacMappingLocalServiceUtil.deleteCustomerMacMapping(entity);
+	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		
+		String fileName = event.getFile().getFileName();
+		
+		if (! fileName.endsWith(".xls")) {
+			MessageUtil.addGlobalErrorMessage("only-support-xls-file");
+			return;
+		}
+		
+		try {
+			CustomerMacMappingLocalServiceUtil.importAddressFromXls(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext());
+			MessageUtil.addGlobalInfoMessage("import-succesful");
+		} catch (Exception e) {
+			logger.error(e);
+			MessageUtil.addGlobalErrorMessage(e);
+		}
+		
 	}
 
 }

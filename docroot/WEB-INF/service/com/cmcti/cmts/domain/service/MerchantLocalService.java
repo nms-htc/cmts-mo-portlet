@@ -250,6 +250,11 @@ public interface MerchantLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.cmcti.cmts.domain.model.Merchant fetchByCode(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public com.cmcti.cmts.domain.model.Merchant updateMerchant(
 		com.cmcti.cmts.domain.model.Merchant merchant,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -258,6 +263,18 @@ public interface MerchantLocalService extends BaseLocalService,
 
 	public void importMerchant(java.io.InputStream is, int sheetIdx,
 		int startRowIdx,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addUpstreamToMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void removeUpstreamFromMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

@@ -139,6 +139,28 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.MerchantScopeModelImpl">
+		<attributes>
+			<id name="merchantScopeId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="cmtsId" />
+			<basic name="ifIndex" />
+			<basic name="merchantCode" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.OptionModelImpl">
 		<attributes>
 			<id name="optionId" />
@@ -160,6 +182,18 @@
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
 			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.UpChannelMetadataModelImpl">
+		<attributes>
+			<id name="metaId" />
+			<basic name="cmtsId" />
+			<basic name="ifIndex" />
+			<basic name="dsFrequency" />
+			<basic name="dsQam" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.cmcti.cmts.domain.model.impl.UpstreamChannelModelImpl">
@@ -253,8 +287,16 @@
 		<table name="CMTS_Merchant" />
 		<attributes />
 	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.MerchantScopeImpl" name="MerchantScope">
+		<table name="CMTS_MerchantScope" />
+		<attributes />
+	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.OptionImpl" name="Option">
 		<table name="CMTS_Option" />
+		<attributes />
+	</entity>
+	<entity class="com.cmcti.cmts.domain.model.impl.UpChannelMetadataImpl" name="UpChannelMetadata">
+		<table name="CMTS_UpChannelMetadata" />
 		<attributes />
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">

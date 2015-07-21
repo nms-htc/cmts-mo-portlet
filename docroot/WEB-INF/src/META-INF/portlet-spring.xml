@@ -16,9 +16,15 @@
 	<bean id="com.cmcti.cmts.domain.service.MerchantLocalService" class="com.cmcti.cmts.domain.service.impl.MerchantLocalServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.MerchantService" class="com.cmcti.cmts.domain.service.impl.MerchantServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.persistence.MerchantPersistence" class="com.cmcti.cmts.domain.service.persistence.MerchantPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.MerchantScopeLocalService" class="com.cmcti.cmts.domain.service.impl.MerchantScopeLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.MerchantScopeService" class="com.cmcti.cmts.domain.service.impl.MerchantScopeServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.MerchantScopePersistence" class="com.cmcti.cmts.domain.service.persistence.MerchantScopePersistenceImpl" parent="basePersistence" />
 	<bean id="com.cmcti.cmts.domain.service.OptionLocalService" class="com.cmcti.cmts.domain.service.impl.OptionLocalServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.OptionService" class="com.cmcti.cmts.domain.service.impl.OptionServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.persistence.OptionPersistence" class="com.cmcti.cmts.domain.service.persistence.OptionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.cmcti.cmts.domain.service.UpChannelMetadataLocalService" class="com.cmcti.cmts.domain.service.impl.UpChannelMetadataLocalServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.UpChannelMetadataService" class="com.cmcti.cmts.domain.service.impl.UpChannelMetadataServiceImpl" />
+	<bean id="com.cmcti.cmts.domain.service.persistence.UpChannelMetadataPersistence" class="com.cmcti.cmts.domain.service.persistence.UpChannelMetadataPersistenceImpl" parent="basePersistence" />
 	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelLocalService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelLocalServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.UpstreamChannelService" class="com.cmcti.cmts.domain.service.impl.UpstreamChannelServiceImpl" />
 	<bean id="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence" class="com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistenceImpl" parent="basePersistence" />

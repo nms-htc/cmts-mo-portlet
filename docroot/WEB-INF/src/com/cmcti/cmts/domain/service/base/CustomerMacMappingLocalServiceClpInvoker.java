@@ -106,21 +106,21 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 				"com.cmcti.cmts.domain.model.CustomerMacMapping"
 			};
 
-		_methodName76 = "getBeanIdentifier";
+		_methodName88 = "getBeanIdentifier";
 
-		_methodParameterTypes76 = new String[] {  };
+		_methodParameterTypes88 = new String[] {  };
 
-		_methodName77 = "setBeanIdentifier";
+		_methodName89 = "setBeanIdentifier";
 
-		_methodParameterTypes77 = new String[] { "java.lang.String" };
+		_methodParameterTypes89 = new String[] { "java.lang.String" };
 
-		_methodName82 = "getByMacAddress";
+		_methodName94 = "getByMacAddress";
 
-		_methodParameterTypes82 = new String[] { "java.lang.String" };
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
 
-		_methodName83 = "importAddressFromXls";
+		_methodName95 = "importAddressFromXls";
 
-		_methodParameterTypes83 = new String[] {
+		_methodParameterTypes95 = new String[] {
 				"java.io.InputStream", "int", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -215,25 +215,25 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 			return CustomerMacMappingLocalServiceUtil.updateCustomerMacMapping((com.cmcti.cmts.domain.model.CustomerMacMapping)arguments[0]);
 		}
 
-		if (_methodName76.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+		if (_methodName88.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
 			return CustomerMacMappingLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName77.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+		if (_methodName89.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
 			CustomerMacMappingLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName82.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
 			return CustomerMacMappingLocalServiceUtil.getByMacAddress((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName83.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
 			CustomerMacMappingLocalServiceUtil.importAddressFromXls((java.io.InputStream)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
@@ -277,12 +277,12 @@ public class CustomerMacMappingLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName76;
-	private String[] _methodParameterTypes76;
-	private String _methodName77;
-	private String[] _methodParameterTypes77;
-	private String _methodName82;
-	private String[] _methodParameterTypes82;
-	private String _methodName83;
-	private String[] _methodParameterTypes83;
+	private String _methodName88;
+	private String[] _methodParameterTypes88;
+	private String _methodName89;
+	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
 }

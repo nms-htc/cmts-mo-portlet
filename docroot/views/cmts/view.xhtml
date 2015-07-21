@@ -30,6 +30,11 @@
 				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
 				lazy="true"
 			>
+			
+				<p:column headerText="ID" width="40">
+					<h:outputText value="#{cmts.cmtsId}" />
+				</p:column>
+				
 				<p:column headerText="Title" filterBy="#{cmts.title}" sortBy="#{cmts.title}" filterStyle="width: 90%">
 					<h:outputText value="#{cmts.title}" />
 				</p:column>

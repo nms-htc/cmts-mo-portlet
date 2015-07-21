@@ -16,6 +16,12 @@
 						<f:selectItem itemLabel="-- All --" />
 						<f:selectItems value="#{cmtsBean.selectItems}" />
 					</p:selectOneMenu>
+					
+					<p:outputLabel value="Merchant" for="merchantCode" />
+					<p:selectOneMenu id="merchantCode" value="#{upstreamChannelSearcher.merchantCode}">
+						<f:selectItem itemLabel="-- All --" />
+						<f:selectItems value="#{merchantBean.selectItems}" />
+					</p:selectOneMenu>
 
 					<p:outputLabel value="Fec Corrected" for="minFecCorrected" />
 					<p:inputText placeholder="Min" id="minFecCorrected" value="#{upstreamChannelSearcher.minFecCorrected}" />

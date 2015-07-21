@@ -106,25 +106,43 @@ public class MerchantLocalServiceClpInvoker {
 				"com.cmcti.cmts.domain.model.Merchant"
 			};
 
-		_methodName76 = "getBeanIdentifier";
+		_methodName88 = "getBeanIdentifier";
 
-		_methodParameterTypes76 = new String[] {  };
+		_methodParameterTypes88 = new String[] {  };
 
-		_methodName77 = "setBeanIdentifier";
+		_methodName89 = "setBeanIdentifier";
 
-		_methodParameterTypes77 = new String[] { "java.lang.String" };
+		_methodParameterTypes89 = new String[] { "java.lang.String" };
 
-		_methodName82 = "updateMerchant";
+		_methodName94 = "fetchByCode";
 
-		_methodParameterTypes82 = new String[] {
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
+
+		_methodName95 = "updateMerchant";
+
+		_methodParameterTypes95 = new String[] {
 				"com.cmcti.cmts.domain.model.Merchant",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName83 = "importMerchant";
+		_methodName96 = "importMerchant";
 
-		_methodParameterTypes83 = new String[] {
+		_methodParameterTypes96 = new String[] {
 				"java.io.InputStream", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName98 = "addUpstreamToMerchant";
+
+		_methodParameterTypes98 = new String[] {
+				"long", "java.util.List",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName99 = "removeUpstreamFromMerchant";
+
+		_methodParameterTypes99 = new String[] {
+				"long", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -218,30 +236,53 @@ public class MerchantLocalServiceClpInvoker {
 			return MerchantLocalServiceUtil.updateMerchant((com.cmcti.cmts.domain.model.Merchant)arguments[0]);
 		}
 
-		if (_methodName76.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+		if (_methodName88.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
 			return MerchantLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName77.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+		if (_methodName89.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
 			MerchantLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName82.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return MerchantLocalServiceUtil.fetchByCode((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
 			return MerchantLocalServiceUtil.updateMerchant((com.cmcti.cmts.domain.model.Merchant)arguments[0],
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName83.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
 			MerchantLocalServiceUtil.importMerchant((java.io.InputStream)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
+
+			return null;
+		}
+
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			MerchantLocalServiceUtil.addUpstreamToMerchant(((Long)arguments[0]).longValue(),
+				(java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel>)arguments[1],
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
+
+			return null;
+		}
+
+		if (_methodName99.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
+			MerchantLocalServiceUtil.removeUpstreamFromMerchant(((Long)arguments[0]).longValue(),
+				(java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel>)arguments[1],
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
 
 			return null;
 		}
@@ -281,12 +322,18 @@ public class MerchantLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName76;
-	private String[] _methodParameterTypes76;
-	private String _methodName77;
-	private String[] _methodParameterTypes77;
-	private String _methodName82;
-	private String[] _methodParameterTypes82;
-	private String _methodName83;
-	private String[] _methodParameterTypes83;
+	private String _methodName88;
+	private String[] _methodParameterTypes88;
+	private String _methodName89;
+	private String[] _methodParameterTypes89;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
+	private String _methodName99;
+	private String[] _methodParameterTypes99;
 }

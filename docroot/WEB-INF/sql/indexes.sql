@@ -16,6 +16,12 @@ create index IX_7F486B8 on CMTS_CusMacMap (userId);
 create index IX_B591D47E on CMTS_Merchant (code_);
 create index IX_2079B57E on CMTS_Merchant (userId);
 
+create index IX_EEA81014 on CMTS_MerchantScope (cmtsId);
+create index IX_C0EC3211 on CMTS_MerchantScope (cmtsId, ifIndex);
+create index IX_EEE76DC5 on CMTS_MerchantScope (merchantCode);
+create index IX_860E1DA8 on CMTS_MerchantScope (merchantCode, cmtsId, ifIndex);
+create index IX_603BD276 on CMTS_MerchantScope (userId);
+
 create index IX_EE22FC09 on CMTS_Option (optionKey);
 create index IX_E6AEC0B4 on CMTS_Option (optionType);
 create index IX_4AD039A6 on CMTS_Option (optionType, optionKey);
@@ -23,6 +29,9 @@ create index IX_2A76356B on CMTS_Option (userId);
 
 create index IX_1C6A78EC on CMTS_UCHis (cmtsId);
 create index IX_29A0EB11 on CMTS_UCHis (ifIndex);
+
+create index IX_1DB5811F on CMTS_UpChannelMetadata (cmtsId);
+create index IX_1A95BD66 on CMTS_UpChannelMetadata (cmtsId, ifIndex);
 
 create index IX_4947D345 on CMTS_UpstreamChannel (avgOnlineCmDsSNR);
 create index IX_D586C2BC on CMTS_UpstreamChannel (avgOnlineCmRxPower);

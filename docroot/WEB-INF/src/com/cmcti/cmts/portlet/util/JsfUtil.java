@@ -12,7 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
+import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.service.ServiceContext;
 
 /**
  * JsfUtil functionalitis.
@@ -159,5 +161,10 @@ public class JsfUtil {
 				MessageUtil.addGlobalErrorMessage(defaultMessage, t);
 			}
 		}
+	}
+	
+	public static ServiceContext getServiceContext() {
+		LiferayFacesContext content = LiferayFacesContext.getInstance();
+		return content.getServiceContext();
 	}
 }

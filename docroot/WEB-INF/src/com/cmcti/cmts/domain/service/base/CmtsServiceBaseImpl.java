@@ -21,7 +21,9 @@ import com.cmcti.cmts.domain.service.persistence.CableModemPersistence;
 import com.cmcti.cmts.domain.service.persistence.CmtsPersistence;
 import com.cmcti.cmts.domain.service.persistence.CustomerMacMappingPersistence;
 import com.cmcti.cmts.domain.service.persistence.MerchantPersistence;
+import com.cmcti.cmts.domain.service.persistence.MerchantScopePersistence;
 import com.cmcti.cmts.domain.service.persistence.OptionPersistence;
+import com.cmcti.cmts.domain.service.persistence.UpChannelMetadataPersistence;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelHistoryPersistence;
 import com.cmcti.cmts.domain.service.persistence.UpstreamChannelPersistence;
 
@@ -339,6 +341,63 @@ public abstract class CmtsServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the merchant scope local service.
+	 *
+	 * @return the merchant scope local service
+	 */
+	public com.cmcti.cmts.domain.service.MerchantScopeLocalService getMerchantScopeLocalService() {
+		return merchantScopeLocalService;
+	}
+
+	/**
+	 * Sets the merchant scope local service.
+	 *
+	 * @param merchantScopeLocalService the merchant scope local service
+	 */
+	public void setMerchantScopeLocalService(
+		com.cmcti.cmts.domain.service.MerchantScopeLocalService merchantScopeLocalService) {
+		this.merchantScopeLocalService = merchantScopeLocalService;
+	}
+
+	/**
+	 * Returns the merchant scope remote service.
+	 *
+	 * @return the merchant scope remote service
+	 */
+	public com.cmcti.cmts.domain.service.MerchantScopeService getMerchantScopeService() {
+		return merchantScopeService;
+	}
+
+	/**
+	 * Sets the merchant scope remote service.
+	 *
+	 * @param merchantScopeService the merchant scope remote service
+	 */
+	public void setMerchantScopeService(
+		com.cmcti.cmts.domain.service.MerchantScopeService merchantScopeService) {
+		this.merchantScopeService = merchantScopeService;
+	}
+
+	/**
+	 * Returns the merchant scope persistence.
+	 *
+	 * @return the merchant scope persistence
+	 */
+	public MerchantScopePersistence getMerchantScopePersistence() {
+		return merchantScopePersistence;
+	}
+
+	/**
+	 * Sets the merchant scope persistence.
+	 *
+	 * @param merchantScopePersistence the merchant scope persistence
+	 */
+	public void setMerchantScopePersistence(
+		MerchantScopePersistence merchantScopePersistence) {
+		this.merchantScopePersistence = merchantScopePersistence;
+	}
+
+	/**
 	 * Returns the option local service.
 	 *
 	 * @return the option local service
@@ -392,6 +451,63 @@ public abstract class CmtsServiceBaseImpl extends BaseServiceImpl
 	 */
 	public void setOptionPersistence(OptionPersistence optionPersistence) {
 		this.optionPersistence = optionPersistence;
+	}
+
+	/**
+	 * Returns the up channel metadata local service.
+	 *
+	 * @return the up channel metadata local service
+	 */
+	public com.cmcti.cmts.domain.service.UpChannelMetadataLocalService getUpChannelMetadataLocalService() {
+		return upChannelMetadataLocalService;
+	}
+
+	/**
+	 * Sets the up channel metadata local service.
+	 *
+	 * @param upChannelMetadataLocalService the up channel metadata local service
+	 */
+	public void setUpChannelMetadataLocalService(
+		com.cmcti.cmts.domain.service.UpChannelMetadataLocalService upChannelMetadataLocalService) {
+		this.upChannelMetadataLocalService = upChannelMetadataLocalService;
+	}
+
+	/**
+	 * Returns the up channel metadata remote service.
+	 *
+	 * @return the up channel metadata remote service
+	 */
+	public com.cmcti.cmts.domain.service.UpChannelMetadataService getUpChannelMetadataService() {
+		return upChannelMetadataService;
+	}
+
+	/**
+	 * Sets the up channel metadata remote service.
+	 *
+	 * @param upChannelMetadataService the up channel metadata remote service
+	 */
+	public void setUpChannelMetadataService(
+		com.cmcti.cmts.domain.service.UpChannelMetadataService upChannelMetadataService) {
+		this.upChannelMetadataService = upChannelMetadataService;
+	}
+
+	/**
+	 * Returns the up channel metadata persistence.
+	 *
+	 * @return the up channel metadata persistence
+	 */
+	public UpChannelMetadataPersistence getUpChannelMetadataPersistence() {
+		return upChannelMetadataPersistence;
+	}
+
+	/**
+	 * Sets the up channel metadata persistence.
+	 *
+	 * @param upChannelMetadataPersistence the up channel metadata persistence
+	 */
+	public void setUpChannelMetadataPersistence(
+		UpChannelMetadataPersistence upChannelMetadataPersistence) {
+		this.upChannelMetadataPersistence = upChannelMetadataPersistence;
 	}
 
 	/**
@@ -709,12 +825,24 @@ public abstract class CmtsServiceBaseImpl extends BaseServiceImpl
 	protected com.cmcti.cmts.domain.service.MerchantService merchantService;
 	@BeanReference(type = MerchantPersistence.class)
 	protected MerchantPersistence merchantPersistence;
+	@BeanReference(type = com.cmcti.cmts.domain.service.MerchantScopeLocalService.class)
+	protected com.cmcti.cmts.domain.service.MerchantScopeLocalService merchantScopeLocalService;
+	@BeanReference(type = com.cmcti.cmts.domain.service.MerchantScopeService.class)
+	protected com.cmcti.cmts.domain.service.MerchantScopeService merchantScopeService;
+	@BeanReference(type = MerchantScopePersistence.class)
+	protected MerchantScopePersistence merchantScopePersistence;
 	@BeanReference(type = com.cmcti.cmts.domain.service.OptionLocalService.class)
 	protected com.cmcti.cmts.domain.service.OptionLocalService optionLocalService;
 	@BeanReference(type = com.cmcti.cmts.domain.service.OptionService.class)
 	protected com.cmcti.cmts.domain.service.OptionService optionService;
 	@BeanReference(type = OptionPersistence.class)
 	protected OptionPersistence optionPersistence;
+	@BeanReference(type = com.cmcti.cmts.domain.service.UpChannelMetadataLocalService.class)
+	protected com.cmcti.cmts.domain.service.UpChannelMetadataLocalService upChannelMetadataLocalService;
+	@BeanReference(type = com.cmcti.cmts.domain.service.UpChannelMetadataService.class)
+	protected com.cmcti.cmts.domain.service.UpChannelMetadataService upChannelMetadataService;
+	@BeanReference(type = UpChannelMetadataPersistence.class)
+	protected UpChannelMetadataPersistence upChannelMetadataPersistence;
 	@BeanReference(type = com.cmcti.cmts.domain.service.UpstreamChannelLocalService.class)
 	protected com.cmcti.cmts.domain.service.UpstreamChannelLocalService upstreamChannelLocalService;
 	@BeanReference(type = com.cmcti.cmts.domain.service.UpstreamChannelService.class)

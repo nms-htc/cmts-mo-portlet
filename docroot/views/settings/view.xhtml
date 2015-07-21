@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/views/inc/common_temp.xhtml">
+	
+	<ui:define name="main">
+		<h:form id="listForm">
+			<p:messages globalOnly="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Add CMTS" update="@form" actionListener="#{cmtsBean.setCurrent(null)}" oncomplete="PF('addDl').show()" icon="ui-icon-plus"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:spacer />
+			<p:dataTable
+				id="listTable"
+				widgetVar="listTable" 
+				value="#{cmtsBean.lazyDataModel}" 
+				var="cmts"
+				rowIndexVar="index"
+				rows="10"
+				paginator="true"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+				rowsPerPageTemplate="10,15,20"
+				paginatorPosition="bottom"
+				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
+				lazy="true"
+			>
+			
+				<p:column headerText="ID" width="40">
+					<h:outputText value="#{cmts.cmtsId}" />
+				</p:column>
+				
+				<p:column headerText="Title" filterBy="#{cmts.title}" sortBy="#{cmts.title}" filterStyle="width: 90%">
+					<h:outputText value="#{cmts.title}" />
+				</p:column>
+				
+				<p:column headerText="Host" filterBy="#{cmts.host}" sortBy="#{cmts.host}" filterStyle="width: 90%">
+					<h:outputText value="#{cmts.host}" />
+				</p:column>
+				
+				<p:column headerText="Community" filterBy="#{cmts.community}" sortBy="#{cmts.community}" filterStyle="width: 90%">
+					<h:outputText value="#{cmts.community}" />
+				</p:column>
+				
+				<p:column headerText="Description" filterBy="#{cmts.description}" sortBy="#{cmts.description}" filterStyle="width: 90%">
+					<h:outputText value="#{cmts.description}" />
+				</p:column>
+				
+				<p:column headerText="Enabled">
+					<h:outputText value="#{cmts.enable}"/>
+				</p:column>
+
+				<p:column style="width: 90px" toggleable="false">
+					<p:commandButton icon="ui-icon-pencil" update=":editDl" immediate="true" actionListener="#{cmtsBean.setCurrent(cmts)}"
+						oncomplete="PF('editDl').show();" />
+					<p:spacer width="10"/>
+					<p:commandButton icon="ui-icon-trash" actionListener="#{cmtsBean.remove(cmts)}" immediate="true" update="@form">
+						<p:confirm header="Confirmation" message="Do you want delete this CMTS?" icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+	
+	<ui:define name="popups">
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="add"/></ui:include>
+		<ui:include src="edit.xhtml"><ui:param name="mode" value="edit"/></ui:include>
+	</ui:define>
+</ui:composition>

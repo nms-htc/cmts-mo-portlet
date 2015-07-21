@@ -85,6 +85,18 @@
 		<field name="parentCode" type="String" />
 		<field name="description" type="String" />
 	</model>
+	<model name="com.cmcti.cmts.domain.model.MerchantScope">
+		<field name="merchantScopeId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="cmtsId" type="long" />
+		<field name="ifIndex" type="int" />
+		<field name="merchantCode" type="String" />
+	</model>
 	<model name="com.cmcti.cmts.domain.model.Option">
 		<field name="optionId" type="long" />
 		<field name="groupId" type="long" />
@@ -97,6 +109,13 @@
 		<field name="optionKey" type="String" />
 		<field name="optionValue" type="String" />
 		<field name="description" type="String" />
+	</model>
+	<model name="com.cmcti.cmts.domain.model.UpChannelMetadata">
+		<field name="metaId" type="long" />
+		<field name="cmtsId" type="long" />
+		<field name="ifIndex" type="int" />
+		<field name="dsFrequency" type="String" />
+		<field name="dsQam" type="String" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.UpstreamChannel">
 		<field name="ifIndex" type="int" />

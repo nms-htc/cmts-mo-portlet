@@ -24,9 +24,13 @@ import com.cmcti.cmts.domain.service.CmtsServiceUtil;
 import com.cmcti.cmts.domain.service.CustomerMacMappingLocalServiceUtil;
 import com.cmcti.cmts.domain.service.CustomerMacMappingServiceUtil;
 import com.cmcti.cmts.domain.service.MerchantLocalServiceUtil;
+import com.cmcti.cmts.domain.service.MerchantScopeLocalServiceUtil;
+import com.cmcti.cmts.domain.service.MerchantScopeServiceUtil;
 import com.cmcti.cmts.domain.service.MerchantServiceUtil;
 import com.cmcti.cmts.domain.service.OptionLocalServiceUtil;
 import com.cmcti.cmts.domain.service.OptionServiceUtil;
+import com.cmcti.cmts.domain.service.UpChannelMetadataLocalServiceUtil;
+import com.cmcti.cmts.domain.service.UpChannelMetadataServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelHistoryLocalServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelHistoryServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
@@ -65,9 +69,15 @@ public class ClpMessageListener extends BaseMessageListener {
 			MerchantLocalServiceUtil.clearService();
 
 			MerchantServiceUtil.clearService();
+			MerchantScopeLocalServiceUtil.clearService();
+
+			MerchantScopeServiceUtil.clearService();
 			OptionLocalServiceUtil.clearService();
 
 			OptionServiceUtil.clearService();
+			UpChannelMetadataLocalServiceUtil.clearService();
+
+			UpChannelMetadataServiceUtil.clearService();
 			UpstreamChannelLocalServiceUtil.clearService();
 
 			UpstreamChannelServiceUtil.clearService();

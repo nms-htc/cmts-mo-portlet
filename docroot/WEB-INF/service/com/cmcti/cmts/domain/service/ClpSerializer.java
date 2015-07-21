@@ -19,7 +19,9 @@ import com.cmcti.cmts.domain.model.CableModemHistoryClp;
 import com.cmcti.cmts.domain.model.CmtsClp;
 import com.cmcti.cmts.domain.model.CustomerMacMappingClp;
 import com.cmcti.cmts.domain.model.MerchantClp;
+import com.cmcti.cmts.domain.model.MerchantScopeClp;
 import com.cmcti.cmts.domain.model.OptionClp;
+import com.cmcti.cmts.domain.model.UpChannelMetadataClp;
 import com.cmcti.cmts.domain.model.UpstreamChannelClp;
 import com.cmcti.cmts.domain.model.UpstreamChannelHistoryClp;
 
@@ -129,8 +131,16 @@ public class ClpSerializer {
 			return translateInputMerchant(oldModel);
 		}
 
+		if (oldModelClassName.equals(MerchantScopeClp.class.getName())) {
+			return translateInputMerchantScope(oldModel);
+		}
+
 		if (oldModelClassName.equals(OptionClp.class.getName())) {
 			return translateInputOption(oldModel);
+		}
+
+		if (oldModelClassName.equals(UpChannelMetadataClp.class.getName())) {
+			return translateInputUpChannelMetadata(oldModel);
 		}
 
 		if (oldModelClassName.equals(UpstreamChannelClp.class.getName())) {
@@ -206,10 +216,30 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputMerchantScope(BaseModel<?> oldModel) {
+		MerchantScopeClp oldClpModel = (MerchantScopeClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getMerchantScopeRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputOption(BaseModel<?> oldModel) {
 		OptionClp oldClpModel = (OptionClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getOptionRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputUpChannelMetadata(BaseModel<?> oldModel) {
+		UpChannelMetadataClp oldClpModel = (UpChannelMetadataClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getUpChannelMetadataRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -440,8 +470,82 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.cmcti.cmts.domain.model.impl.MerchantScopeImpl")) {
+			return translateOutputMerchantScope(oldModel);
+		}
+		else if (oldModelClassName.endsWith("Clp")) {
+			try {
+				ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+				Method getClpSerializerClassMethod = oldModelClass.getMethod(
+						"getClpSerializerClass");
+
+				Class<?> oldClpSerializerClass = (Class<?>)getClpSerializerClassMethod.invoke(oldModel);
+
+				Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+				Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+						BaseModel.class);
+
+				Class<?> oldModelModelClass = oldModel.getModelClass();
+
+				Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+						oldModelModelClass.getSimpleName() + "RemoteModel");
+
+				Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+				BaseModel<?> newModel = (BaseModel<?>)translateOutputMethod.invoke(null,
+						oldRemoteModel);
+
+				return newModel;
+			}
+			catch (Throwable t) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to translate " + oldModelClassName, t);
+				}
+			}
+		}
+
+		if (oldModelClassName.equals(
 					"com.cmcti.cmts.domain.model.impl.OptionImpl")) {
 			return translateOutputOption(oldModel);
+		}
+		else if (oldModelClassName.endsWith("Clp")) {
+			try {
+				ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+				Method getClpSerializerClassMethod = oldModelClass.getMethod(
+						"getClpSerializerClass");
+
+				Class<?> oldClpSerializerClass = (Class<?>)getClpSerializerClassMethod.invoke(oldModel);
+
+				Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+				Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+						BaseModel.class);
+
+				Class<?> oldModelModelClass = oldModel.getModelClass();
+
+				Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+						oldModelModelClass.getSimpleName() + "RemoteModel");
+
+				Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+				BaseModel<?> newModel = (BaseModel<?>)translateOutputMethod.invoke(null,
+						oldRemoteModel);
+
+				return newModel;
+			}
+			catch (Throwable t) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to translate " + oldModelClassName, t);
+				}
+			}
+		}
+
+		if (oldModelClassName.equals(
+					"com.cmcti.cmts.domain.model.impl.UpChannelMetadataImpl")) {
+			return translateOutputUpChannelMetadata(oldModel);
 		}
 		else if (oldModelClassName.endsWith("Clp")) {
 			try {
@@ -652,8 +756,18 @@ public class ClpSerializer {
 			return new com.cmcti.cmts.domain.NoSuchMerchantException();
 		}
 
+		if (className.equals(
+					"com.cmcti.cmts.domain.NoSuchMerchantScopeException")) {
+			return new com.cmcti.cmts.domain.NoSuchMerchantScopeException();
+		}
+
 		if (className.equals("com.cmcti.cmts.domain.NoSuchOptionException")) {
 			return new com.cmcti.cmts.domain.NoSuchOptionException();
+		}
+
+		if (className.equals(
+					"com.cmcti.cmts.domain.NoSuchUpChannelMetadataException")) {
+			return new com.cmcti.cmts.domain.NoSuchUpChannelMetadataException();
 		}
 
 		if (className.equals(
@@ -720,12 +834,32 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputMerchantScope(BaseModel<?> oldModel) {
+		MerchantScopeClp newModel = new MerchantScopeClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setMerchantScopeRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputOption(BaseModel<?> oldModel) {
 		OptionClp newModel = new OptionClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setOptionRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputUpChannelMetadata(BaseModel<?> oldModel) {
+		UpChannelMetadataClp newModel = new UpChannelMetadataClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setUpChannelMetadataRemoteModel(oldModel);
 
 		return newModel;
 	}

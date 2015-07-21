@@ -14,7 +14,8 @@
 			<portlet:namespace var="namespace"/>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton value="Add Customer" update="@form" actionListener="#{customerMacBean.setCurrent(null)}" oncomplete="${namespace}addDl.show()" icon="ui-icon-plus"/>
+					<p:commandButton value="Add Customer" update="@form" actionListener="#{customerMacBean.setCurrent(null)}" oncomplete="PF('${namespace}addDl').show();" icon="ui-icon-plus"/>
+					<p:commandButton value="Import from XLS" onclick="PF('#{namespace}importDl').show();" type="button"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:spacer />
@@ -61,5 +62,6 @@
 	<ui:define name="popups">
 		<ui:include src="edit.xhtml"><ui:param name="mode" value="add"/></ui:include>
 		<ui:include src="edit.xhtml"><ui:param name="mode" value="edit"/></ui:include>
+		<ui:include src="import.xhtml"/>
 	</ui:define>
 </ui:composition>

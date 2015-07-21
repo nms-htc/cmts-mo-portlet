@@ -127,4 +127,14 @@ public class CmtsBean extends AbstractCRUDBean<Cmts> implements Serializable {
 		return items;
 	}
 	
+	public String getCmtsTitle(long cmtsId) {
+		try {
+			Cmts cmts = CmtsLocalServiceUtil.getCmts(cmtsId);
+			return cmts.getTitle();
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
 }

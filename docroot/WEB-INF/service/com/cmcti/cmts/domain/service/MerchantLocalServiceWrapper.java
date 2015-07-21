@@ -283,6 +283,13 @@ public class MerchantLocalServiceWrapper implements MerchantLocalService,
 	}
 
 	@Override
+	public com.cmcti.cmts.domain.model.Merchant fetchByCode(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _merchantLocalService.fetchByCode(code);
+	}
+
+	@Override
 	public com.cmcti.cmts.domain.model.Merchant updateMerchant(
 		com.cmcti.cmts.domain.model.Merchant merchant,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -298,6 +305,26 @@ public class MerchantLocalServiceWrapper implements MerchantLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_merchantLocalService.importMerchant(is, sheetIdx, startRowIdx,
+			serviceContext);
+	}
+
+	@Override
+	public void addUpstreamToMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_merchantLocalService.addUpstreamToMerchant(merchantId, upstreams,
+			serviceContext);
+	}
+
+	@Override
+	public void removeUpstreamFromMerchant(long merchantId,
+		java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> upstreams,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_merchantLocalService.removeUpstreamFromMerchant(merchantId, upstreams,
 			serviceContext);
 	}
 
