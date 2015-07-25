@@ -43,7 +43,8 @@ create table CMTS_CableModem (
 	cmSubIndex VARCHAR(75) null,
 	cmtsId LONG,
 	cmIndex INTEGER,
-	status INTEGER
+	status INTEGER,
+	exist BOOLEAN
 );
 
 create table CMTS_Cmts (
@@ -176,5 +177,6 @@ create table CMTS_UpstreamChannel (
 	ifSigQSNR DOUBLE,
 	ifAlias VARCHAR(75) null,
 	ifDesc VARCHAR(75) null,
+	exist BOOLEAN,
 	primary key (ifIndex, cmtsId)
 );

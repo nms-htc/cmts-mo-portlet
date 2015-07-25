@@ -109,21 +109,51 @@ public class UpChannelMetadataLocalServiceImpl
 			
 			//CmtsId
 			Cell cmtsCell = row.getCell(0);
-			metaData.setCmtsId(GetterUtil.getLong(cmtsCell.getStringCellValue(), 0));
+			metaData.setCmtsId(GetterUtil.getLong(getStringCellValue(cmtsCell), 0));
 			// If index
 			Cell ifIndexCell = row.getCell(1);
-			metaData.setIfIndex(GetterUtil.getInteger(ifIndexCell.getStringCellValue(), 0));
+			metaData.setIfIndex(GetterUtil.getInteger(getStringCellValue(ifIndexCell), 0));
 			
 			// dsFrequency
 			Cell dsFrequencyCell = row.getCell(2);
-			metaData.setDsFrequency(dsFrequencyCell.getStringCellValue());
+			metaData.setDsFrequency(getStringCellValue(dsFrequencyCell));
 			// dsQam
 			Cell dsQamCell = row.getCell(3);
-			metaData.setDsQam(dsQamCell.getStringCellValue());
+			metaData.setDsQam(getStringCellValue(dsQamCell));
 			
 			list.add(metaData);
 		}
 		
 		return list;
 	}
+	
+	private String getStringCellValue(Cell cell) {
+        String value = null;
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_BLANK:
+                value = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                value = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case Cell.CELL_TYPE_ERROR:
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                break;
+            case Cell.CELL_TYPE_STRING:
+                value = cell.getStringCellValue();
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                double doubleValue = cell.getNumericCellValue();
+                if (doubleValue == (int) doubleValue) {
+                    value = String.format("%d", (int) doubleValue);
+                } else {
+                    value = String.format("%s", doubleValue);
+                }
+                
+                break;
+        }
+
+        return value;
+    }
 }

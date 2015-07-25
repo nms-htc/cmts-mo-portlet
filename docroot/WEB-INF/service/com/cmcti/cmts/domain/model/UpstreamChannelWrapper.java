@@ -75,6 +75,7 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 		attributes.put("ifSigQSNR", getIfSigQSNR());
 		attributes.put("ifAlias", getIfAlias());
 		attributes.put("ifDesc", getIfDesc());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -231,6 +232,12 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 
 		if (ifDesc != null) {
 			setIfDesc(ifDesc);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -753,6 +760,36 @@ public class UpstreamChannelWrapper implements UpstreamChannel,
 	@Override
 	public void setIfDesc(java.lang.String ifDesc) {
 		_upstreamChannel.setIfDesc(ifDesc);
+	}
+
+	/**
+	* Returns the exist of this upstream channel.
+	*
+	* @return the exist of this upstream channel
+	*/
+	@Override
+	public boolean getExist() {
+		return _upstreamChannel.getExist();
+	}
+
+	/**
+	* Returns <code>true</code> if this upstream channel is exist.
+	*
+	* @return <code>true</code> if this upstream channel is exist; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isExist() {
+		return _upstreamChannel.isExist();
+	}
+
+	/**
+	* Sets whether this upstream channel is exist.
+	*
+	* @param exist the exist of this upstream channel
+	*/
+	@Override
+	public void setExist(boolean exist) {
+		_upstreamChannel.setExist(exist);
 	}
 
 	@Override

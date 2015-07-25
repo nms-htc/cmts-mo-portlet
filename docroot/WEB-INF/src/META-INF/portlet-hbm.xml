@@ -37,6 +37,7 @@
 		<property name="cmtsId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="cmIndex" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="exist" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.CableModemHistoryImpl" table="CMTS_CMHis">
 		<cache usage="read-write" />
@@ -181,6 +182,7 @@
 		<property name="ifSigQSNR" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
 		<property name="ifAlias" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ifDesc" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="exist" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="com.cmcti.cmts.domain.model.impl.UpstreamChannelHistoryImpl" table="CMTS_UCHis">
 		<cache usage="read-write" />

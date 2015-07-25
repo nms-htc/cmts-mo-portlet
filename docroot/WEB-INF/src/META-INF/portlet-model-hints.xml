@@ -23,6 +23,7 @@
 		<field name="cmtsId" type="long" />
 		<field name="cmIndex" type="int" />
 		<field name="status" type="int" />
+		<field name="exist" type="boolean" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.CableModemHistory">
 		<field name="cmHisId" type="long" />
@@ -143,6 +144,7 @@
 		<field name="ifSigQSNR" type="double" />
 		<field name="ifAlias" type="String" />
 		<field name="ifDesc" type="String" />
+		<field name="exist" type="boolean" />
 	</model>
 	<model name="com.cmcti.cmts.domain.model.UpstreamChannelHistory">
 		<field name="ucHisId" type="long" />

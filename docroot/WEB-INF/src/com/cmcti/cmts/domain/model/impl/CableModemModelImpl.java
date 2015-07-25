@@ -80,9 +80,10 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 			{ "cmSubIndex", Types.VARCHAR },
 			{ "cmtsId", Types.BIGINT },
 			{ "cmIndex", Types.INTEGER },
-			{ "status", Types.INTEGER }
+			{ "status", Types.INTEGER },
+			{ "exist", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table CMTS_CableModem (macAddress VARCHAR(75) not null primary key,createDate DATE null,modifiedDate DATE null,fecUncorrectable DOUBLE,fecCorrected DOUBLE,microRef LONG,rxPower INTEGER,txPower INTEGER,usPower INTEGER,dsPower INTEGER,uncorrectables LONG,correcteds LONG,unerroreds LONG,dsSNR INTEGER,usSNR INTEGER,ucIfIndex INTEGER,dcIfIndex INTEGER,cmSubIndex VARCHAR(75) null,cmtsId LONG,cmIndex INTEGER,status INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table CMTS_CableModem (macAddress VARCHAR(75) not null primary key,createDate DATE null,modifiedDate DATE null,fecUncorrectable DOUBLE,fecCorrected DOUBLE,microRef LONG,rxPower INTEGER,txPower INTEGER,usPower INTEGER,dsPower INTEGER,uncorrectables LONG,correcteds LONG,unerroreds LONG,dsSNR INTEGER,usSNR INTEGER,ucIfIndex INTEGER,dcIfIndex INTEGER,cmSubIndex VARCHAR(75) null,cmtsId LONG,cmIndex INTEGER,status INTEGER,exist BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table CMTS_CableModem";
 	public static final String ORDER_BY_JPQL = " ORDER BY cableModem.macAddress ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CMTS_CableModem.macAddress ASC";
@@ -140,6 +141,7 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 		model.setCmtsId(soapModel.getCmtsId());
 		model.setCmIndex(soapModel.getCmIndex());
 		model.setStatus(soapModel.getStatus());
+		model.setExist(soapModel.getExist());
 
 		return model;
 	}
@@ -225,6 +227,7 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
 		attributes.put("status", getStatus());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -355,6 +358,12 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 		if (status != null) {
 			setStatus(status);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -671,6 +680,22 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 		_status = status;
 	}
 
+	@JSON
+	@Override
+	public boolean getExist() {
+		return _exist;
+	}
+
+	@Override
+	public boolean isExist() {
+		return _exist;
+	}
+
+	@Override
+	public void setExist(boolean exist) {
+		_exist = exist;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -710,6 +735,7 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 		cableModemImpl.setCmtsId(getCmtsId());
 		cableModemImpl.setCmIndex(getCmIndex());
 		cableModemImpl.setStatus(getStatus());
+		cableModemImpl.setExist(getExist());
 
 		cableModemImpl.resetOriginalValues();
 
@@ -853,12 +879,14 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 		cableModemCacheModel.status = getStatus();
 
+		cableModemCacheModel.exist = getExist();
+
 		return cableModemCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{macAddress=");
 		sb.append(getMacAddress());
@@ -902,6 +930,8 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 		sb.append(getCmIndex());
 		sb.append(", status=");
 		sb.append(getStatus());
+		sb.append(", exist=");
+		sb.append(getExist());
 		sb.append("}");
 
 		return sb.toString();
@@ -909,7 +939,7 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(70);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.CableModem");
@@ -999,6 +1029,10 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 			"<column><column-name>status</column-name><column-value><![CDATA[");
 		sb.append(getStatus());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>exist</column-name><column-value><![CDATA[");
+		sb.append(getExist());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1042,6 +1076,7 @@ public class CableModemModelImpl extends BaseModelImpl<CableModem>
 	private long _cmtsId;
 	private int _cmIndex;
 	private int _status;
+	private boolean _exist;
 	private long _columnBitmask;
 	private CableModem _escapedModel;
 }

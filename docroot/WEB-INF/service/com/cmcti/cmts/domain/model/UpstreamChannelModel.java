@@ -414,6 +414,27 @@ public interface UpstreamChannelModel extends BaseModel<UpstreamChannel> {
 	 */
 	public void setIfDesc(String ifDesc);
 
+	/**
+	 * Returns the exist of this upstream channel.
+	 *
+	 * @return the exist of this upstream channel
+	 */
+	public boolean getExist();
+
+	/**
+	 * Returns <code>true</code> if this upstream channel is exist.
+	 *
+	 * @return <code>true</code> if this upstream channel is exist; <code>false</code> otherwise
+	 */
+	public boolean isExist();
+
+	/**
+	 * Sets whether this upstream channel is exist.
+	 *
+	 * @param exist the exist of this upstream channel
+	 */
+	public void setExist(boolean exist);
+
 	@Override
 	public boolean isNew();
 

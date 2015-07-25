@@ -95,6 +95,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
 		attributes.put("status", getStatus());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -225,6 +226,12 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 		if (status != null) {
 			setStatus(status);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -712,6 +719,34 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		}
 	}
 
+	@Override
+	public boolean getExist() {
+		return _exist;
+	}
+
+	@Override
+	public boolean isExist() {
+		return _exist;
+	}
+
+	@Override
+	public void setExist(boolean exist) {
+		_exist = exist;
+
+		if (_cableModemRemoteModel != null) {
+			try {
+				Class<?> clazz = _cableModemRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setExist", boolean.class);
+
+				method.invoke(_cableModemRemoteModel, exist);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getCableModemRemoteModel() {
 		return _cableModemRemoteModel;
 	}
@@ -802,6 +837,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		clone.setCmtsId(getCmtsId());
 		clone.setCmIndex(getCmIndex());
 		clone.setStatus(getStatus());
+		clone.setExist(getExist());
 
 		return clone;
 	}
@@ -846,7 +882,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{macAddress=");
 		sb.append(getMacAddress());
@@ -890,6 +926,8 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 		sb.append(getCmIndex());
 		sb.append(", status=");
 		sb.append(getStatus());
+		sb.append(", exist=");
+		sb.append(getExist());
 		sb.append("}");
 
 		return sb.toString();
@@ -897,7 +935,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(70);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.CableModem");
@@ -987,6 +1025,10 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 			"<column><column-name>status</column-name><column-value><![CDATA[");
 		sb.append(getStatus());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>exist</column-name><column-value><![CDATA[");
+		sb.append(getExist());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1014,6 +1056,7 @@ public class CableModemClp extends BaseModelImpl<CableModem>
 	private long _cmtsId;
 	private int _cmIndex;
 	private int _status;
+	private boolean _exist;
 	private BaseModel<?> _cableModemRemoteModel;
 	private Class<?> _clpSerializerClass = com.cmcti.cmts.domain.service.ClpSerializer.class;
 }

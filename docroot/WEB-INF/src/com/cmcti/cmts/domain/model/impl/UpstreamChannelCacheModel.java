@@ -38,7 +38,7 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{ifIndex=");
 		sb.append(ifIndex);
@@ -90,6 +90,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 		sb.append(ifAlias);
 		sb.append(", ifDesc=");
 		sb.append(ifDesc);
+		sb.append(", exist=");
+		sb.append(exist);
 		sb.append("}");
 
 		return sb.toString();
@@ -156,6 +158,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 			upstreamChannelImpl.setIfDesc(ifDesc);
 		}
 
+		upstreamChannelImpl.setExist(exist);
+
 		upstreamChannelImpl.resetOriginalValues();
 
 		return upstreamChannelImpl;
@@ -188,6 +192,7 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 		ifSigQSNR = objectInput.readDouble();
 		ifAlias = objectInput.readUTF();
 		ifDesc = objectInput.readUTF();
+		exist = objectInput.readBoolean();
 	}
 
 	@Override
@@ -237,6 +242,8 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 		else {
 			objectOutput.writeUTF(ifDesc);
 		}
+
+		objectOutput.writeBoolean(exist);
 	}
 
 	public int ifIndex;
@@ -264,4 +271,5 @@ public class UpstreamChannelCacheModel implements CacheModel<UpstreamChannel>,
 	public double ifSigQSNR;
 	public String ifAlias;
 	public String ifDesc;
+	public boolean exist;
 }

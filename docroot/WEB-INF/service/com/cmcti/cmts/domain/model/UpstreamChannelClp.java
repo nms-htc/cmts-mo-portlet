@@ -101,6 +101,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		attributes.put("ifSigQSNR", getIfSigQSNR());
 		attributes.put("ifAlias", getIfAlias());
 		attributes.put("ifDesc", getIfDesc());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -257,6 +258,12 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 		if (ifDesc != null) {
 			setIfDesc(ifDesc);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -849,6 +856,34 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		}
 	}
 
+	@Override
+	public boolean getExist() {
+		return _exist;
+	}
+
+	@Override
+	public boolean isExist() {
+		return _exist;
+	}
+
+	@Override
+	public void setExist(boolean exist) {
+		_exist = exist;
+
+		if (_upstreamChannelRemoteModel != null) {
+			try {
+				Class<?> clazz = _upstreamChannelRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setExist", boolean.class);
+
+				method.invoke(_upstreamChannelRemoteModel, exist);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getUpstreamChannelRemoteModel() {
 		return _upstreamChannelRemoteModel;
 	}
@@ -945,6 +980,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		clone.setIfSigQSNR(getIfSigQSNR());
 		clone.setIfAlias(getIfAlias());
 		clone.setIfDesc(getIfDesc());
+		clone.setExist(getExist());
 
 		return clone;
 	}
@@ -989,7 +1025,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{ifIndex=");
 		sb.append(getIfIndex());
@@ -1041,6 +1077,8 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 		sb.append(getIfAlias());
 		sb.append(", ifDesc=");
 		sb.append(getIfDesc());
+		sb.append(", exist=");
+		sb.append(getExist());
 		sb.append("}");
 
 		return sb.toString();
@@ -1048,7 +1086,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(79);
+		StringBundler sb = new StringBundler(82);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannel");
@@ -1154,6 +1192,10 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 			"<column><column-name>ifDesc</column-name><column-value><![CDATA[");
 		sb.append(getIfDesc());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>exist</column-name><column-value><![CDATA[");
+		sb.append(getExist());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1185,6 +1227,7 @@ public class UpstreamChannelClp extends BaseModelImpl<UpstreamChannel>
 	private double _ifSigQSNR;
 	private String _ifAlias;
 	private String _ifDesc;
+	private boolean _exist;
 	private BaseModel<?> _upstreamChannelRemoteModel;
 	private Class<?> _clpSerializerClass = com.cmcti.cmts.domain.service.ClpSerializer.class;
 }

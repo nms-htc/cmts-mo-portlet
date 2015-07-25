@@ -70,6 +70,7 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 		attributes.put("cmtsId", getCmtsId());
 		attributes.put("cmIndex", getCmIndex());
 		attributes.put("status", getStatus());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -200,6 +201,12 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 
 		if (status != null) {
 			setStatus(status);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -641,6 +648,36 @@ public class CableModemWrapper implements CableModem, ModelWrapper<CableModem> {
 	@Override
 	public void setStatus(int status) {
 		_cableModem.setStatus(status);
+	}
+
+	/**
+	* Returns the exist of this cable modem.
+	*
+	* @return the exist of this cable modem
+	*/
+	@Override
+	public boolean getExist() {
+		return _cableModem.getExist();
+	}
+
+	/**
+	* Returns <code>true</code> if this cable modem is exist.
+	*
+	* @return <code>true</code> if this cable modem is exist; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isExist() {
+		return _cableModem.isExist();
+	}
+
+	/**
+	* Sets whether this cable modem is exist.
+	*
+	* @param exist the exist of this cable modem
+	*/
+	@Override
+	public void setExist(boolean exist) {
+		_cableModem.setExist(exist);
 	}
 
 	@Override

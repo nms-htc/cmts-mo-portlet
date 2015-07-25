@@ -52,6 +52,7 @@ public class CableModemSoap implements Serializable {
 		soapModel.setCmtsId(model.getCmtsId());
 		soapModel.setCmIndex(model.getCmIndex());
 		soapModel.setStatus(model.getStatus());
+		soapModel.setExist(model.getExist());
 
 		return soapModel;
 	}
@@ -272,6 +273,18 @@ public class CableModemSoap implements Serializable {
 		_status = status;
 	}
 
+	public boolean getExist() {
+		return _exist;
+	}
+
+	public boolean isExist() {
+		return _exist;
+	}
+
+	public void setExist(boolean exist) {
+		_exist = exist;
+	}
+
 	private String _macAddress;
 	private Date _createDate;
 	private Date _modifiedDate;
@@ -293,4 +306,5 @@ public class CableModemSoap implements Serializable {
 	private long _cmtsId;
 	private int _cmIndex;
 	private int _status;
+	private boolean _exist;
 }

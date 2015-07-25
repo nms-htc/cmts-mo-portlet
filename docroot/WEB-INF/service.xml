@@ -208,6 +208,7 @@
 		<column name="cmtsId" type="long" />
 		<column name="cmIndex" type="int" />
 		<column name="status" type="int" />
+		<column name="exist" type="boolean"/>
 
 		<!-- Order -->
 
@@ -320,6 +321,7 @@
 		<column name="ifSigQSNR" type="double" />
 		<column name="ifAlias" type="String" />
 		<column name="ifDesc" type="String" />
+		<column name="exist" type="boolean"/>
 
 		<!-- Finder methods -->
 

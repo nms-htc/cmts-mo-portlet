@@ -3394,6 +3394,7 @@ public class CableModemPersistenceImpl extends BasePersistenceImpl<CableModem>
 		cableModemImpl.setCmtsId(cableModem.getCmtsId());
 		cableModemImpl.setCmIndex(cableModem.getCmIndex());
 		cableModemImpl.setStatus(cableModem.getStatus());
+		cableModemImpl.setExist(cableModem.isExist());
 
 		return cableModemImpl;
 	}

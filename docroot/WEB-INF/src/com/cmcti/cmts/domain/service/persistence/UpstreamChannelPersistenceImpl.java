@@ -4010,6 +4010,7 @@ public class UpstreamChannelPersistenceImpl extends BasePersistenceImpl<Upstream
 		upstreamChannelImpl.setIfSigQSNR(upstreamChannel.getIfSigQSNR());
 		upstreamChannelImpl.setIfAlias(upstreamChannel.getIfAlias());
 		upstreamChannelImpl.setIfDesc(upstreamChannel.getIfDesc());
+		upstreamChannelImpl.setExist(upstreamChannel.isExist());
 
 		return upstreamChannelImpl;
 	}

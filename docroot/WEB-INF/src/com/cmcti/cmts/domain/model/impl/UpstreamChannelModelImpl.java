@@ -85,9 +85,10 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 			{ "ifSigQUnerroreds", Types.BIGINT },
 			{ "ifSigQSNR", Types.DOUBLE },
 			{ "ifAlias", Types.VARCHAR },
-			{ "ifDesc", Types.VARCHAR }
+			{ "ifDesc", Types.VARCHAR },
+			{ "exist", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table CMTS_UpstreamChannel (ifIndex INTEGER not null,cmtsId LONG not null,createDate DATE null,modifiedDate DATE null,qam VARCHAR(75) null,avgOnlineCmDsPower DOUBLE,avgOnlineCmUsPower DOUBLE,avgOnlineCmMicRef DOUBLE,avgOnlineCmDsSNR DOUBLE,avgOnlineCmTxPower DOUBLE,avgOnlineCmRxPower DOUBLE,fecUncorrectable DOUBLE,fecCorrected DOUBLE,upChannelCmTotal INTEGER,upChannelCmRegistered INTEGER,upChannelCmActive INTEGER,upChannelModProfile INTEGER,upChannelWidth LONG,upChannelFrequency LONG,ifSigQUncorrectables LONG,ifSigQCorrecteds LONG,ifSigQUnerroreds LONG,ifSigQSNR DOUBLE,ifAlias VARCHAR(75) null,ifDesc VARCHAR(75) null,primary key (ifIndex, cmtsId))";
+	public static final String TABLE_SQL_CREATE = "create table CMTS_UpstreamChannel (ifIndex INTEGER not null,cmtsId LONG not null,createDate DATE null,modifiedDate DATE null,qam VARCHAR(75) null,avgOnlineCmDsPower DOUBLE,avgOnlineCmUsPower DOUBLE,avgOnlineCmMicRef DOUBLE,avgOnlineCmDsSNR DOUBLE,avgOnlineCmTxPower DOUBLE,avgOnlineCmRxPower DOUBLE,fecUncorrectable DOUBLE,fecCorrected DOUBLE,upChannelCmTotal INTEGER,upChannelCmRegistered INTEGER,upChannelCmActive INTEGER,upChannelModProfile INTEGER,upChannelWidth LONG,upChannelFrequency LONG,ifSigQUncorrectables LONG,ifSigQCorrecteds LONG,ifSigQUnerroreds LONG,ifSigQSNR DOUBLE,ifAlias VARCHAR(75) null,ifDesc VARCHAR(75) null,exist BOOLEAN,primary key (ifIndex, cmtsId))";
 	public static final String TABLE_SQL_DROP = "drop table CMTS_UpstreamChannel";
 	public static final String ORDER_BY_JPQL = " ORDER BY upstreamChannel.id.ifIndex ASC, upstreamChannel.id.cmtsId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CMTS_UpstreamChannel.ifIndex ASC, CMTS_UpstreamChannel.cmtsId ASC";
@@ -150,6 +151,7 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		model.setIfSigQSNR(soapModel.getIfSigQSNR());
 		model.setIfAlias(soapModel.getIfAlias());
 		model.setIfDesc(soapModel.getIfDesc());
+		model.setExist(soapModel.getExist());
 
 		return model;
 	}
@@ -241,6 +243,7 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		attributes.put("ifSigQSNR", getIfSigQSNR());
 		attributes.put("ifAlias", getIfAlias());
 		attributes.put("ifDesc", getIfDesc());
+		attributes.put("exist", getExist());
 
 		return attributes;
 	}
@@ -397,6 +400,12 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 		if (ifDesc != null) {
 			setIfDesc(ifDesc);
+		}
+
+		Boolean exist = (Boolean)attributes.get("exist");
+
+		if (exist != null) {
+			setExist(exist);
 		}
 	}
 
@@ -774,6 +783,22 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		_ifDesc = ifDesc;
 	}
 
+	@JSON
+	@Override
+	public boolean getExist() {
+		return _exist;
+	}
+
+	@Override
+	public boolean isExist() {
+		return _exist;
+	}
+
+	@Override
+	public void setExist(boolean exist) {
+		_exist = exist;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -817,6 +842,7 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		upstreamChannelImpl.setIfSigQSNR(getIfSigQSNR());
 		upstreamChannelImpl.setIfAlias(getIfAlias());
 		upstreamChannelImpl.setIfDesc(getIfDesc());
+		upstreamChannelImpl.setExist(getExist());
 
 		upstreamChannelImpl.resetOriginalValues();
 
@@ -978,12 +1004,14 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 			upstreamChannelCacheModel.ifDesc = null;
 		}
 
+		upstreamChannelCacheModel.exist = getExist();
+
 		return upstreamChannelCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(51);
+		StringBundler sb = new StringBundler(53);
 
 		sb.append("{ifIndex=");
 		sb.append(getIfIndex());
@@ -1035,6 +1063,8 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 		sb.append(getIfAlias());
 		sb.append(", ifDesc=");
 		sb.append(getIfDesc());
+		sb.append(", exist=");
+		sb.append(getExist());
 		sb.append("}");
 
 		return sb.toString();
@@ -1042,7 +1072,7 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(79);
+		StringBundler sb = new StringBundler(82);
 
 		sb.append("<model><model-name>");
 		sb.append("com.cmcti.cmts.domain.model.UpstreamChannel");
@@ -1148,6 +1178,10 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 			"<column><column-name>ifDesc</column-name><column-value><![CDATA[");
 		sb.append(getIfDesc());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>exist</column-name><column-value><![CDATA[");
+		sb.append(getExist());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -1197,6 +1231,7 @@ public class UpstreamChannelModelImpl extends BaseModelImpl<UpstreamChannel>
 	private boolean _setOriginalIfSigQSNR;
 	private String _ifAlias;
 	private String _ifDesc;
+	private boolean _exist;
 	private long _columnBitmask;
 	private UpstreamChannel _escapedModel;
 }

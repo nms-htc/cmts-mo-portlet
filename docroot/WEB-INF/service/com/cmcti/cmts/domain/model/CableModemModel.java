@@ -355,6 +355,27 @@ public interface CableModemModel extends BaseModel<CableModem> {
 	 */
 	public void setStatus(int status);
 
+	/**
+	 * Returns the exist of this cable modem.
+	 *
+	 * @return the exist of this cable modem
+	 */
+	public boolean getExist();
+
+	/**
+	 * Returns <code>true</code> if this cable modem is exist.
+	 *
+	 * @return <code>true</code> if this cable modem is exist; <code>false</code> otherwise
+	 */
+	public boolean isExist();
+
+	/**
+	 * Sets whether this cable modem is exist.
+	 *
+	 * @param exist the exist of this cable modem
+	 */
+	public void setExist(boolean exist);
+
 	@Override
 	public boolean isNew();
 

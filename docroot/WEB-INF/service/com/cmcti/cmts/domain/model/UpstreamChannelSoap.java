@@ -58,6 +58,7 @@ public class UpstreamChannelSoap implements Serializable {
 		soapModel.setIfSigQSNR(model.getIfSigQSNR());
 		soapModel.setIfAlias(model.getIfAlias());
 		soapModel.setIfDesc(model.getIfDesc());
+		soapModel.setExist(model.getExist());
 
 		return soapModel;
 	}
@@ -313,6 +314,18 @@ public class UpstreamChannelSoap implements Serializable {
 		_ifDesc = ifDesc;
 	}
 
+	public boolean getExist() {
+		return _exist;
+	}
+
+	public boolean isExist() {
+		return _exist;
+	}
+
+	public void setExist(boolean exist) {
+		_exist = exist;
+	}
+
 	private int _ifIndex;
 	private long _cmtsId;
 	private Date _createDate;
@@ -338,4 +351,5 @@ public class UpstreamChannelSoap implements Serializable {
 	private double _ifSigQSNR;
 	private String _ifAlias;
 	private String _ifDesc;
+	private boolean _exist;
 }
