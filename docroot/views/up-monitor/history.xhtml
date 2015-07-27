@@ -80,6 +80,12 @@
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="DsPw" sortBy="#{upstreamChannel.avgOnlineCmDsPower}" width="40">
+					<h:outputText value="#{upstreamChannel.avgOnlineCmDsPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
 
 				<p:column headerText="MER" sortBy="#{upstreamChannel.avgOnlineCmDsSNR}" width="40">
 					<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}" 
