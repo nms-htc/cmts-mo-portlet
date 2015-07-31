@@ -12,12 +12,16 @@
 
 			<p:spacer />
 
-			<p:dataTable id="listTable" reflow="true" widgetVar="listTable" value="#{upstreamChannelBean.lazyDataModel}" var="upstreamChannel"
-				rowIndexVar="index" rows="50" paginator="true" stickyHeader="true"
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{upstreamChannelBean.lazyDataModel}" var="upstreamChannel"
+				rowIndexVar="index" rows="50" paginator="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true" resizableColumns="true">
+				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true"
+				rowStyleClass="#{ucRowStyleAlarmGenerator.getRowClass(upstreamChannel)}">
 
-				<p:column width="40"  resizable="false" exportable="false" >
+				<p:column width="20">
+					<p:rowToggler />
+				</p:column>
+				<p:column width="70" resizable="false" exportable="false">
 					<p:button icon="ui-icon-signal-diag" outcome="history">
 						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}" />
 						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
@@ -27,109 +31,110 @@
 						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
 					</p:button>
 				</p:column>
-				
+
 				<p:column headerText="CmtsId" visible="false" exportable="true">
-					<h:outputText value="#{upstreamChannel.cmtsId}"/>
-				</p:column>
-				
-				<p:column headerText="IfIndex" visible="false" exportable="true">
-					<h:outputText value="#{upstreamChannel.ifIndex}"/>
-				</p:column>
-				
-				<p:column headerText="Cmts Title" visible="false" exportable="true">
-					<h:outputText value="#{cmtsBean.getCmtsTitle(upstreamChannel.cmtsId)}"/>
+					<h:outputText value="#{upstreamChannel.cmtsId}" />
 				</p:column>
 
-				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%" width="90">
+				<p:column headerText="IfIndex" visible="false" exportable="true">
+					<h:outputText value="#{upstreamChannel.ifIndex}" />
+				</p:column>
+
+				<p:column headerText="Cmts Title" visible="false" exportable="true">
+					<h:outputText value="#{cmtsBean.getCmtsTitle(upstreamChannel.cmtsId)}" />
+				</p:column>
+
+				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%">
 					<p:link outcome="/views/cm-monitor/view.xhtml" value="#{upstreamChannel.ifDesc}">
 						<f:param name="ifIndex" value="#{upstreamChannel.ifIndex}" />
 						<f:param name="cmtsId" value="#{upstreamChannel.cmtsId}" />
 					</p:link>
 				</p:column>
 
-				<p:column headerText="Alias" width="300" filterBy="#{upstreamChannel.ifAlias}" sortBy="#{upstreamChannel.ifAlias}" filterStyle="width: 90%">
+				<p:column headerText="Alias" filterBy="#{upstreamChannel.ifAlias}" sortBy="#{upstreamChannel.ifAlias}" filterStyle="width: 90%">
 					<h:outputText value="#{upstreamChannel.ifAlias}" />
 				</p:column>
 
-				<p:column headerText="SNR" sortBy="#{upstreamChannel.ifSigQSNR}" width="40">
+				<p:column headerText="SNR" sortBy="#{upstreamChannel.ifSigQSNR}">
 					<h:outputText value="#{upstreamChannel.ifSigQSNR / 10}" style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.ifSigQSNR, 'ifSigQSNR')}" />
 				</p:column>
 
-				<p:column headerText="FRE" sortBy="#{upstreamChannel.upChannelFrequency}" width="40">
+				<p:column headerText="FRE" sortBy="#{upstreamChannel.upChannelFrequency}">
 					<h:outputText value="#{upstreamChannel.upChannelFrequency / 1000000}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="WTH" sortBy="#{upstreamChannel.upChannelWidth}" width="40">
+				<p:column headerText="WTH" sortBy="#{upstreamChannel.upChannelWidth}">
 					<h:outputText value="#{upstreamChannel.upChannelWidth / 1000000}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Fec" sortBy="#{upstreamChannel.fecCorrected}" width="40">
+				<p:column headerText="Fec" sortBy="#{upstreamChannel.fecCorrected}">
 					<h:outputText value="#{upstreamChannel.fecCorrected}"
 						style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.fecCorrected, 'fecCorrected')}">
 						<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="FecUn" sortBy="#{upstreamChannel.fecUncorrectable}" width="40">
+				<p:column headerText="FecUn" sortBy="#{upstreamChannel.fecUncorrectable}">
 					<h:outputText value="#{upstreamChannel.fecUncorrectable}"
 						style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.fecUncorrectable, 'fecUncorrectable')}">
 						<f:convertNumber maxIntegerDigits="3" maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Act" sortBy="#{upstreamChannel.upChannelCmActive}" width="40">
-					<h:outputText value="#{upstreamChannel.upChannelCmActive}" />
-				</p:column>
-
-				<p:column headerText="Reg" sortBy="#{upstreamChannel.upChannelCmRegistered}" width="40">
-					<h:outputText value="#{upstreamChannel.upChannelCmRegistered}" />
-				</p:column>
-
-				<p:column headerText="Total" sortBy="#{upstreamChannel.upChannelCmTotal}" width="40">
-					<h:outputText value="#{upstreamChannel.upChannelCmTotal}" />
-				</p:column>
-
-				<p:column headerText="TxPw" sortBy="#{upstreamChannel.avgOnlineCmTxPower}" width="40">
-					<h:outputText value="#{upstreamChannel.avgOnlineCmTxPower / 10}">
-						<f:convertNumber maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="RxPw" sortBy="#{upstreamChannel.avgOnlineCmRxPower}" width="40">
-					<h:outputText value="#{upstreamChannel.avgOnlineCmRxPower / 10}">
-						<f:convertNumber maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="DsPw" sortBy="#{upstreamChannel.avgOnlineCmDsPower}" width="40">
-					<h:outputText value="#{upstreamChannel.avgOnlineCmDsPower / 10}">
-						<f:convertNumber maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="MER" sortBy="#{upstreamChannel.avgOnlineCmDsSNR}" width="40">
-					<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}"
-						style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.avgOnlineCmDsSNR, 'avgOnlineCmDsSNR')}">
-						<f:convertNumber maxFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Qam" width="40">
-					<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsQam}" />
-				</p:column>
-				
-				<p:column headerText="DsFre" width="60">
-					<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsFrequency}" />
-				</p:column>
-
-				<p:column headerText="Time" width="100">
-					<h:outputText value="#{upstreamChannel.modifiedDate}">
-						<f:convertDateTime pattern="dd/MM/yy HH:mm" />
-					</h:outputText>
-				</p:column>
+				<p:rowExpansion>
+					<div class="ui-grid ui-grid-responsive">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-6">
+								<p:outputLabel value="Act"/>
+								<h:outputText value="#{upstreamChannel.upChannelCmActive}" />
+								
+								<p:outputLabel value="Reg"/>
+								<h:outputText value="#{upstreamChannel.upChannelCmRegistered}" />
+								
+								<p:outputLabel value="Total"/>
+								<h:outputText value="#{upstreamChannel.upChannelCmTotal}" />
+								
+								<p:outputLabel value="TxPw"/>
+								<h:outputText value="#{upstreamChannel.avgOnlineCmTxPower / 10}"
+									style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.avgOnlineCmTxPower, 'avgOnlineCmTxPower')}">
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText>
+								
+								<p:outputLabel value="RxPw"/>
+								<h:outputText value="#{upstreamChannel.avgOnlineCmRxPower / 10}">
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText>
+							</div>
+							
+							<div class="ui-grid-col-6">
+								<p:outputLabel value="DsPw"/>
+								<h:outputText value="#{upstreamChannel.avgOnlineCmDsPower / 10}">
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText>
+								
+								<p:outputLabel value="Mer"/>
+								<h:outputText value="#{upstreamChannel.avgOnlineCmDsSNR / 10}"
+									style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.avgOnlineCmDsSNR, 'avgOnlineCmDsSNR')}">
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText>
+								
+								<p:outputLabel value="Qam"/>
+								<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsQam}" />
+								
+								<p:outputLabel value="DsFRE"/>
+								<h:outputText value="#{upChannelMetadataBean.getByUpstream(upstreamChannel).dsFrequency}" />
+								
+								<p:outputLabel value="Time"/>
+								<h:outputText value="#{upstreamChannel.modifiedDate}">
+									<f:convertDateTime pattern="dd/MM/yy HH:mm" />
+								</h:outputText>
+							</div>
+						</div>
+					</div>
+				</p:rowExpansion>
 
 			</p:dataTable>
 		</h:form>

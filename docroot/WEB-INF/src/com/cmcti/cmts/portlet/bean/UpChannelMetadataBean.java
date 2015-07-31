@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -16,6 +17,7 @@ import com.cmcti.cmts.domain.model.UpstreamChannel;
 import com.cmcti.cmts.domain.service.UpChannelMetadataLocalServiceUtil;
 import com.cmcti.cmts.domain.service.UpstreamChannelLocalServiceUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
+import com.cmcti.cmts.portlet.search.Searcher;
 import com.cmcti.cmts.portlet.util.JsfUtil;
 import com.cmcti.cmts.portlet.util.MessageUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -33,6 +35,9 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 	private static final Logger logger = LoggerFactory.getLogger(UpChannelMetadataBean.class);
 	
 	private SelectItem[] upstreamItems;
+	
+	@ManagedProperty("#{upChannelMetadataSearcher}")
+	private Searcher searcher;
 	
 	public void changeCmts(ValueChangeEvent event) {
 		long cmtsId = GetterUtil.getLong(event.getNewValue(), 0);
@@ -97,6 +102,7 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 			}
 			
 		};
+		model.setSearcher(searcher);
 		return model;
 	}
 
@@ -174,6 +180,14 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 			}
 		}
 		return meta;
+	}
+
+	public Searcher getSearcher() {
+		return searcher;
+	}
+
+	public void setSearcher(Searcher searcher) {
+		this.searcher = searcher;
 	}
 
 }

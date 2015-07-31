@@ -18,11 +18,12 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Junction;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 
 @ManagedBean
 @ViewScoped
-public class CableModemHistorySearcher implements Searcher,Serializable {
+public class CableModemHistorySearcher implements Searcher, Serializable {
 
 	private static final long serialVersionUID = 8159475618852310593L;
 	private static final Logger logger = LoggerFactory.getLogger(CableModemHistorySearcher.class);
@@ -70,7 +71,7 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 				logger.warn("Upstream channel is not found with cmtsId = {0} and ifIndex = {1}", cmtsId, ifIndex);
 			}
 		}
-		
+
 		macAddress = liferayFacesContext.getRequestParameter(MACADDRESS_PARAM);
 	}
 
@@ -86,16 +87,16 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 			query.add(RestrictionsFactoryUtil.eq("ucIfIndex", upstreamChannel.getIfIndex()));
 			query.add(RestrictionsFactoryUtil.eq("cmtsId", upstreamChannel.getCmtsId()));
 		}
-		
+
 		// Filter macAddress
-		if (macAddress != null && ! macAddress.trim().isEmpty()) {
+		if (macAddress != null && !macAddress.trim().isEmpty()) {
 			query.add(RestrictionsFactoryUtil.eq("macAddress", macAddress.trim()));
 		}
 		// Filter date time
 		if (startDate != null) {
 			query.add(RestrictionsFactoryUtil.gt("createDate", startDate));
 		}
-		
+
 		if (endDate != null) {
 			query.add(RestrictionsFactoryUtil.lt("createDate", endDate));
 		}
@@ -169,15 +170,23 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
 			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable",
 					cmRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			// TxPower
+			Junction txPowerConjunction = RestrictionsFactoryUtil.conjunction();
+			txPowerConjunction.add(RestrictionsFactoryUtil.gt("txPower", cmRowStyleAlarmGenerator.getMinTxPowerLv1()));
+			txPowerConjunction.add(RestrictionsFactoryUtil.le("txPower", cmRowStyleAlarmGenerator.getMaxTxPowerLv3()));
 
 			// Build junction
 			mainDisjunction.add(dsSNRConjunction);
 			mainDisjunction.add(usSNRConjunction);
 			mainDisjunction.add(fecCorrectedConjunction);
 			mainDisjunction.add(fecUncorrectableConjunction);
+			mainDisjunction.add(txPowerConjunction);
 
 			query.add(mainDisjunction);
 		}
+
+		// Defautl order
+		query.addOrder(OrderFactoryUtil.desc("createDate"));
 
 		return query;
 	}
@@ -326,7 +335,8 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 	}
 
 	/**
-	 * @param macAddress the macAddress to set
+	 * @param macAddress
+	 *            the macAddress to set
 	 */
 	public void setMacAddress(String macAddress) {
 		this.macAddress = macAddress;
@@ -340,7 +350,8 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 	}
 
 	/**
-	 * @param startDate the startDate to set
+	 * @param startDate
+	 *            the startDate to set
 	 */
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -354,10 +365,11 @@ public class CableModemHistorySearcher implements Searcher,Serializable {
 	}
 
 	/**
-	 * @param endDate the endDate to set
+	 * @param endDate
+	 *            the endDate to set
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 }

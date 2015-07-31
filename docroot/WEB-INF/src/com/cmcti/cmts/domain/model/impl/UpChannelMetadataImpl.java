@@ -14,6 +14,8 @@
 
 package com.cmcti.cmts.domain.model.impl;
 
+import java.util.List;
+
 /**
  * The extended model implementation for the UpChannelMetadata service. Represents a row in the &quot;CMTS_UpChannelMetadata&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,4 +33,15 @@ public class UpChannelMetadataImpl extends UpChannelMetadataBaseImpl {
 	 */
 	public UpChannelMetadataImpl() {
 	}
+	
+	protected List<String> merchantCodes;
+
+	public List<String> getMerchantCodes() {
+		return merchantCodes;
+	}
+
+	public void setMerchantCodes(List<String> merchantCodes) {
+		this.merchantCodes = merchantCodes;
+	}
+	
 }

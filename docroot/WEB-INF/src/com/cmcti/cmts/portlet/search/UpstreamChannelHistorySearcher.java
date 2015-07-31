@@ -28,6 +28,7 @@ public class UpstreamChannelHistorySearcher implements Searcher, Serializable {
 	private static final Logger logger = LoggerFactory.getLogger(UpstreamChannelHistorySearcher.class);
 	private static final String CMTSID_PARAM = "cmtsId";
 	private static final String IfINDEX_PARAM = "ifIndex";
+	private static final String CREATE_DATE = "createDate";
 
 	protected Long cmtsId;
 	protected Double minFecCorrected;
@@ -43,22 +44,25 @@ public class UpstreamChannelHistorySearcher implements Searcher, Serializable {
 	protected Double maxRxPower;
 	protected Double minMer;
 	protected Double maxMer;
-	
+
 	protected int ifIndex;
+	protected Date createDate;
 	protected Date startDate;
 	protected Date endDate;
-	
+
 	@PostConstruct
 	public void init() {
 		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-		
+
 		cmtsId = liferayFacesContext.getRequestParameterAsLong(CMTSID_PARAM, 0);
 		ifIndex = liferayFacesContext.getRequestParameterAsInt(IfINDEX_PARAM, 0);
+		long lCreateDate = liferayFacesContext.getRequestParameterAsLong(CREATE_DATE, 0);
+		if (lCreateDate > 0)
+			createDate = new Date(lCreateDate);
 	}
-	
+
 	@ManagedProperty("#{ucRowStyleAlarmGenerator}")
 	private UcRowStyleAlarmGenerator ucRowStyleAlarmGenerator;
-
 
 	@Override
 	public DynamicQuery getSearchQuery() {
@@ -67,101 +71,118 @@ public class UpstreamChannelHistorySearcher implements Searcher, Serializable {
 		if (ifIndex > 0) {
 			query.add(RestrictionsFactoryUtil.eq("ifIndex", ifIndex));
 		}
-		
+
 		if (startDate != null) {
 			query.add(RestrictionsFactoryUtil.gt("createDate", startDate));
 		}
-		
+
 		if (endDate != null) {
 			query.add(RestrictionsFactoryUtil.lt("createDate", endDate));
 		}
-		
+
 		if (cmtsId != null && cmtsId != 0) {
 			query.add(PropertyFactoryUtil.forName("cmtsId").eq(cmtsId));
 		}
-		
+
 		if (minFecCorrected != null) {
 			query.add(RestrictionsFactoryUtil.ge("fecCorrected", minFecCorrected));
 		}
-			
+
 		if (maxFecCorrected != null) {
 			query.add(RestrictionsFactoryUtil.le("fecCorrected", maxFecCorrected));
 		}
-		
+
 		if (minFecUncorrectable != null) {
 			query.add(RestrictionsFactoryUtil.ge("fecUncorrectable", minFecUncorrectable));
 		}
-		
+
 		if (maxFecUncorrectable != null) {
 			query.add(RestrictionsFactoryUtil.le("fecUncorrectable", maxFecUncorrectable));
 		}
-		
+
 		if (minSigQSNR != null) {
 			query.add(RestrictionsFactoryUtil.ge("ifSigQSNR", minSigQSNR * 10));
 		}
-		
+
 		if (maxSigQSNR != null) {
 			query.add(RestrictionsFactoryUtil.le("ifSigQSNR", maxSigQSNR * 10));
 		}
-		
+
 		if (minTxPower != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmTxPower", minTxPower * 10));
 		}
-		
+
 		if (maxTxPower != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmTxPower", maxTxPower * 10));
 		}
-		
+
 		if (minRxPower != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmRxPower", minRxPower * 10));
 		}
-		
+
 		if (maxRxPower != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmRxPower", maxRxPower * 10));
 		}
-		
+
 		if (minMer != null) {
 			query.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR", minMer * 10));
 		}
-		
+
 		if (maxMer != null) {
 			query.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR", maxMer * 10));
 		}
-		
+
 		if (alarmOnly) {
 			Junction mainDisjunction = RestrictionsFactoryUtil.disjunction();
-			
+
 			// avgOnlineCmDsSNR check
 			Junction avgOnlineCmDsSNRConjunction = RestrictionsFactoryUtil.conjunction();
-			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMinAvgOnlineCmDnSNRLv3()));
-			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR", ucRowStyleAlarmGenerator.getMaxAvgOnlineCmDnSNRLv1()));
-			
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmDsSNR",
+					ucRowStyleAlarmGenerator.getMinAvgOnlineCmDnSNRLv3()));
+			avgOnlineCmDsSNRConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmDsSNR",
+					ucRowStyleAlarmGenerator.getMaxAvgOnlineCmDnSNRLv1()));
+
 			// fecCorrected check
 			Junction fecCorrectedConjunction = RestrictionsFactoryUtil.conjunction();
 			fecCorrectedConjunction.add(RestrictionsFactoryUtil.gt("fecCorrected", ucRowStyleAlarmGenerator.getMinFecCorrectedLv1()));
-			//fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected", ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
-			
+			// fecCorrectedConjunction.add(RestrictionsFactoryUtil.le("fecCorrected",
+			// ucRowStyleAlarmGenerator.getMaxFecCorrectedLv3()));
+
 			// fecUncorrectable check
 			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
-			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable", ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
-			//fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable", ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
-			
+			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable",
+					ucRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			// fecUncorrectableConjunction.add(RestrictionsFactoryUtil.le("fecUncorrectable",
+			// ucRowStyleAlarmGenerator.getMaxFecUncorrectableLv3()));
+
 			// ifSigQSNR check
 			Junction ifSigQSNRConjunction = RestrictionsFactoryUtil.conjunction();
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.ge("ifSigQSNR", ucRowStyleAlarmGenerator.getMinIfSigQSNRLv3()));
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.le("ifSigQSNR", ucRowStyleAlarmGenerator.getMaxIfSigQSNRLv1()));
-			
+
+			Junction avgOnlineCmTxPowerConjunction = RestrictionsFactoryUtil.conjunction();
+			avgOnlineCmTxPowerConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmTxPower",
+					ucRowStyleAlarmGenerator.getMinAvgOnlineCmTxPowerLv1()));
+			avgOnlineCmTxPowerConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmTxPower",
+					ucRowStyleAlarmGenerator.getMaxAvgOnlineCmTxPowerLv3()));
+
 			// Build junction
 			mainDisjunction.add(avgOnlineCmDsSNRConjunction);
 			mainDisjunction.add(fecCorrectedConjunction);
 			mainDisjunction.add(fecUncorrectableConjunction);
 			mainDisjunction.add(ifSigQSNRConjunction);
-			
+			mainDisjunction.add(avgOnlineCmTxPowerConjunction);
+
 			query.add(mainDisjunction);
 		}
-		
-		// Defautl order
-		query.addOrder(OrderFactoryUtil.desc("createDate"));
+
+		if (createDate != null) {
+			query.setLimit(0, 1);
+			query.add(RestrictionsFactoryUtil.gt("createDate", createDate));
+			query.addOrder(OrderFactoryUtil.asc("createDate"));
+		} else
+			// Defautl order
+			query.addOrder(OrderFactoryUtil.desc("createDate"));
 
 		return query;
 	}
@@ -308,6 +329,14 @@ public class UpstreamChannelHistorySearcher implements Searcher, Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 }

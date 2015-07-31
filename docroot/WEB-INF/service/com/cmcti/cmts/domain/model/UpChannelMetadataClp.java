@@ -230,6 +230,41 @@ public class UpChannelMetadataClp extends BaseModelImpl<UpChannelMetadata>
 		}
 	}
 
+	@Override
+	public void setMerchantCodes(java.util.List<java.lang.String> merchantCodes) {
+		try {
+			String methodName = "setMerchantCodes";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.List.class };
+
+			Object[] parameterValues = new Object[] { merchantCodes };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.util.List<java.lang.String> getMerchantCodes() {
+		try {
+			String methodName = "getMerchantCodes";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.util.List<java.lang.String> returnObj = (java.util.List<java.lang.String>)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
 	public BaseModel<?> getUpChannelMetadataRemoteModel() {
 		return _upChannelMetadataRemoteModel;
 	}

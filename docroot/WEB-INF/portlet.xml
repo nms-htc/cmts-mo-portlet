@@ -202,6 +202,31 @@
 				<name>maxFecCorrectedLv3</name>
 				<value>100</value>
 			</preference>
+			
+			<preference>
+				<name>minTxPowerLv1</name>
+				<value>0</value>
+			</preference>
+			<preference>
+				<name>minTxPowerLv2</name>
+				<value>5</value>
+			</preference>
+			<preference>
+				<name>minTxPowerLv3</name>
+				<value>10</value>
+			</preference>
+			<preference>
+				<name>maxTxPowerLv1</name>
+				<value>5</value>
+			</preference>
+			<preference>
+				<name>maxTxPowerLv2</name>
+				<value>10</value>
+			</preference>
+			<preference>
+				<name>maxTxPowerLv3</name>
+				<value>100</value>
+			</preference>
 		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -344,6 +369,31 @@
 			<preference>
 				<name>maxAvgOnlineCmDnSNRLv3</name>
 				<value>28</value>
+			</preference>
+			
+			<preference>
+				<name>minAvgOnlineCmTxPowerLv1</name>
+				<value>0</value>
+			</preference>
+			<preference>
+				<name>minAvgOnlineCmTxPowerLv2</name>
+				<value>5</value>
+			</preference>
+			<preference>
+				<name>minAvgOnlineCmTxPowerLv3</name>
+				<value>10</value>
+			</preference>
+			<preference>
+				<name>maxavgOnlineCmTxPowerLv1</name>
+				<value>5</value>
+			</preference>
+			<preference>
+				<name>maxavgOnlineCmTxPowerLv2</name>
+				<value>10</value>
+			</preference>
+			<preference>
+				<name>maxavgOnlineCmTxPowerLv3</name>
+				<value>100</value>
 			</preference>
 		</portlet-preferences>
 		<security-role-ref>

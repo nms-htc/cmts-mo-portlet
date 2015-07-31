@@ -299,7 +299,9 @@
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpChannelMetadataImpl" name="UpChannelMetadata">
 		<table name="CMTS_UpChannelMetadata" />
-		<attributes />
+		<attributes>
+			<transient name="merchantCodes" />
+		</attributes>
 	</entity>
 	<entity class="com.cmcti.cmts.domain.model.impl.UpstreamChannelImpl" name="UpstreamChannel">
 		<table name="CMTS_UpstreamChannel" />

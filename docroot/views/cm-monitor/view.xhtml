@@ -14,8 +14,7 @@
 
 			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="50"
 				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}" lazy="true" reflow="true"
-				stickyHeader="true">
+				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" rowStyleClass="#{cmRowStyleAlarmGenerator.getRowClass(cableModem)}" lazy="true" reflow="true">
 
 				<p:columnGroup type="header">
 					<p:row>
@@ -24,7 +23,7 @@
 						<p:column headerText="Subscriber Address" rowspan="2" style="min-width:200px"/>
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="40"/>
 						<p:column headerText="Up-Cmts" rowspan="2"/>
-						<p:column headerText="Modem Parameters" colspan="6" />
+						<p:column headerText="Modem Parameters" colspan="7" />
 						<p:column headerText="Time" rowspan="2" />
 					</p:row>
 					<p:row>
@@ -34,6 +33,7 @@
 						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="30"/>
 						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="30"/>
 						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="30"/>
+						<p:column headerText="TxPower" sortBy="#{cableModem.txPower}" width="30"/>
 					</p:row>
 				</p:columnGroup>
 				
@@ -93,6 +93,11 @@
 				</p:column>
 				<p:column headerText="UpPower">
 					<h:outputText value="#{cableModem.usPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="TxPower">
+					<h:outputText value="#{cableModem.txPower / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.txPower , 'txPower')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>

@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 
+import com.cmcti.cmts.domain.model.UpstreamChannel;
+
 @ManagedBean(name = "ucRowStyleAlarmGenerator")
 @ViewScoped
 public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Serializable {
@@ -20,6 +22,7 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 	public static final String fecCorrected = "fecCorrected";
 	public static final String fecUncorrectable = "fecUncorrectable";
 	public static final String avgOnlineCmDsSNR = "avgOnlineCmDsSNR";
+	public static final String avgOnlineCmTxPower = "avgOnlineCmTxPower";
 
 	// perferences
 	private String alarmColorLv1;
@@ -39,6 +42,9 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	private double minAvgOnlineCmDnSNRLv1;
 	private double maxAvgOnlineCmDnSNRLv1;
+	
+	private double minAvgOnlineCmTxPowerLv1;
+	private double maxAvgOnlineCmTxPowerLv1;
 
 	/* Level 2 */
 
@@ -53,6 +59,9 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	private double minAvgOnlineCmDnSNRLv2;
 	private double maxAvgOnlineCmDnSNRLv2;
+	
+	private double minAvgOnlineCmTxPowerLv2;
+	private double maxAvgOnlineCmTxPowerLv2;
 
 	/* Level 3 */
 
@@ -67,6 +76,9 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	private double minAvgOnlineCmDnSNRLv3;
 	private double maxAvgOnlineCmDnSNRLv3;
+	
+	private double minAvgOnlineCmTxPowerLv3;
+	private double maxAvgOnlineCmTxPowerLv3;
 
 	@PostConstruct
 	public void init() {
@@ -87,6 +99,8 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		maxIfSigQSNRLv1 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv1", "24")) * 10;
 		minAvgOnlineCmDnSNRLv1 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv1", "30")) * 10;
 		maxAvgOnlineCmDnSNRLv1 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv1", "33")) * 10;
+		minAvgOnlineCmTxPowerLv1 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv1", "0")) * 10;
+		maxAvgOnlineCmTxPowerLv1 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv1", "10")) * 10;
 
 		minFecCorrectedLv2 = parseDouble(portletPreferences.getValue("minFecCorrectedLv2", "5"));
 		maxFecCorrectedLv2 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv2", "10"));
@@ -96,6 +110,8 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		maxIfSigQSNRLv2 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv2", "20")) * 10;
 		minAvgOnlineCmDnSNRLv2 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv2", "28")) * 10;
 		maxAvgOnlineCmDnSNRLv2 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv2", "30")) * 10;
+		minAvgOnlineCmTxPowerLv2 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv2", "10")) * 10;
+		maxAvgOnlineCmTxPowerLv2 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv2", "20")) * 10;
 
 		minFecCorrectedLv3 = parseDouble(portletPreferences.getValue("minFecCorrectedLv3", "10"));
 		maxFecCorrectedLv3 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv3", "100"));
@@ -105,7 +121,8 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		maxIfSigQSNRLv3 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv3", "16")) * 10;
 		minAvgOnlineCmDnSNRLv3 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv3", "22")) * 10;
 		maxAvgOnlineCmDnSNRLv3 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv3", "28")) * 10;
-
+		minAvgOnlineCmTxPowerLv3 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv3", "20")) * 10;
+		maxAvgOnlineCmTxPowerLv3 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv3", "100")) * 10;
 	}
 
 	@Override
@@ -119,11 +136,11 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 			double checkValue = (double) value;
 
 			if (checkValue >= minIfSigQSNRLv1 && checkValue <= maxIfSigQSNRLv1) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv1 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv1 + ";";
 			} else if (checkValue > minIfSigQSNRLv2 && checkValue <= maxIfSigQSNRLv2) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv2 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv2 + ";";
 			} else if (checkValue > minIfSigQSNRLv3 && checkValue <= maxIfSigQSNRLv3) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv3 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv3 + ";";
 			}
 			break;
 		}
@@ -132,11 +149,11 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 			double checkValue = (double) value;
 
 			if (checkValue > minFecCorrectedLv1 && checkValue <= maxFecCorrectedLv1) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv1 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv1 + ";";
 			} else if (checkValue > minFecCorrectedLv2 && checkValue <= maxFecCorrectedLv2) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv2 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv2 + ";";
 			} else if (checkValue > minFecCorrectedLv3) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv3 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv3 + ";";
 			}
 			break;
 		}
@@ -145,11 +162,11 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 			double checkValue = (double) value;
 
 			if (checkValue > minFecUncorrectableLv1 && checkValue <= maxFecUncorrectableLv1) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv1 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv1 + ";";
 			} else if (checkValue > minFecUncorrectableLv2 && checkValue <= maxFecUncorrectableLv2) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv2 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv2 + ";";
 			} else if (checkValue > minFecUncorrectableLv3) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv3 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv3 + ";";
 			}
 			break;
 		}
@@ -158,11 +175,25 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 			double checkValue = (double) value;
 
 			if (checkValue >= minAvgOnlineCmDnSNRLv1 && checkValue <= maxAvgOnlineCmDnSNRLv1) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv1 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv1 + ";";
 			} else if (checkValue > minAvgOnlineCmDnSNRLv2 && checkValue <= maxAvgOnlineCmDnSNRLv2) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv2 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv2 + ";";
 			} else if (checkValue > minAvgOnlineCmDnSNRLv3 && checkValue <= maxAvgOnlineCmDnSNRLv3) {
-				cssStyle = "font-weight: bold; color: #" + alarmColorLv3 + ";";
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv3 + ";";
+			}
+
+			break;
+		}
+		
+		case avgOnlineCmTxPower: {
+			double checkValue = (double) value;
+
+			if (checkValue >= minAvgOnlineCmTxPowerLv1 && checkValue <= maxAvgOnlineCmTxPowerLv1) {
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv1 + ";";
+			} else if (checkValue > minAvgOnlineCmTxPowerLv2 && checkValue <= maxAvgOnlineCmTxPowerLv2) {
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv2 + ";";
+			} else if (checkValue > minAvgOnlineCmTxPowerLv3 && checkValue <= maxAvgOnlineCmTxPowerLv3) {
+				cssStyle = "font-weight: bold; color: #f1f1f1;padding: 5px;background-color: #" + alarmColorLv3 + ";";
 			}
 
 			break;
@@ -170,6 +201,25 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		}
 
 		return cssStyle;
+	}
+	
+	public String getRowClass(UpstreamChannel upstream) {
+		String rowClasses = "";
+		double ifSigQSNR = upstream.getIfSigQSNR();
+		double fecCorrected = upstream.getFecCorrected();
+		double fecUncorrectable = upstream.getFecUncorrectable();
+		double avgOnlineCmDsSNR = upstream.getAvgOnlineCmDsSNR();
+		double avgOnlineCmTxPower = upstream.getAvgOnlineCmTxPower();
+		
+		if (ifSigQSNR > minIfSigQSNRLv3 && ifSigQSNR <= maxIfSigQSNRLv3 
+				|| fecCorrected > minFecCorrectedLv3
+				|| fecUncorrectable > minFecUncorrectableLv3
+				|| avgOnlineCmDsSNR > minAvgOnlineCmDnSNRLv3 && avgOnlineCmDsSNR <= maxAvgOnlineCmDnSNRLv3
+				|| avgOnlineCmTxPower > minAvgOnlineCmTxPowerLv3 && avgOnlineCmTxPower <= maxAvgOnlineCmTxPowerLv3) {
+			rowClasses = "alarm-rows";
+		}
+		
+		return rowClasses;
 	}
 
 	private double parseDouble(String value) {
@@ -374,4 +424,76 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		this.maxAvgOnlineCmDnSNRLv3 = maxAvgOnlineCmDnSNRLv3;
 	}
 
+	public String getAlarmColorLv1() {
+		return alarmColorLv1;
+	}
+
+	public void setAlarmColorLv1(String alarmColorLv1) {
+		this.alarmColorLv1 = alarmColorLv1;
+	}
+
+	public String getAlarmColorLv2() {
+		return alarmColorLv2;
+	}
+
+	public void setAlarmColorLv2(String alarmColorLv2) {
+		this.alarmColorLv2 = alarmColorLv2;
+	}
+
+	public String getAlarmColorLv3() {
+		return alarmColorLv3;
+	}
+
+	public void setAlarmColorLv3(String alarmColorLv3) {
+		this.alarmColorLv3 = alarmColorLv3;
+	}
+
+	public double getMinAvgOnlineCmTxPowerLv1() {
+		return minAvgOnlineCmTxPowerLv1;
+	}
+
+	public void setMinAvgOnlineCmTxPowerLv1(double minAvgOnlineCmTxPowerLv1) {
+		this.minAvgOnlineCmTxPowerLv1 = minAvgOnlineCmTxPowerLv1;
+	}
+
+	public double getMaxAvgOnlineCmTxPowerLv1() {
+		return maxAvgOnlineCmTxPowerLv1;
+	}
+
+	public void setMaxAvgOnlineCmTxPowerLv1(double maxAvgOnlineCmTxPowerLv1) {
+		this.maxAvgOnlineCmTxPowerLv1 = maxAvgOnlineCmTxPowerLv1;
+	}
+
+	public double getMinAvgOnlineCmTxPowerLv2() {
+		return minAvgOnlineCmTxPowerLv2;
+	}
+
+	public void setMinAvgOnlineCmTxPowerLv2(double minAvgOnlineCmTxPowerLv2) {
+		this.minAvgOnlineCmTxPowerLv2 = minAvgOnlineCmTxPowerLv2;
+	}
+
+	public double getMaxAvgOnlineCmTxPowerLv2() {
+		return maxAvgOnlineCmTxPowerLv2;
+	}
+
+	public void setMaxAvgOnlineCmTxPowerLv2(double maxAvgOnlineCmTxPowerLv2) {
+		this.maxAvgOnlineCmTxPowerLv2 = maxAvgOnlineCmTxPowerLv2;
+	}
+
+	public double getMinAvgOnlineCmTxPowerLv3() {
+		return minAvgOnlineCmTxPowerLv3;
+	}
+
+	public void setMinAvgOnlineCmTxPowerLv3(double minAvgOnlineCmTxPowerLv3) {
+		this.minAvgOnlineCmTxPowerLv3 = minAvgOnlineCmTxPowerLv3;
+	}
+
+	public double getMaxAvgOnlineCmTxPowerLv3() {
+		return maxAvgOnlineCmTxPowerLv3;
+	}
+
+	public void setMaxAvgOnlineCmTxPowerLv3(double maxAvgOnlineCmTxPowerLv3) {
+		this.maxAvgOnlineCmTxPowerLv3 = maxAvgOnlineCmTxPowerLv3;
+	}
+	
 }

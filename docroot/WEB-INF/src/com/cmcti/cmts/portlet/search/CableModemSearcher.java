@@ -150,12 +150,17 @@ public class CableModemSearcher implements Searcher, Serializable {
 			Junction fecUncorrectableConjunction = RestrictionsFactoryUtil.conjunction();
 			fecUncorrectableConjunction.add(RestrictionsFactoryUtil.gt("fecUncorrectable",
 					cmRowStyleAlarmGenerator.getMinFecUncorrectableLv1()));
+			// TxPower
+			Junction txPowerConjunction = RestrictionsFactoryUtil.conjunction();
+			txPowerConjunction.add(RestrictionsFactoryUtil.gt("txPower", cmRowStyleAlarmGenerator.getMinTxPowerLv1()));
+			txPowerConjunction.add(RestrictionsFactoryUtil.le("txPower", cmRowStyleAlarmGenerator.getMaxTxPowerLv3()));
 
 			// Build junction
 			mainDisjunction.add(dsSNRConjunction);
 			mainDisjunction.add(usSNRConjunction);
 			mainDisjunction.add(fecCorrectedConjunction);
 			mainDisjunction.add(fecUncorrectableConjunction);
+			mainDisjunction.add(txPowerConjunction);
 
 			query.add(mainDisjunction);
 		}

@@ -114,6 +114,11 @@
 						</h:outputText>
 					</p:column>
 					<p:column>
+						<h:outputText value="#{upstreamChannel.avgOnlineCmDsPower / 10}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
 						<h:outputText value="#{upstreamChannelDetailBean.upstream.avgOnlineCmDsSNR / 10}"
 							style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannelDetailBean.upstream.avgOnlineCmDsSNR, 'avgOnlineCmDsSNR')}">
 							<f:convertNumber maxFractionDigits="2" />

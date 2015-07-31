@@ -1,5 +1,5 @@
 .ui-widget, .ui-widget .ui-widget {
-  font-size: 14px !important;
+  font-size: 12px !important;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
 
 .ui-state-default, .ui-widget-content .ui-state-default {
@@ -47,4 +47,8 @@
 
 .ui-panelgrid-blank .ui-widget-content {
   border: none; }
+
+/* ALARM LV3 ROW STYLE*/
+.alarm-rows {
+  background-color: yellow; }
 

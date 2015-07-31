@@ -31,4 +31,7 @@ public interface UpChannelMetadata extends UpChannelMetadataModel, PersistedMode
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.cmcti.cmts.domain.model.impl.UpChannelMetadataImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public java.util.List<java.lang.String> getMerchantCodes();
+
+	public void setMerchantCodes(java.util.List<java.lang.String> merchantCodes);
 }

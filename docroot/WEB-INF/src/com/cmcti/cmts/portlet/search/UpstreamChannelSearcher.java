@@ -136,12 +136,18 @@ public class UpstreamChannelSearcher implements Searcher, Serializable {
 			Junction ifSigQSNRConjunction = RestrictionsFactoryUtil.conjunction();
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.ge("ifSigQSNR", ucRowStyleAlarmGenerator.getMinIfSigQSNRLv3()));
 			ifSigQSNRConjunction.add(RestrictionsFactoryUtil.le("ifSigQSNR", ucRowStyleAlarmGenerator.getMaxIfSigQSNRLv1()));
+			
+			// avgCmTxPower
+			Junction avgOnlineCmTxPowerConjunction = RestrictionsFactoryUtil.conjunction();
+			avgOnlineCmTxPowerConjunction.add(RestrictionsFactoryUtil.ge("avgOnlineCmTxPower", ucRowStyleAlarmGenerator.getMinAvgOnlineCmTxPowerLv1()));
+			avgOnlineCmTxPowerConjunction.add(RestrictionsFactoryUtil.le("avgOnlineCmTxPower", ucRowStyleAlarmGenerator.getMaxAvgOnlineCmTxPowerLv3()));
 
 			// Build junction
 			mainDisjunction.add(avgOnlineCmDsSNRConjunction);
 			mainDisjunction.add(fecCorrectedConjunction);
 			mainDisjunction.add(fecUncorrectableConjunction);
 			mainDisjunction.add(ifSigQSNRConjunction);
+			mainDisjunction.add(avgOnlineCmTxPowerConjunction);
 
 			query.add(mainDisjunction);
 		}

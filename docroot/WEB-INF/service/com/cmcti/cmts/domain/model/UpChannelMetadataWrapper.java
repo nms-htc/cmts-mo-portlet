@@ -317,6 +317,16 @@ public class UpChannelMetadataWrapper implements UpChannelMetadata,
 	}
 
 	@Override
+	public java.util.List<java.lang.String> getMerchantCodes() {
+		return _upChannelMetadata.getMerchantCodes();
+	}
+
+	@Override
+	public void setMerchantCodes(java.util.List<java.lang.String> merchantCodes) {
+		_upChannelMetadata.setMerchantCodes(merchantCodes);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
