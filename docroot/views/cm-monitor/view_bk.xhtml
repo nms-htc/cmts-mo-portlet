@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
+	template="/views/inc/common_temp.xhtml">
+
+	<ui:define name="main">
+		<h:form id="listForm">
+			<p:messages globalOnly="false" closable="true" />
+
+			<ui:include src="search.xhtml" />
+
+			<p:spacer />
+
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="50"
+				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" rowStyleClass="#{cmRowStyleAlarmGenerator.getRowClass(cableModem)}" lazy="true" reflow="true"
+				stickyHeader="true">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column width="80" resizable="false" rowspan="2" />
+						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
+						<p:column headerText="Subscriber Address" rowspan="2" style="min-width:200px"/>
+						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="40"/>
+						<p:column headerText="Up-Cmts" rowspan="2"/>
+						<p:column headerText="Modem Parameters" colspan="7" />
+						<p:column headerText="Time" rowspan="2" />
+					</p:row>
+					<p:row>
+						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="30"/>
+						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="30"/>
+						<p:column headerText="Fec %" sortBy="#{cableModem.fecCorrected}" width="30"/>
+						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="30"/>
+						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="30"/>
+						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="30"/>
+						<p:column headerText="TxPower" sortBy="#{cableModem.txPower}" width="30"/>
+					</p:row>
+				</p:columnGroup>
+				
+				<p:column exportable="false">
+					<p:button icon="ui-icon-signal-diag" outcome="history">
+						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
+					</p:button>
+					<p:button icon="ui-icon-refresh" outcome="cm">
+						<f:param name="macAddress" value="#{cableModem.macAddress}"/>
+					</p:button>
+				</p:column>
+
+				<p:column headerText="Mac Address">
+					<h:outputText value="#{cableModem.macAddress}" />
+				</p:column>
+
+				<p:column headerText="Subscriber Address">
+					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="#{i18n[cableModemBean.getCableStatus(cableModem.status)]}" escape="false" />
+				</p:column>
+				
+				<p:column headerText="Up-CMTS">
+					<p:link outcome="/views/up-monitor/upstream.xhtml" value="#{upstreamChannelBean.getTitle(''.concat(cableModem.cmtsId).concat('-').concat(cableModem.ucIfIndex))}">
+						<f:param name="ifIndex" value="#{cableModem.ucIfIndex}"/>
+						<f:param name="cmtsId" value="#{cableModem.cmtsId}"/>
+					</p:link>
+				</p:column>
+
+				<p:column headerText="DnSNR">
+					<h:outputText value="#{cableModem.dsSNR / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.dsSNR, 'dsSNR')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="UpSNR">
+					<h:outputText value="#{cableModem.usSNR /10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.usSNR, 'usSNR')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fec %">
+					<h:outputText value="#{cableModem.fecCorrected}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.fecCorrected, 'fecCorrected')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fec-Un %">
+					<h:outputText value="#{cableModem.fecUncorrectable}"
+						style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.fecUncorrectable, 'fecUncorrectable')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="DnPower">
+					<h:outputText value="#{cableModem.dsPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="UpPower">
+					<h:outputText value="#{cableModem.usPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="TxPower">
+					<h:outputText value="#{cableModem.txPower / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.txPower , 'txPower')}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Time">
+					<h:outputText value="#{cableModem.modifiedDate}">
+						<f:convertDateTime pattern="dd/MM/yy HH:mm" />
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

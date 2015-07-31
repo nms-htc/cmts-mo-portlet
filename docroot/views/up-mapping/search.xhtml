@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ui:component 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<p:panel toggleable="true" toggleSpeed="100" header="UpstreamMetadata Mapping" collapsed="false">
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+					<p:outputLabel value="CMTS" for="cmts" />
+					<p:selectOneMenu id="cmts" value="#{upChannelMetadataSearcher.cmtsId}">
+						<f:selectItem itemLabel="-- All --" />
+						<f:selectItems value="#{cmtsBean.selectItems}" />
+						<p:ajax update="ifIndex"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Upstream" for="ifIndex" />
+					<p:selectOneMenu id="ifIndex" value="#{upChannelMetadataSearcher.ifIndex}">
+						<f:selectItem itemLabel="-- All --" />
+						<f:selectItems value="#{upChannelMetadataSearcher.upstreamChannelItems}" />
+					</p:selectOneMenu>
+				</div>
+			</div>
+		</div>
+
+		<f:facet name="footer">
+			<p:commandButton value="Search" update="@form" icon="ui-icon-search"/>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export Page" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="true" />
+			</p:commandButton>
+			
+			<p:spacer width="5" />
+			
+			<p:commandButton value="Export All" immediate="true" ajax="false">
+				<p:dataExporter type="xls" target="listTable" fileName="up" pageOnly="false" />
+			</p:commandButton>
+		</f:facet>
+	</p:panel>
+</ui:component>
