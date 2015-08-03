@@ -118,32 +118,36 @@ public class MerchantScopeLocalServiceClpInvoker {
 
 		_methodParameterTypes94 = new String[] { "java.lang.String" };
 
-		_methodName95 = "addMerchantScopes";
+		_methodName95 = "findByUpstream";
 
-		_methodParameterTypes95 = new String[] {
-				"java.util.List", "com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes95 = new String[] { "long", "int" };
 
-		_methodName96 = "removeMerchantScopes";
+		_methodName96 = "addMerchantScopes";
 
 		_methodParameterTypes96 = new String[] {
 				"java.util.List", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName97 = "updateMerchantScope";
+		_methodName97 = "removeMerchantScopes";
 
 		_methodParameterTypes97 = new String[] {
+				"java.util.List", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName98 = "updateMerchantScope";
+
+		_methodParameterTypes98 = new String[] {
 				"com.cmcti.cmts.domain.model.MerchantScope",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName98 = "deleteByMerchant";
+		_methodName99 = "deleteByMerchant";
 
-		_methodParameterTypes98 = new String[] { "java.lang.String" };
+		_methodParameterTypes99 = new String[] { "java.lang.String" };
 
-		_methodName99 = "importMerchant";
+		_methodName100 = "importMerchant";
 
-		_methodParameterTypes99 = new String[] {
+		_methodParameterTypes100 = new String[] {
 				"java.io.InputStream", "int", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -257,15 +261,13 @@ public class MerchantScopeLocalServiceClpInvoker {
 
 		if (_methodName95.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
-			MerchantScopeLocalServiceUtil.addMerchantScopes((java.util.List<com.cmcti.cmts.domain.model.MerchantScope>)arguments[0],
-				(com.liferay.portal.service.ServiceContext)arguments[1]);
-
-			return null;
+			return MerchantScopeLocalServiceUtil.findByUpstream(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName96.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
-			MerchantScopeLocalServiceUtil.removeMerchantScopes((java.util.List<com.cmcti.cmts.domain.model.MerchantScope>)arguments[0],
+			MerchantScopeLocalServiceUtil.addMerchantScopes((java.util.List<com.cmcti.cmts.domain.model.MerchantScope>)arguments[0],
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 
 			return null;
@@ -273,19 +275,27 @@ public class MerchantScopeLocalServiceClpInvoker {
 
 		if (_methodName97.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
-			return MerchantScopeLocalServiceUtil.updateMerchantScope((com.cmcti.cmts.domain.model.MerchantScope)arguments[0],
+			MerchantScopeLocalServiceUtil.removeMerchantScopes((java.util.List<com.cmcti.cmts.domain.model.MerchantScope>)arguments[0],
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName98.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			return MerchantScopeLocalServiceUtil.updateMerchantScope((com.cmcti.cmts.domain.model.MerchantScope)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
+		if (_methodName99.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
 			MerchantScopeLocalServiceUtil.deleteByMerchant((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName99.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
+		if (_methodName100.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
 			MerchantScopeLocalServiceUtil.importMerchant((java.io.InputStream)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
@@ -345,4 +355,6 @@ public class MerchantScopeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes98;
 	private String _methodName99;
 	private String[] _methodParameterTypes99;
+	private String _methodName100;
+	private String[] _methodParameterTypes100;
 }

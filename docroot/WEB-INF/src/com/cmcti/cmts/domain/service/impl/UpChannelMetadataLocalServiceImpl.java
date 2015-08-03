@@ -79,11 +79,13 @@ public class UpChannelMetadataLocalServiceImpl extends UpChannelMetadataLocalSer
 		return upChannelMetadataPersistence.fetchByUpstreamChannel(cmtsId, ifIndex);
 	}
 
-	public void importAddressFromXls(InputStream is, int sheetIdx, int startRow, ServiceContext serviceContext) throws PortalException,
-			SystemException {
+	public void importAddressFromXls(InputStream is, int sheetIdx, int startRow, ServiceContext serviceContext, boolean deleteAll)
+			throws PortalException, SystemException {
 		// Remove all data
-		upChannelMetadataPersistence.removeAll();
-		counterLocalService.reset(UpChannelMetadata.class.getName());
+		if (deleteAll) {
+			upChannelMetadataPersistence.removeAll();
+			counterLocalService.reset(UpChannelMetadata.class.getName());
+		}
 
 		Iterator<Row> rowIterator = null;
 		try (HSSFWorkbook workbook = new HSSFWorkbook(is)) {

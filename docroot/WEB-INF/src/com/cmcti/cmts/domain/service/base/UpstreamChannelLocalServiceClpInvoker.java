@@ -125,6 +125,12 @@ public class UpstreamChannelLocalServiceClpInvoker {
 		_methodName94 = "fetchByCmtsId";
 
 		_methodParameterTypes94 = new String[] { "long" };
+
+		_methodName95 = "getSumCmCounts";
+
+		_methodParameterTypes95 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -233,6 +239,11 @@ public class UpstreamChannelLocalServiceClpInvoker {
 			return UpstreamChannelLocalServiceUtil.fetchByCmtsId(((Long)arguments[0]).longValue());
 		}
 
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			return UpstreamChannelLocalServiceUtil.getSumCmCounts((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -274,4 +285,6 @@ public class UpstreamChannelLocalServiceClpInvoker {
 	private String[] _methodParameterTypes89;
 	private String _methodName94;
 	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
 }

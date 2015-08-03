@@ -16,24 +16,24 @@
 
 			<p:dataTable id="listTable" widgetVar="listTable" value="#{cableModemHistoryBean.lazyDataModel}" var="cableModem" rowIndexVar="index" rows="50"
 				paginator="true" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" lazy="true" reflow="true"
-				stickyHeader="true">
+				rowsPerPageTemplate="50,100,200,500" paginatorPosition="bottom" lazy="true">
 
 				<p:columnGroup type="header">
 					<p:row>
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
 						<p:column headerText="Subscriber Address" rowspan="2" />
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="130"/>
-						<p:column headerText="Modem Parameters" colspan="6" />
-						<p:column headerText="Time" rowspan="2" />
+						<p:column headerText="Modem Parameters" colspan="7" />
+						<p:column headerText="Time" rowspan="2" width="150"/>
 					</p:row>
 					<p:row>
-						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="40"/>
-						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="40"/>
-						<p:column headerText="Fec %" sortBy="#{cableModem.fecCorrected}" width="40"/>
-						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="40"/>
-						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="40"/>
-						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="40"/>
+						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="70"/>
+						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="70"/>
+						<p:column headerText="Fec" sortBy="#{cableModem.fecCorrected}" width="70"/>
+						<p:column headerText="UnFec" sortBy="#{cableModem.fecUncorrectable}" width="70"/>
+						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="70"/>
+						<p:column headerText="RxPower" sortBy="#{cableModem.rxPower}" width="70"/>
+						<p:column headerText="TxPower" sortBy="#{cableModem.txPower}" width="70"/>
 					</p:row>
 				</p:columnGroup>
 				
@@ -75,8 +75,13 @@
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column>
-					<h:outputText value="#{cableModem.usPower / 10}">
+				<p:column headerText="RxPower">
+					<h:outputText value="#{cableModem.rxPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="TxPower">
+					<h:outputText value="#{cableModem.txPower / 10}" style="#{cmRowStyleAlarmGenerator.getRowDataCss(cableModem.txPower , 'txPower')}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>

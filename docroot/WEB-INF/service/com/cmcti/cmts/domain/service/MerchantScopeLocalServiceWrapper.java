@@ -296,6 +296,13 @@ public class MerchantScopeLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.cmcti.cmts.domain.model.Merchant> findByUpstream(
+		long cmtsId, int ifIndex)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _merchantScopeLocalService.findByUpstream(cmtsId, ifIndex);
+	}
+
+	@Override
 	public void addMerchantScopes(
 		java.util.List<com.cmcti.cmts.domain.model.MerchantScope> scopes,
 		com.liferay.portal.service.ServiceContext context)

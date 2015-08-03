@@ -306,11 +306,12 @@ public class UpChannelMetadataLocalServiceWrapper
 
 	@Override
 	public void importAddressFromXls(java.io.InputStream is, int sheetIdx,
-		int startRow, com.liferay.portal.service.ServiceContext serviceContext)
+		int startRow, com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_upChannelMetadataLocalService.importAddressFromXls(is, sheetIdx,
-			startRow, serviceContext);
+			startRow, serviceContext, deleteAll);
 	}
 
 	/**

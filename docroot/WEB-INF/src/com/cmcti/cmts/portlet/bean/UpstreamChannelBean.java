@@ -1,9 +1,9 @@
 package com.cmcti.cmts.portlet.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -21,15 +21,10 @@ import com.cmcti.cmts.portlet.search.Searcher;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
 @ManagedBean
 @ViewScoped
@@ -41,6 +36,19 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 
 	@ManagedProperty("#{upstreamChannelSearcher}")
 	private Searcher searcher;
+	
+	private int activeCms;
+	private int registeredCm;
+	private int totalCm;
+	
+	/**
+	 * Test function
+	 * @return
+	 */
+	@Deprecated
+	public Date getTestDate() {
+		return new Date();
+	}
 
 	public Searcher getSearcher() {
 		return searcher;
@@ -87,6 +95,14 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 
 			@Override
 			protected int count(DynamicQuery query) throws SystemException, PortalException {
+				@SuppressWarnings("rawtypes")
+				List avgs = UpstreamChannelLocalServiceUtil.getSumCmCounts(query);
+				Object[] avgValues = (Object[]) avgs.get(0);
+				
+				setTotalCm(GetterUtil.getInteger(avgValues[0], 0));
+				setRegisteredCm(GetterUtil.getInteger(avgValues[1], 0));
+				setActiveCms(GetterUtil.getInteger(avgValues[2], 0));
+		
 				return Long.valueOf(UpstreamChannelLocalServiceUtil.dynamicQueryCount(query)).intValue();
 			}
 		};
@@ -143,4 +159,28 @@ public class UpstreamChannelBean extends AbstractCRUDBean<UpstreamChannel> imple
 		return sb.toString();
 	}
 
+	public int getActiveCms() {
+		return activeCms;
+	}
+
+	public void setActiveCms(int activeCms) {
+		this.activeCms = activeCms;
+	}
+
+	public int getRegisteredCm() {
+		return registeredCm;
+	}
+
+	public void setRegisteredCm(int registeredCm) {
+		this.registeredCm = registeredCm;
+	}
+
+	public int getTotalCm() {
+		return totalCm;
+	}
+
+	public void setTotalCm(int totalCm) {
+		this.totalCm = totalCm;
+	}
+	
 }

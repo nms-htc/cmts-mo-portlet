@@ -258,6 +258,10 @@ public interface MerchantScopeLocalService extends BaseLocalService,
 		java.lang.String merchantCode)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.List<com.cmcti.cmts.domain.model.Merchant> findByUpstream(
+		long cmtsId, int ifIndex)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void addMerchantScopes(
 		java.util.List<com.cmcti.cmts.domain.model.MerchantScope> scopes,
 		com.liferay.portal.service.ServiceContext context)

@@ -1,6 +1,7 @@
 package com.cmcti.cmts.portlet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import org.primefaces.model.LazyDataModel;
 
 import com.cmcti.cmts.domain.model.Merchant;
 import com.cmcti.cmts.domain.service.MerchantLocalServiceUtil;
+import com.cmcti.cmts.domain.service.MerchantScopeLocalServiceUtil;
 import com.cmcti.cmts.portlet.pf.AbstractLazyDataModel;
 import com.cmcti.cmts.portlet.util.JsfUtil;
 import com.cmcti.cmts.portlet.util.MessageUtil;
@@ -20,6 +22,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 @ManagedBean
 @ViewScoped
@@ -30,10 +33,7 @@ public class MerchantBean extends AbstractCRUDBean<Merchant> implements Serializ
 	
 	private SelectItem[] selectItems;
 	
-	public void fuck() {
-		logger.info("Do you wanna fuck me");
-	}
-
+	private boolean removeAll;
 
 	@Override
 	protected Merchant initEntity() {
@@ -102,7 +102,7 @@ public class MerchantBean extends AbstractCRUDBean<Merchant> implements Serializ
 		}
 
 		try {
-			MerchantLocalServiceUtil.importMerchant(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext());
+			MerchantLocalServiceUtil.importMerchant(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext(), removeAll);
 			MessageUtil.addGlobalInfoMessage("import-succesful");
 		} catch (Exception e) {
 			logger.error(e);
@@ -124,6 +124,39 @@ public class MerchantBean extends AbstractCRUDBean<Merchant> implements Serializ
 			}
 		}
 		return selectItems;
+	}
+	
+	public String getMerchatTitles(String params) {
+		String[] args = params.split("-");
+		long cmtsId = GetterUtil.getLong(args[0]);
+		int ifIndex = GetterUtil.getInteger(args[1]);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		List<Merchant> merchants = new ArrayList<Merchant>();
+		try {
+			merchants = MerchantScopeLocalServiceUtil.findByUpstream(cmtsId, ifIndex);
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < merchants.size(); i++) {
+			Merchant merchant = merchants.get(i);
+				if (merchant != null) {
+				sb.append(merchant.getTitle());
+				if (i < merchants.size() - 1) sb.append(", ");
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	public boolean isRemoveAll() {
+		return removeAll;
+	}
+
+
+	public void setRemoveAll(boolean removeAll) {
+		this.removeAll = removeAll;
 	}
 
 }

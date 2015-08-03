@@ -18,6 +18,8 @@ import java.util.List;
 
 import com.cmcti.cmts.domain.model.UpstreamChannel;
 import com.cmcti.cmts.domain.service.base.UpstreamChannelLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -45,5 +47,17 @@ public class UpstreamChannelLocalServiceImpl
 	
 	public List<UpstreamChannel> fetchByCmtsId(long cmtsId) throws SystemException {
 		return upstreamChannelPersistence.findByCmts(cmtsId);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getSumCmCounts(DynamicQuery query) throws SystemException {
+		// projection
+		query.setProjection(ProjectionFactoryUtil.projectionList()
+				.add(ProjectionFactoryUtil.sum("upChannelCmTotal"))
+				.add(ProjectionFactoryUtil.sum("upChannelCmRegistered"))
+				.add(ProjectionFactoryUtil.sum("upChannelCmActive")));
+		
+		query.setLimit(0, 1);
+		return dynamicQuery(query);
 	}
 }

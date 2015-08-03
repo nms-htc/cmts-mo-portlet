@@ -301,11 +301,12 @@ public class MerchantLocalServiceWrapper implements MerchantLocalService,
 	@Override
 	public void importMerchant(java.io.InputStream is, int sheetIdx,
 		int startRowIdx,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_merchantLocalService.importMerchant(is, sheetIdx, startRowIdx,
-			serviceContext);
+			serviceContext, deleteAll);
 	}
 
 	@Override

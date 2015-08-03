@@ -289,10 +289,13 @@ public class UpChannelMetadataLocalServiceUtil {
 
 	public static void importAddressFromXls(java.io.InputStream is,
 		int sheetIdx, int startRow,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().importAddressFromXls(is, sheetIdx, startRow, serviceContext);
+		getService()
+			.importAddressFromXls(is, sheetIdx, startRow, serviceContext,
+			deleteAll);
 	}
 
 	public static void clearService() {

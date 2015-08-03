@@ -129,7 +129,7 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 
 		_methodParameterTypes21 = new String[] {
 				"java.io.InputStream", "int", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.service.ServiceContext", "boolean"
 			};
 
 		_methodName22 = "addUpstreamToMerchant";
@@ -766,7 +766,8 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 	@Override
 	public void importMerchant(java.io.InputStream is, int sheetIdx,
 		int startRowIdx,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -779,7 +780,9 @@ public class MerchantLocalServiceClp implements MerchantLocalService {
 					
 				startRowIdx,
 					
-				ClpSerializer.translateInput(serviceContext)
+				ClpSerializer.translateInput(serviceContext),
+					
+				deleteAll
 				});
 		}
 		catch (Throwable t) {

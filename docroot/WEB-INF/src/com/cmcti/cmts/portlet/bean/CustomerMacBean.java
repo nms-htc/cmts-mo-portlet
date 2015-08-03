@@ -34,6 +34,8 @@ public class CustomerMacBean extends AbstractCRUDBean<CustomerMacMapping> implem
 	private static final long serialVersionUID = 8049919349164930939L;
 	private static final Logger logger = LoggerFactory.getLogger(CustomerMacBean.class);
 
+	private boolean removeAll;
+	
 	@Override
 	protected CustomerMacMapping initEntity() {
 		return CustomerMacMappingUtil.create(0);
@@ -113,13 +115,21 @@ public class CustomerMacBean extends AbstractCRUDBean<CustomerMacMapping> implem
 		}
 		
 		try {
-			CustomerMacMappingLocalServiceUtil.importAddressFromXls(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext());
+			CustomerMacMappingLocalServiceUtil.importAddressFromXls(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext(), removeAll);
 			MessageUtil.addGlobalInfoMessage("import-succesful");
 		} catch (Exception e) {
 			logger.error(e);
 			MessageUtil.addGlobalErrorMessage(e);
 		}
 		
+	}
+
+	public boolean isRemoveAll() {
+		return removeAll;
+	}
+
+	public void setRemoveAll(boolean removeAll) {
+		this.removeAll = removeAll;
 	}
 
 }

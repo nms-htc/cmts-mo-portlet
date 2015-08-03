@@ -36,6 +36,8 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 	
 	private SelectItem[] upstreamItems;
 	
+	private boolean removeAll;
+	
 	@ManagedProperty("#{upChannelMetadataSearcher}")
 	private Searcher searcher;
 	
@@ -147,7 +149,7 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 		}
 		
 		try {
-			UpChannelMetadataLocalServiceUtil.importAddressFromXls(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext());
+			UpChannelMetadataLocalServiceUtil.importAddressFromXls(event.getFile().getInputstream(), 0, 1, JsfUtil.getServiceContext(), removeAll);
 			MessageUtil.addGlobalInfoMessage("import-succesful");
 		} catch (Exception e) {
 			logger.error(e);
@@ -188,6 +190,14 @@ public class UpChannelMetadataBean extends AbstractCRUDBean<UpChannelMetadata> i
 
 	public void setSearcher(Searcher searcher) {
 		this.searcher = searcher;
+	}
+
+	public boolean isRemoveAll() {
+		return removeAll;
+	}
+
+	public void setRemoveAll(boolean removeAll) {
+		this.removeAll = removeAll;
 	}
 
 }

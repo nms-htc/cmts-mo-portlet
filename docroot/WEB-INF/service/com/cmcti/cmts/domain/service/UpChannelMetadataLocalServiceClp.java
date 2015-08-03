@@ -131,7 +131,7 @@ public class UpChannelMetadataLocalServiceClp
 
 		_methodParameterTypes21 = new String[] {
 				"java.io.InputStream", "int", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.service.ServiceContext", "boolean"
 			};
 	}
 
@@ -753,7 +753,8 @@ public class UpChannelMetadataLocalServiceClp
 
 	@Override
 	public void importAddressFromXls(java.io.InputStream is, int sheetIdx,
-		int startRow, com.liferay.portal.service.ServiceContext serviceContext)
+		int startRow, com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -766,7 +767,9 @@ public class UpChannelMetadataLocalServiceClp
 					
 				startRow,
 					
-				ClpSerializer.translateInput(serviceContext)
+				ClpSerializer.translateInput(serviceContext),
+					
+				deleteAll
 				});
 		}
 		catch (Throwable t) {

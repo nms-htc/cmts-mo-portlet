@@ -119,32 +119,36 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 
 		_methodParameterTypes19 = new String[] { "java.lang.String" };
 
-		_methodName20 = "addMerchantScopes";
+		_methodName20 = "findByUpstream";
 
-		_methodParameterTypes20 = new String[] {
-				"java.util.List", "com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes20 = new String[] { "long", "int" };
 
-		_methodName21 = "removeMerchantScopes";
+		_methodName21 = "addMerchantScopes";
 
 		_methodParameterTypes21 = new String[] {
 				"java.util.List", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName22 = "updateMerchantScope";
+		_methodName22 = "removeMerchantScopes";
 
 		_methodParameterTypes22 = new String[] {
+				"java.util.List", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName23 = "updateMerchantScope";
+
+		_methodParameterTypes23 = new String[] {
 				"com.cmcti.cmts.domain.model.MerchantScope",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName23 = "deleteByMerchant";
+		_methodName24 = "deleteByMerchant";
 
-		_methodParameterTypes23 = new String[] { "java.lang.String" };
+		_methodParameterTypes24 = new String[] { "java.lang.String" };
 
-		_methodName24 = "importMerchant";
+		_methodName25 = "importMerchant";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes25 = new String[] {
 				"java.io.InputStream", "int", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -731,14 +735,43 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 	}
 
 	@Override
+	public java.util.List<com.cmcti.cmts.domain.model.Merchant> findByUpstream(
+		long cmtsId, int ifIndex)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { cmtsId, ifIndex });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.cmcti.cmts.domain.model.Merchant>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public void addMerchantScopes(
 		java.util.List<com.cmcti.cmts.domain.model.MerchantScope> scopes,
 		com.liferay.portal.service.ServiceContext context)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName20,
-				_methodParameterTypes20,
+			_invokableLocalService.invokeMethod(_methodName21,
+				_methodParameterTypes21,
 				new Object[] {
 					ClpSerializer.translateInput(scopes),
 					
@@ -773,8 +806,8 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName21,
-				_methodParameterTypes21,
+			_invokableLocalService.invokeMethod(_methodName22,
+				_methodParameterTypes22,
 				new Object[] {
 					ClpSerializer.translateInput(scopes),
 					
@@ -811,8 +844,8 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						ClpSerializer.translateInput(merchantScope),
 						
@@ -847,8 +880,8 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName23,
-				_methodParameterTypes23,
+			_invokableLocalService.invokeMethod(_methodName24,
+				_methodParameterTypes24,
 				new Object[] { ClpSerializer.translateInput(code) });
 		}
 		catch (Throwable t) {
@@ -879,8 +912,8 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName24,
-				_methodParameterTypes24,
+			_invokableLocalService.invokeMethod(_methodName25,
+				_methodParameterTypes25,
 				new Object[] {
 					ClpSerializer.translateInput(is),
 					
@@ -961,4 +994,6 @@ public class MerchantScopeLocalServiceClp implements MerchantScopeLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

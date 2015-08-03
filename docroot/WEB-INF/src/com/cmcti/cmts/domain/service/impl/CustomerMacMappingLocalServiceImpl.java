@@ -60,67 +60,72 @@ public class CustomerMacMappingLocalServiceImpl extends CustomerMacMappingLocalS
 	 * com.cmcti.cmts.domain.service.CustomerMacMappingLocalServiceUtil} to
 	 * access the customer mac mapping local service.
 	 */
-	
+
 	private static final Log logger = LogFactoryUtil.getLog(CustomerMacMappingLocalServiceImpl.class);
-	
+
 	public CustomerMacMapping getByMacAddress(String macAddress) throws NoSuchCustomerMacMappingException, SystemException {
 		return customerMacMappingPersistence.findByMacAddress(macAddress);
 	}
 
-	public void importAddressFromXls(InputStream is, int sheetIdx, int startRow, ServiceContext serviceContext) throws PortalException, SystemException {
+	public void importAddressFromXls(InputStream is, int sheetIdx, int startRow, ServiceContext serviceContext, boolean deleteAll)
+			throws PortalException, SystemException {
 		// Remove all data
-		customerMacMappingPersistence.removeAll();
-		counterLocalService.reset(CustomerMacMapping.class.getName());
-		
+		if (deleteAll) {
+			customerMacMappingPersistence.removeAll();
+			counterLocalService.reset(CustomerMacMapping.class.getName());
+		}
+
 		Iterator<Row> rowIterator = null;
 		try (HSSFWorkbook workbook = new HSSFWorkbook(is)) {
-			
+
 			HSSFSheet sheet = workbook.getSheetAt(sheetIdx);
 			rowIterator = sheet.iterator();
 		} catch (Exception e) {
 			logger.error(e);
 		}
-			
+
 		List<CustomerMacMapping> mappings = getCustomerMacMappings(rowIterator, startRow, serviceContext);
-		
+
 		for (CustomerMacMapping mapping : mappings) {
 			customerMacMappingPersistence.update(mapping);
 		}
 	}
-	
-	private List<CustomerMacMapping> getCustomerMacMappings(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext) throws SystemException {
+
+	private List<CustomerMacMapping> getCustomerMacMappings(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext)
+			throws SystemException {
 		List<CustomerMacMapping> list = new ArrayList<CustomerMacMapping>();
-		
+
 		if (startRow > 0) {
 			for (int i = 0; i < startRow; i++) {
-				if (rowIterator.hasNext()) rowIterator.next();
+				if (rowIterator.hasNext())
+					rowIterator.next();
 			}
 		}
-		
+
 		while (rowIterator.hasNext()) {
-			
+
 			Row row = rowIterator.next();
-			
+
 			long customerMacId = counterLocalService.increment(CustomerMacMapping.class.getName());
 			CustomerMacMapping mapping = customerMacMappingPersistence.create(customerMacId);
-			
+
 			// Meta data
 			mapping.setUserId(serviceContext.getUserId());
 			mapping.setGroupId(serviceContext.getScopeGroupId());
 			mapping.setCompanyId(serviceContext.getCompanyId());
 			mapping.setCreateDate(serviceContext.getCreateDate());
 			mapping.setModifiedDate(serviceContext.getModifiedDate());
-			
+
 			// Mac address
 			Cell macCell = row.getCell(0);
 			mapping.setMacAddress(macCell.getStringCellValue());
 			// Title
 			Cell titleCell = row.getCell(1);
 			mapping.setTitle(titleCell.getStringCellValue());
-			
+
 			list.add(mapping);
 		}
-		
+
 		return list;
 	}
 }

@@ -257,4 +257,9 @@ public interface UpstreamChannelLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.cmcti.cmts.domain.model.UpstreamChannel> fetchByCmtsId(
 		long cmtsId) throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List getSumCmCounts(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery query)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

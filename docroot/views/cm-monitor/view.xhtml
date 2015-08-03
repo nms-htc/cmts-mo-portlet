@@ -21,6 +21,7 @@
 						<p:column width="80" resizable="false" rowspan="2" />
 						<p:column headerText="Mac Address" width="130" resizable="false" rowspan="2" filterBy="#{cableModem.macAddress}" sortBy="#{cableModem.macAddress}" filterStyle="width: 90%" />
 						<p:column headerText="Subscriber Address" rowspan="2" style="min-width:200px"/>
+						<p:column headerText="Merchants" rowspan="2" width="70"/>
 						<p:column headerText="Status" rowspan="2" sortBy="#{cableModem.status}" width="40"/>
 						<p:column headerText="Up-Cmts" rowspan="2"/>
 						<p:column headerText="Modem Parameters" colspan="7" />
@@ -29,10 +30,10 @@
 					<p:row>
 						<p:column headerText="DnSNR" sortBy="#{cableModem.dsSNR}" width="30"/>
 						<p:column headerText="UpSNR" sortBy="#{cableModem.usSNR}" width="30"/>
-						<p:column headerText="Fec %" sortBy="#{cableModem.fecCorrected}" width="30"/>
-						<p:column headerText="Fec-Un %" sortBy="#{cableModem.fecUncorrectable}" width="30"/>
+						<p:column headerText="Fec" sortBy="#{cableModem.fecCorrected}" width="30"/>
+						<p:column headerText="UnFec" sortBy="#{cableModem.fecUncorrectable}" width="30"/>
 						<p:column headerText="DnPower" sortBy="#{cableModem.dsPower}" width="30"/>
-						<p:column headerText="UpPower" sortBy="#{cableModem.usPower}" width="30"/>
+						<p:column headerText="RxPower" sortBy="#{cableModem.rxPower}" width="30"/>
 						<p:column headerText="TxPower" sortBy="#{cableModem.txPower}" width="30"/>
 					</p:row>
 				</p:columnGroup>
@@ -52,6 +53,10 @@
 
 				<p:column headerText="Subscriber Address">
 					<h:outputText value="#{cableModemBean.getCustomerTitle(cableModem.macAddress)}" />
+				</p:column>
+				
+				<p:column headertText="Merchants">
+					<h:outputText value="#{merchantBean.getMerchatTitles(''.concat(cableModem.cmtsId).concat('-').concat(cableModem.ucIfIndex))}" />
 				</p:column>
 
 				<p:column headerText="Status">
@@ -91,8 +96,8 @@
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="UpPower">
-					<h:outputText value="#{cableModem.usPower / 10}">
+				<p:column headerText="RxPower">
+					<h:outputText value="#{cableModem.rxPower / 10}">
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>

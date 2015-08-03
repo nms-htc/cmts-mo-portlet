@@ -31,7 +31,7 @@
 			<p:panelGrid id="gridTable" style="width: 100%; margin-top: 30px">
 				<f:facet name="header">
 					<p:row>
-						<p:column colspan="16">Node Detail</p:column>
+						<p:column colspan="18">Node Detail</p:column>
 					</p:row>
 					<p:row>
 						<p:column width="30"></p:column>
@@ -47,8 +47,9 @@
 						<p:column>Total</p:column>
 						<p:column>TxPw</p:column>
 						<p:column>RxPw</p:column>
+						<p:column>MicRef</p:column>
+						<p:column>Mod</p:column>
 						<p:column>Mer</p:column>
-						<p:column>Qam</p:column>
 						<p:column>Time</p:column>
 					</p:row>
 				</f:facet>
@@ -114,7 +115,13 @@
 						</h:outputText>
 					</p:column>
 					<p:column>
-						<h:outputText value="#{upstreamChannel.avgOnlineCmDsPower / 10}">
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.avgOnlineCmMicRef / 10}">
+							<f:convertNumber maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column>
+						<h:outputText value="#{upstreamChannelDetailBean.upstream.upChannelModProfile}">
 							<f:convertNumber maxFractionDigits="2" />
 						</h:outputText>
 					</p:column>
@@ -125,11 +132,8 @@
 						</h:outputText>
 					</p:column>
 					<p:column>
-						<h:outputText value="#{upstreamChannelDetailBean.upstream.qam}" />
-					</p:column>
-					<p:column>
 						<h:outputText value="#{upstreamChannelDetailBean.upstream.modifiedDate}">
-							<f:convertDateTime pattern="dd/MM/yy HH:mm" />
+							<f:convertDateTime pattern="dd/MM/yy HH:mm" timeZone="Asia/Bangkok"/>
 						</h:outputText>
 					</p:column>
 				</p:row>

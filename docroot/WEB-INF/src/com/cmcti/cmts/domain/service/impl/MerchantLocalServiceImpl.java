@@ -97,12 +97,14 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 		return merchantPersistence.update(merchant);
 	}
 	
-	public void importMerchant(InputStream is, int sheetIdx, int startRowIdx, ServiceContext serviceContext) throws PortalException, SystemException {
+	public void importMerchant(InputStream is, int sheetIdx, int startRowIdx, ServiceContext serviceContext, boolean deleteAll) throws PortalException, SystemException {
 		
-		merchantPersistence.removeAll();
-		merchantScopePersistence.removeAll();
-		counterLocalService.reset(Merchant.class.getName());
-		counterLocalService.reset(MerchantScope.class.getName());
+		if (deleteAll) {
+			merchantPersistence.removeAll();
+			merchantScopePersistence.removeAll();
+			counterLocalService.reset(Merchant.class.getName());
+			counterLocalService.reset(MerchantScope.class.getName());
+		}
 		
 		Iterator<Row> rowIterator = null;
 		try (HSSFWorkbook workbook = new HSSFWorkbook(is)) {

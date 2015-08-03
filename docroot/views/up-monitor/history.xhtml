@@ -14,19 +14,10 @@
 
 			<p:spacer />
 
-			<p:dataTable id="listTable" reflow="true" widgetVar="listTable" value="#{upstreamChannelHistoryBean.lazyDataModel}" var="upstreamChannel"
-				rowIndexVar="index" rows="50" paginator="true" stickyHeader="true"
+			<p:dataTable id="listTable" widgetVar="listTable" value="#{upstreamChannelHistoryBean.lazyDataModel}" var="upstreamChannel"
+				rowIndexVar="index" rows="50" paginator="true"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true"
-				resizableColumns="true">
-				
-				<p:column headerText="Description" filterBy="#{upstreamChannel.ifDesc}" sortBy="#{upstreamChannel.ifDesc}" filterStyle="width: 90%" width="90">
-					<h:outputText value="#{upstreamChannel.ifDesc}"/>
-				</p:column>
-
-				<p:column headerText="Alias" width="300" filterBy="#{upstreamChannel.ifAlias}" sortBy="#{upstreamChannel.ifAlias}" filterStyle="width: 90%">
-					<h:outputText value="#{upstreamChannel.ifAlias}" />
-				</p:column>
+				rowsPerPageTemplate="50, 100, 500" paginatorPosition="bottom" lazy="true">
 
 				<p:column headerText="SNR" sortBy="#{upstreamChannel.ifSigQSNR}" width="40">
 					<h:outputText value="#{upstreamChannel.ifSigQSNR / 10}" style="#{ucRowStyleAlarmGenerator.getRowDataCss(upstreamChannel.ifSigQSNR, 'ifSigQSNR')}"/>
@@ -94,8 +85,12 @@
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Qam" width="40">
-					<h:outputText value="#{upstreamChannel.qam}"/>
+				<p:column headerText="Mod" width="40">
+					<h:outputText value="#{upstreamChannel.upChannelModProfile}"/>
+				</p:column>
+				
+				<p:column headerText="MicRef" width="40">
+					<h:outputText value="#{upstreamChannel.avgOnlineCmMicRef}"/>
 				</p:column>
 
 				<p:column headerText="Time" width="100">

@@ -124,7 +124,7 @@ public class CustomerMacMappingLocalServiceClp
 
 		_methodParameterTypes20 = new String[] {
 				"java.io.InputStream", "int", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.service.ServiceContext", "boolean"
 			};
 	}
 
@@ -721,7 +721,8 @@ public class CustomerMacMappingLocalServiceClp
 
 	@Override
 	public void importAddressFromXls(java.io.InputStream is, int sheetIdx,
-		int startRow, com.liferay.portal.service.ServiceContext serviceContext)
+		int startRow, com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -734,7 +735,9 @@ public class CustomerMacMappingLocalServiceClp
 					
 				startRow,
 					
-				ClpSerializer.translateInput(serviceContext)
+				ClpSerializer.translateInput(serviceContext),
+					
+				deleteAll
 				});
 		}
 		catch (Throwable t) {

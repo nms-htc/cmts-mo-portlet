@@ -60,17 +60,18 @@
 					<p:row>
 						<p:column width="130" rowspan="2">Mac Address</p:column>
 						<p:column rowspan="2">Subscriber Address</p:column>
-						<p:column rowspan="2" width="130">Status</p:column>
-						<p:column colspan="6">Modem Parameters</p:column>
+						<p:column rowspan="2" width="100">Status</p:column>
+						<p:column colspan="7">Modem Parameters</p:column>
 						<p:column rowspan="2">Time</p:column>
 					</p:row>
 					<p:row>
 						<p:column width="40">DnSNR</p:column>
 						<p:column width="40">UpSNR</p:column>
-						<p:column width="40">Fec %</p:column>
-						<p:column width="40">Fec-Un %</p:column>
+						<p:column width="40">Fec</p:column>
+						<p:column width="40">UnFec</p:column>
 						<p:column width="40">DnPower</p:column>
 						<p:column width="40">UpPower</p:column>
+						<p:column width="40">RxPower</p:column>
 					</p:row>
 				</f:facet>
 				
@@ -117,9 +118,15 @@
 						<f:convertNumber maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
+				
+				<p:column headerText="RxPower">
+					<h:outputText value="#{cableModemDetailBean.cableModem.rxPower / 10}">
+						<f:convertNumber maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
 				<p:column headerText="Time">
 					<h:outputText value="#{cableModemDetailBean.cableModem.modifiedDate}">
-						<f:convertDateTime pattern="dd/MM/yy HH:mm"/>
+						<f:convertDateTime pattern="dd/MM/yy HH:mm" timeZone="Asia/Bangkok"/>
 					</h:outputText>
 				</p:column>
 			</p:panelGrid>

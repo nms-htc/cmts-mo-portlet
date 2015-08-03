@@ -63,5 +63,16 @@
 
 /* ALARM LV3 ROW STYLE*/
 .alarm-rows {
-	background-color: yellow;
+	background-color: yellow !important;
+}
+
+.panelgrid-label {
+	font-weight: bold;
+	text-align: right;
+}
+
+.ui-datatable table {
+	/* width: 99% !important; */
+	table-layout: auto !important;
+	
 }

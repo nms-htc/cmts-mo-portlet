@@ -295,6 +295,13 @@ public class UpstreamChannelLocalServiceWrapper
 		return _upstreamChannelLocalService.fetchByCmtsId(cmtsId);
 	}
 
+	@Override
+	public java.util.List getSumCmCounts(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery query)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _upstreamChannelLocalService.getSumCmCounts(query);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

@@ -24,6 +24,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.cmcti.cmts.domain.model.Merchant;
 import com.cmcti.cmts.domain.model.MerchantScope;
 import com.cmcti.cmts.domain.service.base.MerchantScopeLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -65,6 +66,15 @@ public class MerchantScopeLocalServiceImpl extends MerchantScopeLocalServiceBase
 
 	public List<MerchantScope> findByMerchant(String merchantCode) throws SystemException {
 		return merchantScopePersistence.findByMerchant(merchantCode);
+	}
+	
+	public List<Merchant> findByUpstream(long cmtsId, int ifIndex) throws SystemException {
+		List<MerchantScope> scopes = merchantScopePersistence.findByUpstreamChannel(cmtsId, ifIndex);
+		List<Merchant> merchants = new ArrayList<Merchant>();
+		for (MerchantScope scope: scopes) {
+			merchants.add(merchantPersistence.fetchByCode(scope.getMerchantCode()));
+		}
+		return merchants;
 	}
 
 	public void addMerchantScopes(List<MerchantScope> scopes, ServiceContext context) throws SystemException, PortalException {

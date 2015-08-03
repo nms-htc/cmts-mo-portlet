@@ -291,10 +291,12 @@ public class MerchantLocalServiceUtil {
 
 	public static void importMerchant(java.io.InputStream is, int sheetIdx,
 		int startRowIdx,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.service.ServiceContext serviceContext,
+		boolean deleteAll)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().importMerchant(is, sheetIdx, startRowIdx, serviceContext);
+		getService()
+			.importMerchant(is, sheetIdx, startRowIdx, serviceContext, deleteAll);
 	}
 
 	public static void addUpstreamToMerchant(long merchantId,

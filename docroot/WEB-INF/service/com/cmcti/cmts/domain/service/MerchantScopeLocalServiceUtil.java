@@ -281,6 +281,12 @@ public class MerchantScopeLocalServiceUtil {
 		return getService().findByMerchant(merchantCode);
 	}
 
+	public static java.util.List<com.cmcti.cmts.domain.model.Merchant> findByUpstream(
+		long cmtsId, int ifIndex)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByUpstream(cmtsId, ifIndex);
+	}
+
 	public static void addMerchantScopes(
 		java.util.List<com.cmcti.cmts.domain.model.MerchantScope> scopes,
 		com.liferay.portal.service.ServiceContext context)

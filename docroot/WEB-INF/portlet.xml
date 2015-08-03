@@ -384,15 +384,15 @@
 				<value>10</value>
 			</preference>
 			<preference>
-				<name>maxavgOnlineCmTxPowerLv1</name>
+				<name>maxAvgOnlineCmTxPowerLv1</name>
 				<value>5</value>
 			</preference>
 			<preference>
-				<name>maxavgOnlineCmTxPowerLv2</name>
+				<name>maxAvgOnlineCmTxPowerLv2</name>
 				<value>10</value>
 			</preference>
 			<preference>
-				<name>maxavgOnlineCmTxPowerLv3</name>
+				<name>maxAvgOnlineCmTxPowerLv3</name>
 				<value>100</value>
 			</preference>
 		</portlet-preferences>

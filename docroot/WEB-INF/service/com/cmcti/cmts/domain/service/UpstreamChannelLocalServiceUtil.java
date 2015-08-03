@@ -280,6 +280,12 @@ public class UpstreamChannelLocalServiceUtil {
 		return getService().fetchByCmtsId(cmtsId);
 	}
 
+	public static java.util.List getSumCmCounts(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery query)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSumCmCounts(query);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

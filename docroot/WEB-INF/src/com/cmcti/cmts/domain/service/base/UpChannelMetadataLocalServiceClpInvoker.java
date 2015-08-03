@@ -129,7 +129,7 @@ public class UpChannelMetadataLocalServiceClpInvoker {
 
 		_methodParameterTypes96 = new String[] {
 				"java.io.InputStream", "int", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.service.ServiceContext", "boolean"
 			};
 	}
 
@@ -251,7 +251,8 @@ public class UpChannelMetadataLocalServiceClpInvoker {
 			UpChannelMetadataLocalServiceUtil.importAddressFromXls((java.io.InputStream)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[3]);
+				(com.liferay.portal.service.ServiceContext)arguments[3],
+				((Boolean)arguments[4]).booleanValue());
 
 			return null;
 		}
