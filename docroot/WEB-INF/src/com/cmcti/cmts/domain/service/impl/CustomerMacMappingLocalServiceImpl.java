@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 
 /**
@@ -69,7 +70,6 @@ public class CustomerMacMappingLocalServiceImpl extends CustomerMacMappingLocalS
 
 	public void importAddressFromXls(InputStream is, int sheetIdx, int startRow, ServiceContext serviceContext, boolean deleteAll)
 			throws PortalException, SystemException {
-		// Remove all data
 		if (deleteAll) {
 			customerMacMappingPersistence.removeAll();
 			counterLocalService.reset(CustomerMacMapping.class.getName());
@@ -84,14 +84,14 @@ public class CustomerMacMappingLocalServiceImpl extends CustomerMacMappingLocalS
 			logger.error(e);
 		}
 
-		List<CustomerMacMapping> mappings = getCustomerMacMappings(rowIterator, startRow, serviceContext);
+		List<CustomerMacMapping> mappings = getCustomerMacMappings(rowIterator, startRow, serviceContext, deleteAll);
 
 		for (CustomerMacMapping mapping : mappings) {
 			customerMacMappingPersistence.update(mapping);
 		}
 	}
 
-	private List<CustomerMacMapping> getCustomerMacMappings(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext)
+	private List<CustomerMacMapping> getCustomerMacMappings(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext, boolean deleteAll)
 			throws SystemException {
 		List<CustomerMacMapping> list = new ArrayList<CustomerMacMapping>();
 
@@ -103,29 +103,71 @@ public class CustomerMacMappingLocalServiceImpl extends CustomerMacMappingLocalS
 		}
 
 		while (rowIterator.hasNext()) {
-
-			Row row = rowIterator.next();
-
-			long customerMacId = counterLocalService.increment(CustomerMacMapping.class.getName());
-			CustomerMacMapping mapping = customerMacMappingPersistence.create(customerMacId);
-
-			// Meta data
-			mapping.setUserId(serviceContext.getUserId());
-			mapping.setGroupId(serviceContext.getScopeGroupId());
-			mapping.setCompanyId(serviceContext.getCompanyId());
-			mapping.setCreateDate(serviceContext.getCreateDate());
-			mapping.setModifiedDate(serviceContext.getModifiedDate());
-
-			// Mac address
-			Cell macCell = row.getCell(0);
-			mapping.setMacAddress(macCell.getStringCellValue());
-			// Title
-			Cell titleCell = row.getCell(1);
-			mapping.setTitle(titleCell.getStringCellValue());
+			
+			CustomerMacMapping mapping = null;
+			String title = null;
+			String macAddress = null;
+			
+			try {
+				Row row = rowIterator.next();
+				Cell macCell = row.getCell(0);
+				macAddress = getStringCellValue(macCell).trim();
+				Cell titleCell = row.getCell(1);
+				title = getStringCellValue(titleCell).trim();
+			} catch (Exception e) {
+				logger.error(e);
+				continue;
+			}
+			
+			if (Validator.isNull(title) || Validator.isNull(macAddress)) continue;
+			mapping = customerMacMappingPersistence.fetchByMacAddress(macAddress);
+			
+			if (deleteAll || mapping == null) {
+				long customerMacId = counterLocalService.increment(CustomerMacMapping.class.getName());
+				mapping = customerMacMappingPersistence.create(customerMacId);
+				mapping.setUserId(serviceContext.getUserId());
+				mapping.setGroupId(serviceContext.getScopeGroupId());
+				mapping.setCompanyId(serviceContext.getCompanyId());
+				mapping.setCreateDate(serviceContext.getCreateDate());
+				mapping.setModifiedDate(serviceContext.getModifiedDate());
+			}
+			
+			mapping.setTitle(title);
+			mapping.setMacAddress(macAddress);
 
 			list.add(mapping);
 		}
 
 		return list;
+	}
+	
+	private String getStringCellValue(Cell cell) {
+		String value = null;
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_BLANK:
+			value = String.valueOf(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_BOOLEAN:
+			value = String.valueOf(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_ERROR:
+			break;
+		case Cell.CELL_TYPE_FORMULA:
+			break;
+		case Cell.CELL_TYPE_STRING:
+			value = cell.getStringCellValue();
+			break;
+		case Cell.CELL_TYPE_NUMERIC:
+			double doubleValue = cell.getNumericCellValue();
+			if (doubleValue == (int) doubleValue) {
+				value = String.format("%d", (int) doubleValue);
+			} else {
+				value = String.format("%s", doubleValue);
+			}
+
+			break;
+		}
+
+		return value;
 	}
 }

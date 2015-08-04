@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 
@@ -96,12 +95,10 @@ public class UpChannelMetadataLocalServiceImpl extends UpChannelMetadataLocalSer
 			logger.error(e);
 		}
 
-		List<UpChannelMetadata> mappings = getUpstreamMetas(rowIterator, startRow, serviceContext);
+		List<UpChannelMetadata> mappings = getUpstreamMetas(rowIterator, startRow, serviceContext, deleteAll);
 
 		for (UpChannelMetadata mapping : mappings) {
-			// remove all merchant mappping
 			merchantScopePersistence.removeByUpstreamChannel(mapping.getCmtsId(), mapping.getIfIndex());
-			// create merchant scope mapping
 			if (mapping.getMerchantCodes() != null && mapping.getMerchantCodes().size() > 0) {
 				for (String merchantCode : mapping.getMerchantCodes()) {
 					MerchantScope scope = merchantScopePersistence.create(0);
@@ -116,7 +113,7 @@ public class UpChannelMetadataLocalServiceImpl extends UpChannelMetadataLocalSer
 		}
 	}
 
-	private List<UpChannelMetadata> getUpstreamMetas(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext)
+	private List<UpChannelMetadata> getUpstreamMetas(Iterator<Row> rowIterator, int startRow, ServiceContext serviceContext, boolean deleteAll)
 			throws SystemException {
 		List<UpChannelMetadata> list = new ArrayList<UpChannelMetadata>();
 
@@ -128,33 +125,51 @@ public class UpChannelMetadataLocalServiceImpl extends UpChannelMetadataLocalSer
 		}
 
 		while (rowIterator.hasNext()) {
-
-			Row row = rowIterator.next();
-
-			long metaId = counterLocalService.increment(UpChannelMetadata.class.getName());
-			UpChannelMetadata metaData = upChannelMetadataPersistence.create(metaId);
-
-			// CmtsId
-			Cell cmtsCell = row.getCell(0);
-			metaData.setCmtsId(GetterUtil.getLong(getStringCellValue(cmtsCell), 0));
-			// If index
-			Cell ifIndexCell = row.getCell(1);
-			metaData.setIfIndex(GetterUtil.getInteger(getStringCellValue(ifIndexCell), 0));
-
-			// dsFrequency
-			Cell dsFrequencyCell = row.getCell(2);
-			metaData.setDsFrequency(getStringCellValue(dsFrequencyCell));
-			// dsQam
-			Cell dsQamCell = row.getCell(3);
-			metaData.setDsQam(getStringCellValue(dsQamCell));
-			// Merchants Code
-			Cell merCell = row.getCell(4);
-			String merchantCodes = getStringCellValue(merCell);
-			if (Validator.isNotNull(merchantCodes)) {
-				metaData.setMerchantCodes(Arrays.asList(merchantCodes.split(",")));
+			
+			UpChannelMetadata metadata = null;
+			long cmtsId;
+			int ifIndex;
+			String dsFrequency = null;
+			String qam = null;
+			List<String> merchants = new ArrayList<String>();
+			
+			try {
+				Row row = rowIterator.next();
+				Cell cmtsCell = row.getCell(0);
+				cmtsId = GetterUtil.getLong(getStringCellValue(cmtsCell), 0);
+				Cell ifIndexCell = row.getCell(1);
+				ifIndex = GetterUtil.getInteger(getStringCellValue(ifIndexCell), 0);
+				Cell dsFrequencyCell = row.getCell(2);
+				dsFrequency = getStringCellValue(dsFrequencyCell);
+				Cell dsQamCell = row.getCell(3);
+				qam = getStringCellValue(dsQamCell);
+				Cell merCell = row.getCell(4);
+				String merchantCodes = getStringCellValue(merCell);
+				if (Validator.isNotNull(merchantCodes)) {
+					merchants = Arrays.asList(merchantCodes.split(","));
+				}
+				
+			} catch (Exception e) {
+				logger.error(e);
+				continue;
 			}
-
-			list.add(metaData);
+			
+			if (Validator.isNull(cmtsId) || Validator.isNull(ifIndex)) continue;
+			
+			metadata = upChannelMetadataPersistence.fetchByUpstreamChannel(cmtsId, ifIndex);
+			
+			if (deleteAll || metadata == null) {
+				long metaId = counterLocalService.increment(UpChannelMetadata.class.getName());
+				metadata = upChannelMetadataPersistence.create(metaId);
+			}
+			
+			metadata.setCmtsId(cmtsId);
+			metadata.setIfIndex(ifIndex);
+			metadata.setDsFrequency(dsFrequency);
+			metadata.setDsQam(qam);
+			metadata.setMerchantCodes(merchants);
+			
+			list.add(metadata);
 		}
 
 		return list;

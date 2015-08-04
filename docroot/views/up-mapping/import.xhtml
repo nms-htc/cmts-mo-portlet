@@ -3,13 +3,18 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
 	xmlns:portlet="http://java.sun.com/portlet_2_0">
 	<portlet:namespace var="namespace" />
-		<h:form id="importForm">
-			<p:dialog id="importDl" widgetVar="${namespace}importDl" modal="true" closeOnEscape="true" header="Import Upstream Channel Metadata" width="600">
-	
-				<p:messages id="messages" globalOnly="true" closable="true" />
-	
-				<p:fileUpload fileUploadListener="#{upChannelMetadataBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
-	           update="messages :listForm" sizeLimit="100000000" fileLimit="1" allowTypes="/(\.|\/)(xls)$/" uploadLabel="Import" cancelLabel="Cancel"/>
-			</p:dialog>
-		</h:form>
+	<h:form id="importForm">
+		<p:dialog id="importDl" widgetVar="${namespace}importDl" modal="true" closeOnEscape="true" header="Import Upstream Channel Metadata" width="600">
+
+			<p:messages id="messages" globalOnly="true" closable="true" />
+
+			<p:fileUpload fileUploadListener="#{upChannelMetadataBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":listForm @this messages"
+				sizeLimit="100000000" fileLimit="1" allowTypes="/(\.|\/)(xls)$/" uploadLabel="Import" cancelLabel="Cancel"/>
+			<br/>
+			<p:selectBooleanCheckbox value="#{upChannelMetadataBean.removeAll}">
+				<p:ajax process="@this" />
+			</p:selectBooleanCheckbox>
+			<h:outputText value="Remove All" />
+		</p:dialog>
+	</h:form>
 </ui:component>

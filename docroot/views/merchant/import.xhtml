@@ -8,19 +8,14 @@
 
 			<p:messages id="messages" globalOnly="true" closable="true" />
 
-			<p:fileUpload fileUploadListener="#{merchantBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages :listForm"
+			<p:fileUpload fileUploadListener="#{merchantBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update=":listForm @this messages"
 				sizeLimit="100000000" fileLimit="1" allowTypes="/(\.|\/)(xls)$/" uploadLabel="Import Merchant" cancelLabel="Cancel" />
 
-			
+			<br/>
 			<p:selectBooleanCheckbox value="#{merchantBean.removeAll}">
 				<p:ajax process="@this"/>
 			</p:selectBooleanCheckbox>
 			<h:outputText value="Remove All" />
-			
-
-			<f:facet name="footer">
-				<p:commandButton type="button" onclick="PF('${namespace}importDl').hide();" icon="ui-icon-close" value="Close" />
-			</f:facet>
 		</p:dialog>
 	</h:form>
 </ui:component>

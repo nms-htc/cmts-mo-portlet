@@ -14,6 +14,7 @@
 
 package com.cmcti.cmts.domain.service.impl;
 
+import java.awt.Checkbox;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,10 +41,14 @@ import com.liferay.portal.service.ServiceContext;
  * The implementation of the merchant local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.cmcti.cmts.domain.service.MerchantLocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link com.cmcti.cmts.domain.service.MerchantLocalService} interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author richard
@@ -53,18 +58,20 @@ import com.liferay.portal.service.ServiceContext;
 public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.cmcti.cmts.domain.service.MerchantLocalServiceUtil} to access the merchant local service.
+	 * 
+	 * Never reference this interface directly. Always use {@link
+	 * com.cmcti.cmts.domain.service.MerchantLocalServiceUtil} to access the
+	 * merchant local service.
 	 */
-	
+
 	private static final Log logger = LogFactoryUtil.getLog(MerchantLocalServiceImpl.class.getName());
-	
+
 	public Merchant fetchByCode(String code) throws SystemException {
 		return merchantPersistence.fetchByCode(code);
 	}
-	
+
 	public Merchant updateMerchant(Merchant merchant, ServiceContext serviceContext) throws PortalException, SystemException {
-		
+
 		if (merchant.getMerchantId() == 0) {
 			long merchantId = counterLocalService.increment(Merchant.class.getName());
 			merchant.setMerchantId(merchantId);
@@ -76,15 +83,15 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 		} else {
 			merchant.setModifiedDate(serviceContext.getModifiedDate());
 		}
-		
+
 		if (Validator.isNull(merchant.getCode())) {
 			throw new PortalException("merchant-code-is-required");
 		}
-		
+
 		if (Validator.isNull(merchant.getTitle())) {
 			throw new PortalException("title-is-required");
 		}
-		
+
 		try {
 			Merchant temp = merchantPersistence.findByCode(merchant.getCode());
 			if (temp.getMerchantId() != merchant.getMerchantId()) {
@@ -93,19 +100,20 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 		} catch (NoSuchMerchantException e) {
 			// Good for all
 		}
-		
+
 		return merchantPersistence.update(merchant);
 	}
-	
-	public void importMerchant(InputStream is, int sheetIdx, int startRowIdx, ServiceContext serviceContext, boolean deleteAll) throws PortalException, SystemException {
-		
+
+	public void importMerchant(InputStream is, int sheetIdx, int startRowIdx, ServiceContext serviceContext, boolean deleteAll)
+			throws PortalException, SystemException {
+
 		if (deleteAll) {
 			merchantPersistence.removeAll();
 			merchantScopePersistence.removeAll();
 			counterLocalService.reset(Merchant.class.getName());
 			counterLocalService.reset(MerchantScope.class.getName());
 		}
-		
+
 		Iterator<Row> rowIterator = null;
 		try (HSSFWorkbook workbook = new HSSFWorkbook(is)) {
 			HSSFSheet sheet = workbook.getSheetAt(sheetIdx);
@@ -113,66 +121,80 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 		} catch (Exception e) {
 			logger.error(e);
 		}
-		
-		List<Merchant> merchants = getMerchants(rowIterator, startRowIdx, serviceContext);
+
+		List<Merchant> merchants = getMerchants(rowIterator, startRowIdx, serviceContext, deleteAll);
 		for (Merchant merchant : merchants) {
 			merchantPersistence.update(merchant);
 		}
 	}
-	
-	private List<Merchant> getMerchants(Iterator<Row> rowIterator, int startRowIdx, ServiceContext serviceContext) throws PortalException, SystemException {
-		
+
+	private List<Merchant> getMerchants(Iterator<Row> rowIterator, int startRowIdx, ServiceContext serviceContext, boolean deleteAll)
+			throws PortalException, SystemException {
+
 		List<Merchant> merchants = new ArrayList<Merchant>();
-		
+
 		if (startRowIdx > 0) {
 			for (int i = 0; i < startRowIdx; i++) {
-				if (rowIterator.hasNext()) rowIterator.next();
+				if (rowIterator.hasNext())
+					rowIterator.next();
 			}
 		}
-		
+
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
 			
-			long merchantId = counterLocalService.increment(Merchant.class.getName());
-			Merchant merchant = merchantPersistence.create(merchantId);
+			Merchant merchant = null;
+			String title = null;
+			String code = null;
+			String description = null;
 			
-			// Meta data
-			merchant.setUserId(serviceContext.getUserId());
-			merchant.setGroupId(serviceContext.getScopeGroupId());
-			merchant.setCompanyId(serviceContext.getCompanyId());
-			merchant.setCreateDate(serviceContext.getCreateDate());
-			merchant.setModifiedDate(serviceContext.getModifiedDate());
+			try {
+				Cell titleCell = row.getCell(0);
+				title = getStringCellValue(titleCell);
+				Cell codeCell = row.getCell(1);
+				code = getStringCellValue(codeCell);
+				Cell descCell = row.getCell(2);
+				description = getStringCellValue(descCell);
+			} catch (Exception e) {
+				logger.error(e);
+				continue;
+			}
 			
-			// Title
-			Cell titleCell = row.getCell(0);
-			merchant.setTitle(titleCell.getStringCellValue());
+			// Validate
+			if (Validator.isNull(title) || Validator.isNull(code)) continue;
 			
-			// Code
-			Cell codeCell = row.getCell(1);
-			merchant.setCode(codeCell.getStringCellValue());
+			merchant = merchantPersistence.fetchByCode(code);
 			
-			// Parent Code
-			/*Cell parentCodeCell = row.getCell(2);
-			merchant.setParentCode(parentCodeCell.getStringCellValue());*/
+			if (deleteAll || merchant == null) {
+				long merchantId = counterLocalService.increment(Merchant.class.getName());
+				merchant = merchantPersistence.create(merchantId);
+				// Meta data
+				merchant.setUserId(serviceContext.getUserId());
+				merchant.setGroupId(serviceContext.getScopeGroupId());
+				merchant.setCompanyId(serviceContext.getCompanyId());
+				merchant.setCreateDate(serviceContext.getCreateDate());
+				merchant.setModifiedDate(serviceContext.getModifiedDate());
+			}
 			
-			// Description
-			Cell descCell = row.getCell(2);
-			merchant.setDescription(descCell.getStringCellValue());
+			merchant.setCode(code);
+			merchant.setTitle(title);
+			merchant.setDescription(description);
 			
 			merchants.add(merchant);
 		}
-		
+
 		return merchants;
 	}
-	
-	public void addUpstreamToMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext) throws PortalException, SystemException {
+
+	public void addUpstreamToMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext)
+			throws PortalException, SystemException {
 		Merchant merchant = merchantPersistence.fetchByPrimaryKey(merchantId);
 		if (merchant == null) {
 			throw new PortalException("merchant-not-found");
 		}
-		
+
 		List<MerchantScope> merchantScopes = new ArrayList<MerchantScope>();
-		
+
 		for (UpstreamChannel upstream : upstreams) {
 			MerchantScope merchantScope = merchantScopePersistence.create(0);
 			merchantScope.setMerchantCode(merchant.getCode());
@@ -180,18 +202,19 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 			merchantScope.setIfIndex(upstream.getIfIndex());
 			merchantScopes.add(merchantScope);
 		}
-		
+
 		merchantScopeLocalService.addMerchantScopes(merchantScopes, serviceContext);
 	}
-	
-	public void removeUpstreamFromMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext) throws PortalException, SystemException {
+
+	public void removeUpstreamFromMerchant(long merchantId, List<UpstreamChannel> upstreams, ServiceContext serviceContext)
+			throws PortalException, SystemException {
 		Merchant merchant = merchantPersistence.fetchByPrimaryKey(merchantId);
 		if (merchant == null) {
 			throw new PortalException("merchant-not-found");
 		}
-		
+
 		List<MerchantScope> merchantScopes = new ArrayList<MerchantScope>();
-		
+
 		for (UpstreamChannel upstream : upstreams) {
 			MerchantScope merchantScope = merchantScopePersistence.create(0);
 			merchantScope.setMerchantCode(merchant.getCode());
@@ -199,7 +222,37 @@ public class MerchantLocalServiceImpl extends MerchantLocalServiceBaseImpl {
 			merchantScope.setIfIndex(upstream.getIfIndex());
 			merchantScopes.add(merchantScope);
 		}
-		
+
 		merchantScopeLocalService.removeMerchantScopes(merchantScopes, serviceContext);
+	}
+
+	private String getStringCellValue(Cell cell) {
+		String value = null;
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_BLANK:
+			value = String.valueOf(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_BOOLEAN:
+			value = String.valueOf(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_ERROR:
+			break;
+		case Cell.CELL_TYPE_FORMULA:
+			break;
+		case Cell.CELL_TYPE_STRING:
+			value = cell.getStringCellValue();
+			break;
+		case Cell.CELL_TYPE_NUMERIC:
+			double doubleValue = cell.getNumericCellValue();
+			if (doubleValue == (int) doubleValue) {
+				value = String.format("%d", (int) doubleValue);
+			} else {
+				value = String.format("%s", doubleValue);
+			}
+
+			break;
+		}
+
+		return value;
 	}
 }
