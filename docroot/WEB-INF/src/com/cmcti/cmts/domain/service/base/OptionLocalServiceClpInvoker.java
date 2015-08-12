@@ -120,6 +120,16 @@ public class OptionLocalServiceClpInvoker {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
+
+		_methodName95 = "updateAlarmConfigs";
+
+		_methodParameterTypes95 = new String[] {
+				"java.util.Map", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName96 = "fetchAlarmsConfig";
+
+		_methodParameterTypes96 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -231,6 +241,19 @@ public class OptionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			OptionLocalServiceUtil.updateAlarmConfigs((java.util.Map<java.lang.String, java.lang.String>)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return OptionLocalServiceUtil.fetchAlarmsConfig();
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -272,4 +295,8 @@ public class OptionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes89;
 	private String _methodName94;
 	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
 }

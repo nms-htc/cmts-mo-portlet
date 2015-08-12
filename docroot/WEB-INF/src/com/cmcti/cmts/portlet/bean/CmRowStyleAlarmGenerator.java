@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
 
 import com.cmcti.cmts.domain.model.CableModem;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 @ManagedBean(name = "cmRowStyleAlarmGenerator")
 @ViewScoped
@@ -18,6 +16,9 @@ public class CmRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	private static final long serialVersionUID = -6016465643390100066L;
 	//private static final Logger logger = LoggerFactory.getLogger(CmRowStyleAlarmGenerator.class);
+	
+	@ManagedProperty("#{cmtsSettingBean}")
+	private CmtsSettingBean settingBean;
 
 	public static final String dsSNR = "dsSNR";
 	public static final String usSNR = "usSNR";
@@ -53,54 +54,50 @@ public class CmRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 	private double maxFecCorrectedLv1;
 	private double maxFecCorrectedLv2;
 	private double maxFecCorrectedLv3;
-	private double minTxPowerLv1;
-	private double minTxPowerLv2;
-	private double minTxPowerLv3;
-	private double maxTxPowerLv1;
-	private double maxTxPowerLv2;
-	private double maxTxPowerLv3;
+	private int minTxPowerLv1;
+	private int minTxPowerLv2;
+	private int minTxPowerLv3;
+	private int maxTxPowerLv1;
+	private int maxTxPowerLv2;
+	private int maxTxPowerLv3;
 
 	@PostConstruct
 	public void init() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		PortletPreferences portletPreferences = portletRequest.getPreferences();
+		
+		alarmColorLv1 = GetterUtil.getString(settingBean.getConfig("cm.alarmColorLv1"), "ff9900");
+		alarmColorLv2 = GetterUtil.getString(settingBean.getConfig("cm.alarmColorLv2"), "ff00ff");
+		alarmColorLv3 = GetterUtil.getString(settingBean.getConfig("cm.alarmColorLv3"), "ff0000");
 
-		alarmColorLv1 = portletPreferences.getValue("alarmColorLv1", "#ff9900");
-		alarmColorLv2 = portletPreferences.getValue("alarmColorLv2", "#ff00ff");
-		alarmColorLv3 = portletPreferences.getValue("alarmColorLv3", "#ff0000");
-
-		minDsSNRLv1 = parseInt(portletPreferences.getValue("minDsSNRLv1", "30")) * 10;
-		minDsSNRLv2 = parseInt(portletPreferences.getValue("minDsSNRLv2", "28")) * 10;
-		minDsSNRLv3 = parseInt(portletPreferences.getValue("minDsSNRLv3", "22")) * 10;
-		maxDsSNRLv1 = parseInt(portletPreferences.getValue("maxDsSNRLv1", "33")) * 10;
-		maxDsSNRLv2 = parseInt(portletPreferences.getValue("maxDsSNRLv2", "30")) * 10;
-		maxDsSNRLv3 = parseInt(portletPreferences.getValue("maxDsSNRLv3", "28")) * 10;
-		minUsSNRLv1 = parseInt(portletPreferences.getValue("minUsSNRLv1", "20")) * 10;
-		minUsSNRLv2 = parseInt(portletPreferences.getValue("minUsSNRLv2", "16")) * 10;
-		minUsSNRLv3 = parseInt(portletPreferences.getValue("minUsSNRLv3", "10")) * 10;
-		maxUsSNRLv1 = parseInt(portletPreferences.getValue("maxUsSNRLv1", "24")) * 10;
-		maxUsSNRLv2 = parseInt(portletPreferences.getValue("maxUsSNRLv2", "20")) * 10;
-		maxUsSNRLv3 = parseInt(portletPreferences.getValue("maxUsSNRLv3", "16")) * 10;
-		minFecUncorrectableLv1 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv1", "0"));
-		minFecUncorrectableLv2 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv2", "2"));
-		minFecUncorrectableLv3 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv3", "5"));
-		maxFecUncorrectableLv1 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv1", "2"));
-		maxFecUncorrectableLv2 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv2", "5"));
-		maxFecUncorrectableLv3 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv3", "100"));
-		minFecCorrectedLv1 = parseDouble(portletPreferences.getValue("minFecCorrectedLv1", "0"));
-		minFecCorrectedLv2 = parseDouble(portletPreferences.getValue("minFecCorrectedLv2", "5"));
-		minFecCorrectedLv3 = parseDouble(portletPreferences.getValue("minFecCorrectedLv3", "10"));
-		maxFecCorrectedLv1 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv1", "5"));
-		maxFecCorrectedLv2 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv2", "10"));
-		maxFecCorrectedLv3 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv3", "100"));
-		minTxPowerLv1 = parseDouble(portletPreferences.getValue("minTxPowerLv1", "0")) * 10;
-		minTxPowerLv2 = parseDouble(portletPreferences.getValue("minTxPowerLv2", "5")) * 10;
-		minTxPowerLv3 = parseDouble(portletPreferences.getValue("minTxPowerLv3", "10")) * 10;
-		maxTxPowerLv1 = parseDouble(portletPreferences.getValue("maxTxPowerLv1", "5")) * 10;
-		maxTxPowerLv2 = parseDouble(portletPreferences.getValue("maxTxPowerLv2", "10")) * 10;
-		maxTxPowerLv3 = parseDouble(portletPreferences.getValue("maxTxPowerLv3", "100")) * 10;
+		minDsSNRLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.minDsSNRLv1"), 30) * 10;
+		minDsSNRLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.minDsSNRLv2"), 28) * 10;
+		minDsSNRLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.minDsSNRLv3"), 22) * 10;
+		maxDsSNRLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.maxDsSNRLv1"), 33) * 10;
+		maxDsSNRLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.maxDsSNRLv2"), 30) * 10;
+		maxDsSNRLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.maxDsSNRLv3"), 28) * 10;
+		minUsSNRLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.minUsSNRLv1"), 20) * 10;
+		minUsSNRLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.minUsSNRLv2"), 16) * 10;
+		minUsSNRLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.minUsSNRLv3"), 10) * 10;
+		maxUsSNRLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.maxUsSNRLv1"), 24) * 10;
+		maxUsSNRLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.maxUsSNRLv2"), 20) * 10;
+		maxUsSNRLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.maxUsSNRLv3"), 16) * 10;
+		minFecUncorrectableLv1 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecUncorrectableLv1"), 0);
+		minFecUncorrectableLv2 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecUncorrectableLv2"), 2);
+		minFecUncorrectableLv3 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecUncorrectableLv3"), 5);
+		maxFecUncorrectableLv1 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecUncorrectableLv1"), 2);
+		maxFecUncorrectableLv2 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecUncorrectableLv2"), 5);
+		maxFecUncorrectableLv3 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecUncorrectableLv3"), 100);
+		minFecCorrectedLv1 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecCorrectedLv1"), 0);
+		minFecCorrectedLv2 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecCorrectedLv2"), 5);
+		minFecCorrectedLv3 = GetterUtil.getDouble(settingBean.getConfig("cm.minFecCorrectedLv3"), 10);
+		maxFecCorrectedLv1 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecCorrectedLv1"), 5);
+		maxFecCorrectedLv2 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecCorrectedLv2"), 10);
+		maxFecCorrectedLv3 = GetterUtil.getDouble(settingBean.getConfig("cm.maxFecCorrectedLv3"), 100);
+		minTxPowerLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.minTxPowerLv1"), 0) * 10;
+		minTxPowerLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.minTxPowerLv2"), 5) * 10;
+		minTxPowerLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.minTxPowerLv3"), 10) * 10;
+		maxTxPowerLv1 = GetterUtil.getInteger(settingBean.getConfig("cm.maxTxPowerLv1"), 5) * 10;
+		maxTxPowerLv2 = GetterUtil.getInteger(settingBean.getConfig("cm.maxTxPowerLv2"), 10) * 10;
+		maxTxPowerLv3 = GetterUtil.getInteger(settingBean.getConfig("cm.maxTxPowerLv3"), 100) * 10;
 	}
 
 	public CmRowStyleAlarmGenerator() {
@@ -202,22 +199,6 @@ public class CmRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		}
 		
 		return rowClass;
-	}
-
-	private double parseDouble(String value) {
-		try {
-			return Double.parseDouble(value);
-		} catch (Exception e) {
-			return 0L;
-		}
-	}
-
-	private int parseInt(String value) {
-		try {
-			return Integer.parseInt(value);
-		} catch (Exception e) {
-			return 0;
-		}
 	}
 
 	/* Getters and Setters */
@@ -454,52 +435,60 @@ public class CmRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		return fecCorrected;
 	}
 
-	public double getMinTxPowerLv1() {
+	public int getMinTxPowerLv1() {
 		return minTxPowerLv1;
 	}
 
-	public void setMinTxPowerLv1(double minTxPowerLv1) {
+	public void setMinTxPowerLv1(int minTxPowerLv1) {
 		this.minTxPowerLv1 = minTxPowerLv1;
 	}
 
-	public double getMinTxPowerLv2() {
+	public int getMinTxPowerLv2() {
 		return minTxPowerLv2;
 	}
 
-	public void setMinTxPowerLv2(double minTxPowerLv2) {
+	public void setMinTxPowerLv2(int minTxPowerLv2) {
 		this.minTxPowerLv2 = minTxPowerLv2;
 	}
 
-	public double getMinTxPowerLv3() {
+	public int getMinTxPowerLv3() {
 		return minTxPowerLv3;
 	}
 
-	public void setMinTxPowerLv3(double minTxPowerLv3) {
+	public void setMinTxPowerLv3(int minTxPowerLv3) {
 		this.minTxPowerLv3 = minTxPowerLv3;
 	}
 
-	public double getMaxTxPowerLv1() {
+	public int getMaxTxPowerLv1() {
 		return maxTxPowerLv1;
 	}
 
-	public void setMaxTxPowerLv1(double maxTxPowerLv1) {
+	public void setMaxTxPowerLv1(int maxTxPowerLv1) {
 		this.maxTxPowerLv1 = maxTxPowerLv1;
 	}
 
-	public double getMaxTxPowerLv2() {
+	public int getMaxTxPowerLv2() {
 		return maxTxPowerLv2;
 	}
 
-	public void setMaxTxPowerLv2(double maxTxPowerLv2) {
+	public void setMaxTxPowerLv2(int maxTxPowerLv2) {
 		this.maxTxPowerLv2 = maxTxPowerLv2;
 	}
 
-	public double getMaxTxPowerLv3() {
+	public int getMaxTxPowerLv3() {
 		return maxTxPowerLv3;
 	}
 
-	public void setMaxTxPowerLv3(double maxTxPowerLv3) {
+	public void setMaxTxPowerLv3(int maxTxPowerLv3) {
 		this.maxTxPowerLv3 = maxTxPowerLv3;
+	}
+
+	public CmtsSettingBean getSettingBean() {
+		return settingBean;
+	}
+
+	public void setSettingBean(CmtsSettingBean settingBean) {
+		this.settingBean = settingBean;
 	}
 
 }

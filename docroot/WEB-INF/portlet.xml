@@ -75,159 +75,16 @@
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/cm-monitor/view.xhtml</value>
 		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/cm-monitor/portletEditMode.xhtml</value>
-		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>edit</portlet-mode>
 		</supports>
 		<portlet-info>
 			<title>Cable Modem Monitor</title>
 			<short-title>Cm Monitor</short-title>
 			<keywords></keywords>
 		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>alarmColorLv1</name>
-				<value>ff9900</value>
-			</preference>
-			<preference>
-				<name>alarmColorLv2</name>
-				<value>ff00ff</value>
-			</preference>
-			<preference>
-				<name>alarmColorLv3</name>
-				<value>ff0000</value>
-			</preference>
-			<preference>
-				<name>minDsSNRLv1</name>
-				<value>30</value>
-			</preference>
-			<preference>
-				<name>minDsSNRLv2</name>
-				<value>28</value>
-			</preference>
-			<preference>
-				<name>minDsSNRLv3</name>
-				<value>22</value>
-			</preference>
-			<preference>
-				<name>maxDsSNRLv1</name>
-				<value>33</value>
-			</preference>
-			<preference>
-				<name>maxDsSNRLv2</name>
-				<value>30</value>
-			</preference>
-			<preference>
-				<name>maxDsSNRLv3</name>
-				<value>28</value>
-			</preference>
-
-			<preference>
-				<name>minUsSNRLv1</name>
-				<value>20</value>
-			</preference>
-			<preference>
-				<name>minUsSNRLv2</name>
-				<value>16</value>
-			</preference>
-			<preference>
-				<name>minUsSNRLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxUsSNRLv1</name>
-				<value>24</value>
-			</preference>
-			<preference>
-				<name>maxUsSNRLv2</name>
-				<value>20</value>
-			</preference>
-			<preference>
-				<name>maxUsSNRLv3</name>
-				<value>16</value>
-			</preference>
-
-			<preference>
-				<name>minFecUncorrectableLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minFecUncorrectableLv2</name>
-				<value>2</value>
-			</preference>
-			<preference>
-				<name>minFecUncorrectableLv3</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxFecUncorrectableLv1</name>
-				<value>2</value>
-			</preference>
-			<preference>
-				<name>maxFecUncorrectableLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxFecUncorrectableLv3</name>
-				<value>100</value>
-			</preference>
-
-			<preference>
-				<name>minFecCorrectedLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minFecCorrectedLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>minFecCorrectedLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxFecCorrectedLv1</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxFecCorrectedLv2</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxFecCorrectedLv3</name>
-				<value>100</value>
-			</preference>
-			
-			<preference>
-				<name>minTxPowerLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minTxPowerLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>minTxPowerLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxTxPowerLv1</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxTxPowerLv2</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxTxPowerLv3</name>
-				<value>100</value>
-			</preference>
-		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>
@@ -249,15 +106,10 @@
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/views/up-monitor/view.xhtml</value>
 		</init-param>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/views/up-monitor/portletEditMode.xhtml</value>
-		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>edit</portlet-mode>
 		</supports>
 		<supports>
 			<mime-type>application/vnd.ms-excel</mime-type>
@@ -269,133 +121,6 @@
 			<short-title>Upstream Monitor</short-title>
 			<keywords></keywords>
 		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>alarmColorLv1</name>
-				<value>ff9900</value>
-			</preference>
-			<preference>
-				<name>alarmColorLv2</name>
-				<value>ff00ff</value>
-			</preference>
-			<preference>
-				<name>alarmColorLv3</name>
-				<value>ff0000</value>
-			</preference>
-			<preference>
-				<name>minIfSigQSNRLv1</name>
-				<value>20</value>
-			</preference>
-			<preference>
-				<name>minIfSigQSNRLv2</name>
-				<value>16</value>
-			</preference>
-			<preference>
-				<name>minIfSigQSNRLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxIfSigQSNRLv1</name>
-				<value>24</value>
-			</preference>
-			<preference>
-				<name>maxIfSigQSNRLv2</name>
-				<value>20</value>
-			</preference>
-			<preference>
-				<name>maxIfSigQSNRLv3</name>
-				<value>16</value>
-			</preference>
-			<preference>
-				<name>minFecCorrectedLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minFecCorrectedLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>minFecCorrectedLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxFecCorrectedLv1</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxFecCorrectedLv2</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>minFecUncorrectableLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minFecUncorrectableLv2</name>
-				<value>2</value>
-			</preference>
-			<preference>
-				<name>minFecUncorrectableLv3</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxFecUncorrectableLv1</name>
-				<value>2</value>
-			</preference>
-			<preference>
-				<name>maxFecUncorrectableLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>minAvgOnlineCmDnSNRLv1</name>
-				<value>30</value>
-			</preference>
-			<preference>
-				<name>minAvgOnlineCmDnSNRLv2</name>
-				<value>28</value>
-			</preference>
-			<preference>
-				<name>minAvgOnlineCmDnSNRLv3</name>
-				<value>22</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmDnSNRLv1</name>
-				<value>33</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmDnSNRLv2</name>
-				<value>30</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmDnSNRLv3</name>
-				<value>28</value>
-			</preference>
-			
-			<preference>
-				<name>minAvgOnlineCmTxPowerLv1</name>
-				<value>0</value>
-			</preference>
-			<preference>
-				<name>minAvgOnlineCmTxPowerLv2</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>minAvgOnlineCmTxPowerLv3</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmTxPowerLv1</name>
-				<value>5</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmTxPowerLv2</name>
-				<value>10</value>
-			</preference>
-			<preference>
-				<name>maxAvgOnlineCmTxPowerLv3</name>
-				<value>100</value>
-			</preference>
-		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>

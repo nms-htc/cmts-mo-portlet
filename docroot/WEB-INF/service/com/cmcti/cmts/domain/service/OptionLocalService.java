@@ -256,4 +256,14 @@ public interface OptionLocalService extends BaseLocalService,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	public void updateAlarmConfigs(
+		java.util.Map<java.lang.String, java.lang.String> map,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Map<java.lang.String, java.lang.String> fetchAlarmsConfig()
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

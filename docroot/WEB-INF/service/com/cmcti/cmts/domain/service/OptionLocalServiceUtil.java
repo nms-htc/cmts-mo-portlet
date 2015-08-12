@@ -282,6 +282,19 @@ public class OptionLocalServiceUtil {
 			description, serviceContext);
 	}
 
+	public static void updateAlarmConfigs(
+		java.util.Map<java.lang.String, java.lang.String> map,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().updateAlarmConfigs(map, serviceContext);
+	}
+
+	public static java.util.Map<java.lang.String, java.lang.String> fetchAlarmsConfig()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchAlarmsConfig();
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

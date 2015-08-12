@@ -1,0 +1,62 @@
+.ui-widget, .ui-widget .ui-widget {
+  font-size: 14px !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+  border-radius: 0 !important; }
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+  margin: 0; }
+
+.ui-selectonemenu .ui-selectonemenu-label {
+  margin-bottom: 0 !important; }
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container {
+  width: 98%; }
+
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+  margin-top: 5px !important; }
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+  margin-left: 0 !important; }
+
+.ui-corner-all {
+  border-radius: 0px !important; }
+
+.ui-colorpicker-container input {
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  font-size: 10px !important;
+  color: #898989 !important;
+  padding: 0px !important;
+  height: 11px !important;
+  width: auto !important; }
+
+.ui-colorpicker button {
+  margin-bottom: 7px;
+  padding: 2px; }
+
+.ui-spinner-input {
+  vertical-align: middle !important;
+  text-align: right;
+  padding-right: 20px !important; }
+
+.ui-paginator .ui-paginator-current, .ui-paginator .ui-paginator-rpp-options {
+  width: auto;
+  margin-bottom: 0; }
+
+.ui-panelgrid-blank .ui-widget-content {
+  border: none; }
+
+/* ALARM LV3 ROW STYLE*/
+.alarm-rows {
+  background-color: yellow !important; }
+
+.panelgrid-label {
+  font-weight: bold;
+  text-align: right; }
+
+.ui-datatable table {
+  /* width: 99% !important; */
+  table-layout: auto !important; }
+

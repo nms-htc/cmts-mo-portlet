@@ -53,6 +53,10 @@ public class CableModemLocalServiceImpl extends CableModemLocalServiceBaseImpl {
 		query.add(RestrictionsFactoryUtil.eq("cmtsId", cmtsId));
 		query.add(RestrictionsFactoryUtil.eq("ucIfIndex", ifIndex));
 		query.add(RestrictionsFactoryUtil.eq("status", status));
+		query.add(RestrictionsFactoryUtil.ne("dsSNR", 0));
+		query.add(RestrictionsFactoryUtil.ne("usPower", 0));
+		query.add(RestrictionsFactoryUtil.ne("dsSNR", 129));
+		query.add(RestrictionsFactoryUtil.ne("usPower", 129));
 		
 		// projection
 		query.setProjection(ProjectionFactoryUtil.projectionList()

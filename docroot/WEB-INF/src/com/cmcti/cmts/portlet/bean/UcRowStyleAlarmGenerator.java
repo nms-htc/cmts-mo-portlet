@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
 
 import com.cmcti.cmts.domain.model.UpstreamChannel;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 @ManagedBean(name = "ucRowStyleAlarmGenerator")
 @ViewScoped
@@ -23,6 +21,9 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 	public static final String fecUncorrectable = "fecUncorrectable";
 	public static final String avgOnlineCmDsSNR = "avgOnlineCmDsSNR";
 	public static final String avgOnlineCmTxPower = "avgOnlineCmTxPower";
+	
+	@ManagedProperty("#{cmtsSettingBean}")
+	private CmtsSettingBean settingBean;
 
 	// perferences
 	private String alarmColorLv1;
@@ -82,47 +83,43 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	@PostConstruct
 	public void init() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		PortletPreferences portletPreferences = portletRequest.getPreferences();
+		
+		alarmColorLv1 =GetterUtil.getString(settingBean.getConfig("uc.alarmColorLv1"), "ff9900");
+		alarmColorLv2 = GetterUtil.getString(settingBean.getConfig("uc.alarmColorLv2"), "ff00ff");
+		alarmColorLv3 = GetterUtil.getString(settingBean.getConfig("uc.alarmColorLv3"), "ff0000");
 
-		alarmColorLv1 = portletPreferences.getValue("alarmColorLv1", "#ff9900");
-		alarmColorLv2 = portletPreferences.getValue("alarmColorLv2", "#ff00ff");
-		alarmColorLv3 = portletPreferences.getValue("alarmColorLv3", "#ff0000");
+		minFecCorrectedLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecCorrectedLv1"), 0);
+		maxFecCorrectedLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecCorrectedLv1"), 5);
+		minFecUncorrectableLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecUncorrectableLv1"), 0);
+		maxFecUncorrectableLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecUncorrectableLv1"), 2);
+		minIfSigQSNRLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.minIfSigQSNRLv1"), 20) * 10;
+		maxIfSigQSNRLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.maxIfSigQSNRLv1"), 24) * 10;
+		minAvgOnlineCmDnSNRLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmDnSNRLv1"), 30) * 10;
+		maxAvgOnlineCmDnSNRLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmDnSNRLv1"), 33) * 10;
+		minAvgOnlineCmTxPowerLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmTxPowerLv1"), 0) * 10;
+		maxAvgOnlineCmTxPowerLv1 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmTxPowerLv1"), 10) * 10;
 
-		minFecCorrectedLv1 = parseDouble(portletPreferences.getValue("minFecCorrectedLv1", "0"));
-		maxFecCorrectedLv1 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv1", "5"));
-		minFecUncorrectableLv1 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv1", "0"));
-		maxFecUncorrectableLv1 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv1", "2"));
-		minIfSigQSNRLv1 = parseDouble(portletPreferences.getValue("minIfSigQSNRLv1", "20")) * 10;
-		maxIfSigQSNRLv1 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv1", "24")) * 10;
-		minAvgOnlineCmDnSNRLv1 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv1", "30")) * 10;
-		maxAvgOnlineCmDnSNRLv1 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv1", "33")) * 10;
-		minAvgOnlineCmTxPowerLv1 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv1", "0")) * 10;
-		maxAvgOnlineCmTxPowerLv1 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv1", "10")) * 10;
+		minFecCorrectedLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecCorrectedLv2"), 5);
+		maxFecCorrectedLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecCorrectedLv2"), 10);
+		minFecUncorrectableLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecUncorrectableLv2"), 2);
+		maxFecUncorrectableLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecUncorrectableLv2"), 5);
+		minIfSigQSNRLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.minIfSigQSNRLv2"), 16) * 10;
+		maxIfSigQSNRLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.maxIfSigQSNRLv2"), 20) * 10;
+		minAvgOnlineCmDnSNRLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmDnSNRLv2"), 28) * 10;
+		maxAvgOnlineCmDnSNRLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmDnSNRLv2"), 30) * 10;
+		minAvgOnlineCmTxPowerLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmTxPowerLv2"), 10) * 10;
+		maxAvgOnlineCmTxPowerLv2 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmTxPowerLv2"), 20) * 10;
 
-		minFecCorrectedLv2 = parseDouble(portletPreferences.getValue("minFecCorrectedLv2", "5"));
-		maxFecCorrectedLv2 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv2", "10"));
-		minFecUncorrectableLv2 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv2", "2"));
-		maxFecUncorrectableLv2 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv2", "5"));
-		minIfSigQSNRLv2 = parseDouble(portletPreferences.getValue("minIfSigQSNRLv2", "16")) * 10;
-		maxIfSigQSNRLv2 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv2", "20")) * 10;
-		minAvgOnlineCmDnSNRLv2 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv2", "28")) * 10;
-		maxAvgOnlineCmDnSNRLv2 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv2", "30")) * 10;
-		minAvgOnlineCmTxPowerLv2 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv2", "10")) * 10;
-		maxAvgOnlineCmTxPowerLv2 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv2", "20")) * 10;
-
-		minFecCorrectedLv3 = parseDouble(portletPreferences.getValue("minFecCorrectedLv3", "10"));
-		maxFecCorrectedLv3 = parseDouble(portletPreferences.getValue("maxFecCorrectedLv3", "100"));
-		minFecUncorrectableLv3 = parseDouble(portletPreferences.getValue("minFecUncorrectableLv3", "5"));
-		maxFecUncorrectableLv3 = parseDouble(portletPreferences.getValue("maxFecUncorrectableLv3", "100"));
-		minIfSigQSNRLv3 = parseDouble(portletPreferences.getValue("minIfSigQSNRLv3", "10")) * 10;
-		maxIfSigQSNRLv3 = parseDouble(portletPreferences.getValue("maxIfSigQSNRLv3", "16")) * 10;
-		minAvgOnlineCmDnSNRLv3 = parseDouble(portletPreferences.getValue("minAvgOnlineCmDnSNRLv3", "22")) * 10;
-		maxAvgOnlineCmDnSNRLv3 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmDnSNRLv3", "28")) * 10;
-		minAvgOnlineCmTxPowerLv3 = parseDouble(portletPreferences.getValue("minAvgOnlineCmTxPowerLv3", "20")) * 10;
-		maxAvgOnlineCmTxPowerLv3 = parseDouble(portletPreferences.getValue("maxAvgOnlineCmTxPowerLv3", "100")) * 10;
+		minFecCorrectedLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecCorrectedLv3"), 10);
+		maxFecCorrectedLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecCorrectedLv3"), 100);
+		minFecUncorrectableLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.minFecUncorrectableLv3"), 5);
+		maxFecUncorrectableLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.maxFecUncorrectableLv3"), 100);
+		minIfSigQSNRLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.minIfSigQSNRLv3"), 10) * 10;
+		maxIfSigQSNRLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.maxIfSigQSNRLv3"), 16) * 10;
+		minAvgOnlineCmDnSNRLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmDnSNRLv3"), 22) * 10;
+		maxAvgOnlineCmDnSNRLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmDnSNRLv3"), 28) * 10;
+		minAvgOnlineCmTxPowerLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.minAvgOnlineCmTxPowerLv3"), 20) * 10;
+		maxAvgOnlineCmTxPowerLv3 = GetterUtil.getDouble(settingBean.getConfig("uc.maxAvgOnlineCmTxPowerLv3"), 100) * 10;
 	}
 
 	@Override
@@ -220,14 +217,6 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 		}
 		
 		return rowClasses;
-	}
-
-	private double parseDouble(String value) {
-		try {
-			return Double.parseDouble(value);
-		} catch (Exception e) {
-			return 0L;
-		}
 	}
 
 	/* Getters and Setters */
@@ -494,6 +483,14 @@ public class UcRowStyleAlarmGenerator implements RowStypeAlarmGenerator, Seriali
 
 	public void setMaxAvgOnlineCmTxPowerLv3(double maxAvgOnlineCmTxPowerLv3) {
 		this.maxAvgOnlineCmTxPowerLv3 = maxAvgOnlineCmTxPowerLv3;
+	}
+
+	public CmtsSettingBean getSettingBean() {
+		return settingBean;
+	}
+
+	public void setSettingBean(CmtsSettingBean settingBean) {
+		this.settingBean = settingBean;
 	}
 	
 }

@@ -1,75 +1,283 @@
 <?xml version="1.0"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:bridge="http://liferay.com/faces/bridge" xmlns:aui="http://liferay.com/faces/aui"
 	template="/views/inc/common_temp.xhtml">
-	
-	<ui:define name="main">
-		<h:form id="listForm">
-			<p:messages globalOnly="true" closable="true"/>
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton value="Add CMTS" update="@form" actionListener="#{cmtsBean.setCurrent(null)}" oncomplete="PF('addDl').show()" icon="ui-icon-plus"/>
-				</p:toolbarGroup>
-			</p:toolbar>
-			<p:spacer />
-			<p:dataTable
-				id="listTable"
-				widgetVar="listTable" 
-				value="#{cmtsBean.lazyDataModel}" 
-				var="cmts"
-				rowIndexVar="index"
-				rows="10"
-				paginator="true"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-				rowsPerPageTemplate="10,15,20"
-				paginatorPosition="bottom"
-				rowStyleClass="#{index mod 2 == 1 ? 'odd' : null}"
-				lazy="true"
-			>
-			
-				<p:column headerText="ID" width="40">
-					<h:outputText value="#{cmts.cmtsId}" />
-				</p:column>
-				
-				<p:column headerText="Title" filterBy="#{cmts.title}" sortBy="#{cmts.title}" filterStyle="width: 90%">
-					<h:outputText value="#{cmts.title}" />
-				</p:column>
-				
-				<p:column headerText="Host" filterBy="#{cmts.host}" sortBy="#{cmts.host}" filterStyle="width: 90%">
-					<h:outputText value="#{cmts.host}" />
-				</p:column>
-				
-				<p:column headerText="Community" filterBy="#{cmts.community}" sortBy="#{cmts.community}" filterStyle="width: 90%">
-					<h:outputText value="#{cmts.community}" />
-				</p:column>
-				
-				<p:column headerText="Description" filterBy="#{cmts.description}" sortBy="#{cmts.description}" filterStyle="width: 90%">
-					<h:outputText value="#{cmts.description}" />
-				</p:column>
-				
-				<p:column headerText="Enabled">
-					<h:outputText value="#{cmts.enable}"/>
-				</p:column>
 
-				<p:column style="width: 90px" toggleable="false">
-					<p:commandButton icon="ui-icon-pencil" update=":editDl" immediate="true" actionListener="#{cmtsBean.setCurrent(cmts)}"
-						oncomplete="PF('editDl').show();" />
-					<p:spacer width="10"/>
-					<p:commandButton icon="ui-icon-trash" actionListener="#{cmtsBean.remove(cmts)}" immediate="true" update="@form">
-						<p:confirm header="Confirmation" message="Do you want delete this CMTS?" icon="ui-icon-alert" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</h:form>
+	<ui:define name="main">
+		<h:form>
+			<p:messages globalOnly="true" closable="true" />
+			
+			<h3>Alarm Configuration</h3>
+			
+			<p:tabView>
+				<p:tab title="Cable Modem Monitor">
+					<div class="ui-grid ui-grid-responsive">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4">
+								<h4>Level 1</h4>
+								<p:outputLabel value="Color" for="lv1Color" />
+								<p:colorPicker id="lv1Color" value="#{cmtsSettingBean.currentConfigs['cm.alarmColorLv1']}"/>
 		
-	</ui:define>
-	
-	<ui:define name="popups">
-		<ui:include src="edit.xhtml"><ui:param name="mode" value="add"/></ui:include>
-		<ui:include src="edit.xhtml"><ui:param name="mode" value="edit"/></ui:include>
+								<p:outputLabel value="Fec (min/max)" for="lv1FecMin" />
+								<p:inputText id="lv1FecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecCorrectedLv1']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv1FecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecCorrectedLv1']}" />
+								<p:message for="lv1FecMin" />
+								<p:message for="lv1FecMax" />
+		
+								<p:outputLabel value="UnFec (min/max)" for="lv1UnFecMin" />
+								<p:inputText id="lv1UnFecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecUncorrectableLv1']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv1UnFecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecUncorrectableLv1']}" />
+								<p:message for="lv1UnFecMin" />
+								<p:message for="lv1UnFecMax" />
+		
+								<p:outputLabel value="DsSNR (min/max)" for="lv1minDsSNR" />
+								<p:inputText id="lv1minDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minDsSNRLv1']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv1MaxDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxDsSNRLv1']}" />
+								<p:message for="lv1minDsSNR" />
+								<p:message for="lv1MaxDsSNR" />
+		
+								<p:outputLabel value="UsSNR (min/max)" for="lv1minUsSNR" />
+								<p:inputText id="lv1minUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minUsSNRLv1']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv1maxUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxUsSNRLv1']}" />
+								<p:message for="lv1minUsSNR" />
+								<p:message for="lv1maxUsSNR" />
+								
+								<p:outputLabel value="TxPower (min/max)" for="lv1minTxPower" />
+								<p:inputText id="lv1minTxPower" value="#{cmtsSettingBean.currentConfigs['cm.minTxPowerLv1']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv1maxTxPower" value="#{cmtsSettingBean.currentConfigs['cm.maxTxPowerLv1']}" />
+								<p:message for="lv1minTxPower" />
+								<p:message for="lv1maxTxPower" />
+							</div>
+		
+							<div class="ui-grid-col-4">
+								<h4>Level 2</h4>
+		
+								<p:outputLabel value="Color" for="lv2Color" />
+								<p:colorPicker id="lv2Color" value="#{cmtsSettingBean.currentConfigs['cm.alarmColorLv2']}"/>
+		
+								<p:outputLabel value="Fec (min/max)" for="lv2FecMin" />
+								<p:inputText id="lv2FecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecCorrectedLv2']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv2FecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecCorrectedLv2']}" />
+								<p:message for="lv2FecMin" />
+								<p:message for="lv2FecMax" />
+		
+								<p:outputLabel value="UnFec (min/max)" for="lv2UnFecMin" />
+								<p:inputText id="lv2UnFecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecUncorrectableLv2']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv2UnFecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecUncorrectableLv2']}" />
+								<p:message for="lv2UnFecMin" />
+								<p:message for="lv2UnFecMax" />
+		
+								<p:outputLabel value="DsSNR (min/max)" for="lv2minDsSNR" />
+								<p:inputText id="lv2minDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minDsSNRLv2']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv2MaxDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxDsSNRLv2']}" />
+								<p:message for="lv2minDsSNR" />
+								<p:message for="lv2MaxDsSNR" />
+		
+								<p:outputLabel value="UsSNR (min/max)" for="lv2minUsSNR" />
+								<p:inputText id="lv2minUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minUsSNRLv2']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv2maxUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxUsSNRLv2']}" />
+								<p:message for="lv2minUsSNR" />
+								<p:message for="lv2maxUsSNR" />
+								
+								<p:outputLabel value="TxPower (min/max)" for="lv2minTxPower" />
+								<p:inputText id="lv2minTxPower" value="#{cmtsSettingBean.currentConfigs['cm.minTxPowerLv2']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv2maxTxPower" value="#{cmtsSettingBean.currentConfigs['cm.maxTxPowerLv2']}" />
+								<p:message for="lv2minTxPower" />
+								<p:message for="lv2maxTxPower" />
+							</div>
+		
+							<div class="ui-grid-col-4">
+								<h4>Level 3</h4>
+		
+								<p:outputLabel value="Color" for="lv3Color" />
+								<p:colorPicker id="lv3Color" value="#{cmtsSettingBean.currentConfigs['cm.alarmColorLv3']}"/>
+								
+								<p:outputLabel value="Fec (min/max)" for="lv3FecMin" />
+								<p:inputText id="lv3FecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecCorrectedLv3']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv3FecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecCorrectedLv3']}" disabled="true"/>
+								<p:message for="lv3FecMin" />
+								<p:message for="lv3FecMax" />
+		
+								<p:outputLabel value="UnFec (min/max)" for="lv3UnFecMin" />
+								<p:inputText id="lv3UnFecMin" value="#{cmtsSettingBean.currentConfigs['cm.minFecUncorrectableLv3']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv3UnFecMax" value="#{cmtsSettingBean.currentConfigs['cm.maxFecUncorrectableLv3']}" disabled="true"/>
+								<p:message for="lv3UnFecMin" />
+								<p:message for="lv3UnFecMax" />
+		
+								<p:outputLabel value="DsSNR (min/max)" for="lv3minDsSNR" />
+								<p:inputText id="lv3minDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minDsSNRLv3']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv3MaxDsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxDsSNRLv3']}" />
+								<p:message for="lv3minDsSNR" />
+								<p:message for="lv3MaxDsSNR" />
+		
+								<p:outputLabel value="UsSNR (min/max)" for="lv3minUsSNR" />
+								<p:inputText id="lv3minUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.minUsSNRLv3']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv3maxUsSNR" value="#{cmtsSettingBean.currentConfigs['cm.maxUsSNRLv3']}" />
+								<p:message for="lv3minUsSNR" />
+								<p:message for="lv3maxUsSNR" />
+								
+								<p:outputLabel value="TxPower (min/max)" for="lv3minTxPower" />
+								<p:inputText id="lv3minTxPower" value="#{cmtsSettingBean.currentConfigs['cm.minTxPowerLv3']}" />
+								<p:spacer width="5" />
+								<p:inputText id="lv3maxTxPower" value="#{cmtsSettingBean.currentConfigs['cm.maxTxPowerLv3']}" />
+								<p:message for="lv3minTxPower" />
+								<p:message for="lv3maxTxPower" />
+							</div>
+						</div>
+					</div>
+				</p:tab>
+				
+				<p:tab title="Upstream Channel Monitor">
+					<div class="ui-grid ui-grid-responsive">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4">
+									<h4>Level 1</h4>
+									<p:outputLabel value="Color" for="uc-lv1Color" />
+									<p:colorPicker id="uc-lv1Color" value="#{cmtsSettingBean.currentConfigs['uc.alarmColorLv1']}"/>
+		
+									<p:outputLabel value="Fec (min/max)" for="uc-lv1FecMin" />
+									<p:inputText id="uc-lv1FecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecCorrectedLv1']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv1FecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecCorrectedLv1']}"/>
+									<p:message for="uc-lv1FecMin" />
+									<p:message for="uc-lv1FecMax" />
+									
+									<p:outputLabel value="UnFec (min/max)" for="uc-lv1UnFecMin" />
+									<p:inputText id="uc-lv1UnFecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecUncorrectableLv1']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv1UnFecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecUncorrectableLv1']}"/>
+									<p:message for="uc-lv1UnFecMin" />
+									<p:message for="uc-lv1UnFecMax" />
+									
+									<p:outputLabel value="SNR (min/max)" for="uc-lv1minSNR" />
+									<p:inputText id="uc-lv1minSNR" value="#{cmtsSettingBean.currentConfigs['uc.minIfSigQSNRLv1']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv1MaxSNR" value="#{cmtsSettingBean.currentConfigs['uc.maxIfSigQSNRLv1']}"/>
+									<p:message for="uc-lv1minSNR" />
+									<p:message for="uc-lv1MaxSNR" />
+									
+									<p:outputLabel value="MER (min/max)" for="uc-lv1minMer" />
+									<p:inputText id="uc-lv1minMer" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmDnSNRLv1']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv1maxMer" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmDnSNRLv1']}"/>
+									<p:message for="uc-lv1minMer" />
+									<p:message for="uc-lv1maxMer" />
+									
+									<p:outputLabel value="TxPower (minMax)" for="uc-lv1minTxPower" />
+									<p:inputText id="uc-lv1minTxPower" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmTxPowerLv1']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv1maxTxPower" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmTxPowerLv1']}"/>
+									<p:message for="uc-lv1minTxPower" />
+									<p:message for="uc-lv1maxTxPower" />
+							</div>
+		
+							<div class="ui-grid-col-4">
+									<h4>Level 2</h4>
+		
+									<p:outputLabel value="Color" for="uc-lv2Color" />
+									<p:colorPicker id="uc-lv2Color" value="#{cmtsSettingBean.currentConfigs['uc.alarmColorLv2']}"/>
+		
+									<p:outputLabel value="Fec (min/max)" for="uc-lv2FecMin" />
+									<p:inputText id="uc-lv2FecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecCorrectedLv2']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv2FecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecCorrectedLv2']}"/>
+									<p:message for="uc-lv2FecMin" />
+									<p:message for="uc-lv2FecMax" />
+									
+									<p:outputLabel value="UnFec (min/max)" for="uc-lv2UnFecMin" />
+									<p:inputText id="uc-lv2UnFecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecUncorrectableLv2']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv2UnFecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecUncorrectableLv2']}"/>
+									<p:message for="uc-lv2UnFecMin" />
+									<p:message for="uc-lv2UnFecMax" />
+									
+									<p:outputLabel value="SNR (min/max)" for="uc-lv2minSNR" />
+									<p:inputText id="uc-lv2minSNR" value="#{cmtsSettingBean.currentConfigs['uc.minIfSigQSNRLv2']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv2MaxSNR" value="#{cmtsSettingBean.currentConfigs['uc.maxIfSigQSNRLv2']}"/>
+									<p:message for="uc-lv2minSNR" />
+									<p:message for="uc-lv2MaxSNR" />
+									
+									<p:outputLabel value="MER (min/max)" for="uc-lv2minMer" />
+									<p:inputText id="uc-lv2minMer" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmDnSNRLv2']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv2maxMer" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmDnSNRLv2']}"/>
+									<p:message for="uc-lv2minMer" />
+									<p:message for="uc-lv2maxMer" />
+									
+									<p:outputLabel value="TxPower (minMax)" for="uc-lv2minTxPower" />
+									<p:inputText id="uc-lv2minTxPower" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmTxPowerLv2']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv2maxTxPower" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmTxPowerLv2']}"/>
+									<p:message for="uc-lv2minTxPower" />
+									<p:message for="uc-lv2maxTxPower" />
+							</div>
+		
+							<div class="ui-grid-col-4">
+									<h4>Level 3</h4>
+									
+									<p:outputLabel value="Color" for="uc-lv3Color" />
+									<p:colorPicker id="uc-lv3Color" value="#{cmtsSettingBean.currentConfigs['uc.alarmColorLv3']}"/>
+		
+									<p:outputLabel value="Fec (min/max)" for="uc-lv3FecMin" />
+									<p:inputText id="uc-lv3FecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecCorrectedLv3']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv3FecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecCorrectedLv3']}" disabled="true"/>
+									<p:message for="uc-lv3FecMin" />
+									<p:message for="uc-lv3FecMax" />
+									
+									<p:outputLabel value="UnFec (min/max)" for="uc-lv3UnFecMin" />
+									<p:inputText id="uc-lv3UnFecMin" value="#{cmtsSettingBean.currentConfigs['uc.minFecUncorrectableLv3']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv3UnFecMax" value="#{cmtsSettingBean.currentConfigs['uc.maxFecUncorrectableLv3']}" disabled="true"/>
+									<p:message for="uc-lv3UnFecMin" />
+									<p:message for="uc-lv3UnFecMax" />
+									
+									<p:outputLabel value="SNR (min/max)" for="uc-lv3minSNR" />
+									<p:inputText id="uc-lv3minSNR" value="#{cmtsSettingBean.currentConfigs['uc.minIfSigQSNRLv3']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv3MaxSNR" value="#{cmtsSettingBean.currentConfigs['uc.maxIfSigQSNRLv3']}"/>
+									<p:message for="uc-lv3minSNR" />
+									<p:message for="uc-lv3MaxSNR" />
+									
+									<p:outputLabel value="MER (min/max)" for="uc-lv3minMer" />
+									<p:inputText id="uc-lv3minMer" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmDnSNRLv3']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv3maxMer" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmDnSNRLv3']}"/>
+									<p:message for="uc-lv3minMer" />
+									<p:message for="uc-lv3maxMer" />
+									
+									<p:outputLabel value="TxPower (minMax)" for="uc-lv3minTxPower" />
+									<p:inputText id="uc-lv3minTxPower" value="#{cmtsSettingBean.currentConfigs['uc.minAvgOnlineCmTxPowerLv3']}"/>
+									<p:spacer width="5" />
+									<p:inputText id="uc-lv3maxTxPower" value="#{cmtsSettingBean.currentConfigs['uc.maxAvgOnlineCmTxPowerLv3']}"/>
+									<p:message for="uc-lv3minTxPower" />
+									<p:message for="uc-lv3maxTxPower" />
+									
+							</div>
+						</div>
+					</div>
+				</p:tab>
+			</p:tabView>
+
+			<div class="separator"></div>
+
+			<p:commandButton value="${i18n['submit']}" actionListener="#{cmtsSettingBean.save}" icon="ui-icon-disk" ajax="false"/>
+		</h:form>
 	</ui:define>
 </ui:composition>
