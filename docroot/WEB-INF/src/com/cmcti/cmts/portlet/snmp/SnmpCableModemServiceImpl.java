@@ -13,6 +13,7 @@ import com.cmcti.cmts.domain.model.CableModem;
 import com.cmcti.cmts.domain.model.Cmts;
 import com.cmcti.cmts.domain.service.CableModemLocalServiceUtil;
 import com.cmcti.cmts.domain.service.CmtsLocalServiceUtil;
+import com.cmcti.cmts.portlet.util.MessageUtil;
 import com.cmcti.cmts.portlet.util.OidConstants;
 import com.cmcti.cmts.portlet.util.SnmpUtils;
 import com.liferay.faces.util.logging.Logger;
@@ -44,6 +45,9 @@ public class SnmpCableModemServiceImpl implements SnmpCableModemService, Seriali
 			int cmIndex = cableModem.getCmIndex();
 			long cmtsId = cableModem.getCmtsId();
 			String cmSubIndex = cableModem.getCmSubIndex();
+			long lastCorrecteds = cableModem.getCorrecteds();
+			long lastUncorrectables = cableModem.getUncorrectables();
+			long lastUnerroreds = cableModem.getUnerroreds();
 			Date modifiedDate = new Date();
 			
 			// Prepare OIDs
@@ -68,28 +72,28 @@ public class SnmpCableModemServiceImpl implements SnmpCableModemService, Seriali
 			try {
 				Cmts cmts = CmtsLocalServiceUtil.getCmts(cmtsId);
 				ResponseEvent resEvent = SnmpUtils.get("udp:" + cmts.getHost() + "/161", cmts.getCommunity(), oids);
-				if (resEvent.getResponse().size() == 13) {
-					cableModem.setModifiedDate(modifiedDate);
-					cableModem.setMacAddress(resEvent.getResponse().get(0).getVariable().toString());
-					cableModem.setDcIfIndex(resEvent.getResponse().get(1).getVariable().toInt());
-					cableModem.setUcIfIndex(resEvent.getResponse().get(2).getVariable().toInt());
-					cableModem.setUsSNR(resEvent.getResponse().get(3).getVariable().toInt());
-					cableModem.setUnerroreds(resEvent.getResponse().get(4).getVariable().toInt());
-					cableModem.setCorrecteds(resEvent.getResponse().get(5).getVariable().toInt());
-					cableModem.setUncorrectables(resEvent.getResponse().get(6).getVariable().toInt());
-					//cableModem.setIpAddress(resEvent.getResponse().get(7).getVariable().toString()); // ignore ip address
-					cableModem.setStatus(resEvent.getResponse().get(8).getVariable().toInt());
-					cableModem.setRxPower(resEvent.getResponse().get(9).getVariable().toInt());
-					cableModem.setDsPower(resEvent.getResponse().get(10).getVariable().toInt());
-					cableModem.setUsPower(resEvent.getResponse().get(11).getVariable().toInt());
-					cableModem.setDsSNR(resEvent.getResponse().get(12).getVariable().toInt());
-					cableModem.setMicroRef(resEvent.getResponse().get(13).getVariable().toLong());
-				}
+
+				cableModem.setModifiedDate(modifiedDate);
+				cableModem.setMacAddress(resEvent.getResponse().get(0).getVariable().toString());
+				cableModem.setDcIfIndex(resEvent.getResponse().get(1).getVariable().toInt());
+				cableModem.setUcIfIndex(resEvent.getResponse().get(2).getVariable().toInt());
+				cableModem.setUsSNR(resEvent.getResponse().get(3).getVariable().toInt());
+				cableModem.setUnerroreds(resEvent.getResponse().get(4).getVariable().toInt());
+				cableModem.setCorrecteds(resEvent.getResponse().get(5).getVariable().toInt());
+				cableModem.setUncorrectables(resEvent.getResponse().get(6).getVariable().toInt());
+				//cableModem.setIpAddress(resEvent.getResponse().get(7).getVariable().toString()); // ignore ip address
+				cableModem.setStatus(resEvent.getResponse().get(8).getVariable().toInt());
+				cableModem.setRxPower(resEvent.getResponse().get(9).getVariable().toInt());
+				cableModem.setDsPower(resEvent.getResponse().get(10).getVariable().toInt());
+				cableModem.setUsPower(resEvent.getResponse().get(11).getVariable().toInt());
+				cableModem.setDsSNR(resEvent.getResponse().get(12).getVariable().toInt());
+				cableModem.setMicroRef(resEvent.getResponse().get(13).getVariable().toLong());
+
 				
 				// Caculate FECs
-				double total = cableModem.getCorrecteds() + cableModem.getUncorrectables() + cableModem.getUnerroreds();
-				double fecCorrected = (cableModem.getCorrecteds() / total) * 100;
-				double fecUncorrectable = (cableModem.getUncorrectables() / total) * 100;
+				double total = cableModem.getCorrecteds() + cableModem.getUncorrectables() + cableModem.getUnerroreds() - lastCorrecteds - lastUncorrectables - lastUnerroreds;
+				double fecCorrected = ((cableModem.getCorrecteds() - lastCorrecteds) / total) * 100;
+				double fecUncorrectable = ((cableModem.getUncorrectables() - lastUncorrectables) / total) * 100;
 
 				// validate double
 				if (Double.isNaN(fecCorrected) || Double.isInfinite(fecCorrected))
@@ -102,7 +106,7 @@ public class SnmpCableModemServiceImpl implements SnmpCableModemService, Seriali
 				
 			} catch (Exception e) {
 				logger.error(e);
-				throw new RuntimeException(e);
+				MessageUtil.addGlobalErrorMessage(e);
 			}
 		}
 		
