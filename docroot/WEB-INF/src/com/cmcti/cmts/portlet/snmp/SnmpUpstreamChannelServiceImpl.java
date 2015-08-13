@@ -46,7 +46,6 @@ public class SnmpUpstreamChannelServiceImpl implements SnmpUpstreamChannelServic
 			}
 			
 			if (cmts != null) {
-			
 				// Prepare OID
 				OID[] oids = {
 						new OID(OidConstants.Ifalias + "." + ifIndex),
@@ -92,11 +91,23 @@ public class SnmpUpstreamChannelServiceImpl implements SnmpUpstreamChannelServic
 					upstream.setAvgOnlineCmDsSNR(GetterUtil.getDouble(avgValues[5]));
 					
 					// Calculate FEC
+					UpstreamChannel oldUp = null;
+					long oldCorrecteds = 0;
+					long oldUnerroreds = 0;
+					long oldUncorrectables = 0;
+					try {
+						oldUp = UpstreamChannelLocalServiceUtil.fetchUpstreamChannel(new UpstreamChannelPK(ifIndex, cmtsId));
+						oldCorrecteds = oldUp.getIfSigQCorrecteds();
+						oldUnerroreds = oldUp.getIfSigQUnerroreds();
+						oldUncorrectables = oldUp.getIfSigQUncorrectables();
+					} catch (Exception e) {
+						logger.error(e);
+					}
 
-					double total = upstream.getIfSigQCorrecteds() + upstream.getIfSigQUncorrectables() + upstream.getIfSigQUnerroreds();
+					double total = upstream.getIfSigQCorrecteds() + upstream.getIfSigQUncorrectables() + upstream.getIfSigQUnerroreds() - oldCorrecteds - oldUncorrectables - oldUnerroreds;
 
-					double fecCorrected = (upstream.getIfSigQCorrecteds() / total) * 100;
-					double fecUncorrectable = (upstream.getIfSigQUncorrectables() / total) * 100;
+					double fecCorrected = ((upstream.getIfSigQCorrecteds() - oldCorrecteds) / total) * 100;
+					double fecUncorrectable = ((upstream.getIfSigQUncorrectables() - oldUncorrectables) / total) * 100;
 
 					if (upstream.getIfSigQCorrecteds() == 0)
 						fecCorrected = 0;
